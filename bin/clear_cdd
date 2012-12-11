@@ -1,0 +1,16 @@
+#!/usr/bin/ruby
+alive = `screen -list | egrep "Attached|Detached" | awk '{print ENVIRON["CDD_PWD_FILE_PREFIX"]"."$1}'`
+process = `ls $CDD_PWD_FILE_PREFIX* 2>/dev/null | egrep -v \\\\.t$`
+alive = alive.split("\n")
+process = process.split("\n")
+
+process.each {|p|
+  unless alive.include?(p)
+    File.delete(p)
+    File.delete("#{p}.t")
+  end
+}
+
+
+
+

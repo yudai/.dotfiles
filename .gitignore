@@ -1,0 +1,3 @@
+.zsh/cdd_*
+.emacs.d/*
+!.emacs.d/elpa

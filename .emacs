@@ -1,0 +1,419 @@
+(setq load-path (cons "~/.site-lisp/" load-path))
+(if (eq emacs-major-version '21) (load "~/.emacs.21"))
+(if (eq emacs-major-version '22) (load "~/.emacs.22"))
+(if (eq emacs-major-version '23) (load "~/.emacs.23"))
+;;; Environment
+(cd "~/")
+(set-language-environment "japanese")
+(prefer-coding-system 'utf-8-unix)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-buffer-file-coding-system 'utf-8)
+(setq default-buffer-file-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+
+
+;;; etc
+(setq-default indent-tabs-mode nil)
+(temp-buffer-resize-mode 1)
+
+
+
+;;; Colors
+(require 'color-theme)
+(color-theme-initialize)
+(color-theme-tty-dark)
+
+
+
+;;; Keymaps
+(global-set-key "\C-h" 'delete-backward-char)
+(global-set-key "\C-x t" 'indent-region)
+(global-set-key "\M-g" 'goto-line)
+(global-set-key "\C-^" 'enlarge-window)
+(global-set-key "\C-x\C-a" 'switch-to-other-buffer)
+(global-set-key "\C-]" 'ignore)
+
+(defun switch-to-other-buffer () (interactive) (switch-to-buffer (other-buffer)))
+
+
+;;; Moving over the windows
+(windmove-default-keybindings)
+;(setq windmove-wrap-around t)
+
+;;; key-chord
+(require 'key-chord)
+(setq key-chord-two-keys-delay 0.08)
+;(key-chord-mode 1)
+(key-chord-define-global "ji" 'windmove-right)
+(key-chord-define-global "fj" 'windmove-down)
+(key-chord-define-global "fe" 'windmove-left)
+(key-chord-define-global "ei" 'windmove-up)
+(setq windmove-wrap-around t)
+(define-key global-map (kbd "C-M-k") 'windmove-up)
+(define-key global-map (kbd "C-M-j") 'windmove-down)
+(define-key global-map (kbd "C-M-l") 'windmove-right)
+(define-key global-map (kbd "C-M-h") 'windmove-left)
+
+
+
+;;; Disable Backup
+(setq make-backup-files nil)
+
+;;; Mode line
+(setq column-number-mode t)
+(global-font-lock-mode t)
+
+;;; Display
+(setq show-paren-delay 0) ; paren
+(show-paren-mode t)
+(setq show-paren-style 'mixed)
+;(global-hl-line-mode t) ;highline current line
+(transient-mark-mode t) ; region highlight
+
+
+(when (or window-system (eq emacs-major-version '21))
+  (setq font-lock-support-mode
+        (if (fboundp 'jit-lock-mode) 'jit-lock-mode 'lazy-lock-mode))
+  (global-font-lock-mode t))
+
+;;; *scratch*
+(setq inhibit-startup-message t)
+(setq initial-scratch-message "")
+
+
+;;; minibuf-isearch
+(require 'minibuf-isearch)
+
+;;; redo
+(require 'redo)
+(global-set-key (kbd "C-.") 'redo)
+(global-set-key (kbd "C-'") 'redo)
+(global-set-key (kbd "C-M-_") 'redo)
+(global-set-key (kbd "C-x C-_") 'redo)
+
+
+;;; applescript-mode
+;(require 'applescript-mode)
+
+;;; shell-mode
+(autoload 'ansi-color-for-comint-mode-on "ansi-color"
+   "Set `ansi-color-for-comint-mode' to t." t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+
+;;; ada-mode
+(require 'align)
+(setq ada-when-indent 0)
+(setq ada-label-indent 0)
+
+
+
+;;; javascript-mode
+(when (load "js2" t)
+  (add-to-list 'auto-mode-alist (cons  "\\.\\(js\\|as\\|json\\|jsn\\)\\'" 'js2-mode))
+  (defun indent-and-back-to-indentation ()
+  (interactive)
+  (indent-for-tab-command)
+  (let ((point-of-indentation
+         (save-excursion
+           (back-to-indentation)
+           (point))))
+    (skip-chars-forward "\\s " point-of-indentation)))
+  (setq js2-mirror-mode nil)
+  (setq js2-basic-offset nil)
+  (setq js2-use-font-lock-faces t)
+  (define-key js2-mode-map "\C-i" 'indent-and-back-to-indentation)
+  (define-key js2-mode-map "\C-j" 'js2-enter-key))
+
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (setq js2-basic-offset 4)))
+(defface js2-function-param-face
+    '((t :foreground "cadet blue"))
+    "Face used to highlight function parameters in javascript."
+    :group 'js2-mode)
+
+; fixing indentation
+; refer to http://mihai.bazon.net/projects/editing-javascript-with-emacs-js2-mode
+(autoload 'espresso-mode "espresso")
+
+(defun my-js2-indent-function ()
+  (interactive)
+  (save-restriction
+    (widen)
+    (let* ((inhibit-point-motion-hooks t)
+           (parse-status (save-excursion (syntax-ppss (point-at-bol))))
+           (offset (- (current-column) (current-indentation)))
+           (indentation (espresso--proper-indentation parse-status))
+           node)
+
+      (save-excursion
+
+        ;; I like to indent case and labels to half of the tab width
+        (back-to-indentation)
+        (if (looking-at "case\\s-")
+            (setq indentation (+ indentation (/ espresso-indent-level 2))))
+
+        ;; consecutive declarations in a var statement are nice if
+        ;; properly aligned, i.e:
+        ;;
+        ;; var foo = "bar",
+        ;;     bar = "foo";
+        (setq node (js2-node-at-point))
+        (when (and node
+                   (= js2-NAME (js2-node-type node))
+                   (= js2-VAR (js2-node-type (js2-node-parent node))))
+          (setq indentation (+ 4 indentation))))
+
+      (indent-line-to indentation)
+      (when (> offset 0) (forward-char offset)))))
+
+(defun my-indent-sexp ()
+  (interactive)
+  (save-restriction
+    (save-excursion
+      (widen)
+      (let* ((inhibit-point-motion-hooks t)
+             (parse-status (syntax-ppss (point)))
+             (beg (nth 1 parse-status))
+             (end-marker (make-marker))
+             (end (progn (goto-char beg) (forward-list) (point)))
+             (ovl (make-overlay beg end)))
+        (set-marker end-marker end)
+        (overlay-put ovl 'face 'highlight)
+        (goto-char beg)
+        (while (< (point) (marker-position end-marker))
+          ;; don't reindent blank lines so we don't set the "buffer
+          ;; modified" property for nothing
+          (beginning-of-line)
+          (unless (looking-at "\\s-*$")
+            (indent-according-to-mode))
+          (forward-line))
+        (run-with-timer 0.5 nil '(lambda(ovl)
+                                   (delete-overlay ovl)) ovl)))))
+
+(defun my-js2-mode-hook ()
+  (require 'espresso)
+  (setq espresso-indent-level 4
+        indent-tabs-mode nil
+        c-basic-offset 4)
+  (c-toggle-auto-state 0)
+  (c-toggle-hungry-state 1)
+  (set (make-local-variable 'indent-line-function) 'my-js2-indent-function)
+  ; (define-key js2-mode-map [(meta control |)] 'cperl-lineup)
+  (define-key js2-mode-map "\C-\M-\\"
+    '(lambda()
+       (interactive)
+       (insert "/* -----[ ")
+       (save-excursion
+         (insert " ]----- */"))
+       ))
+  (define-key js2-mode-map "\C-m" 'newline-and-indent)
+  ; (define-key js2-mode-map [(backspace)] 'c-electric-backspace)
+  ; (define-key js2-mode-map [(control d)] 'c-electric-delete-forward)
+  (define-key js2-mode-map "\C-\M-q" 'my-indent-sexp)
+  (if (featurep 'js2-highlight-vars)
+      (js2-highlight-vars-mode))
+  (message "My JS2 hook"))
+
+(add-hook 'js2-mode-hook 'my-js2-mode-hook)
+
+
+
+
+
+
+
+;;; ruby-mode
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(setq auto-mode-alist
+      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
+(setq auto-mode-alist
+      (append '(("RAKEFILE" . ruby-mode)) auto-mode-alist))
+(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
+                                     interpreter-mode-alist))
+(autoload 'run-ruby "inf-ruby"
+  "Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+  "Set local key defs for inf-ruby in ruby-mode")
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+            (inf-ruby-keys)))
+
+;;; css-mode
+(add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
+(autoload 'css-mode "css-mode" nil t)
+
+;;; highlit yanked area
+(defadvice yank (after ys:highlight-string activate)
+  (let ((ol (make-overlay (mark t) (point))))
+    (overlay-put ol 'face 'bold)
+    (sit-for 0.8)
+    (delete-overlay ol)))
+(defadvice yank-pop (after ys:highlight-string activate)
+  (when (eq last-command 'yank)
+    (let ((ol (make-overlay (mark t) (point))))
+      (overlay-put ol 'face 'bold)
+      (sit-for 0.8)
+      (delete-overlay ol))))
+
+;;; delete region
+(defadvice backward-delete-char-untabify
+  (around ys:backward-delete-region activate)
+  (if (and transient-mark-mode mark-active)
+      (delete-region (region-beginning) (region-end))
+    ad-do-it))
+
+;;; session minibuffer
+(when (require 'session nil t)
+  (setq session-initialize '(de-saveplace session keys menus)
+        session-globals-include '((kill-ring 50)
+                                  (session-file-alist 100 t)
+                                  (file-name-history 100)))
+  (add-hook 'after-init-hook 'session-initialize))
+
+;;; hide menubar in -nw
+(menu-bar-mode -1)
+
+
+;;; minibuffer
+(define-key minibuffer-local-must-match-map "\C-p" 'previous-history-element)
+(define-key minibuffer-local-must-match-map "\C-n" 'next-history-element)
+(define-key minibuffer-local-completion-map "\C-p" 'previous-history-element)
+(define-key minibuffer-local-completion-map "\C-n" 'next-history-element)
+(define-key minibuffer-local-map "\C-p" 'previous-history-element)
+(define-key minibuffer-local-map "\C-n" 'next-history-element)
+
+;;; browse kill ring
+(require 'browse-kill-ring)
+(define-key ctl-x-map "\C-y" 'browse-kill-ring)
+
+; shows character codes
+(require 'what-char)
+
+; buffer list
+(global-set-key "\C-x\C-b" 'bs-show)
+(global-set-key "\M-o" 'bs-cycle-next)
+(global-set-key "\M-p" 'bs-cycle-previous)
+
+
+
+; hilight double width space and tab
+(defface my-face-b-1 '((t (:background "red" :underline t))) nil)
+(defface my-face-b-2 '((t (:foreground "cyan" :underline t))) nil)
+(defface my-face-u-1 '((t (:foreground "red" :underline t))) nil)
+(defvar my-face-b-1 'my-face-b-1)
+(defvar my-face-b-2 'my-face-b-2)
+(defvar my-face-u-1 'my-face-u-1)
+(defadvice font-lock-mode (before my-font-lock-mode ())
+  (font-lock-add-keywords
+   major-mode
+   '(
+     ("　" 0 my-face-b-1 append)
+     ("\t" 0 my-face-b-2 append)
+     ("[ ]+$" 0 my-face-u-1 append)
+     )))
+(ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
+(ad-activate 'font-lock-mode)
+(add-hook 'find-file-hooks '(lambda ()
+(if font-lock-mode nil
+  (font-lock-mode t))) t)
+
+; incremental search in buffer selection
+(iswitchb-mode 1)
+(add-hook 'iswitchb-define-mode-map-hook
+      (lambda ()
+        (define-key iswitchb-mode-map "\C-n" 'iswitchb-next-match)
+        (define-key iswitchb-mode-map "\C-p" 'iswitchb-prev-match)
+        (define-key iswitchb-mode-map "\C-f" 'iswitchb-next-match)
+        (define-key iswitchb-mode-map "\C-b" 'iswitchb-prev-match)))
+
+; trucate
+(require 'physical-line)
+(physical-line-mode nil)
+(setq-default auto-show-mode t)
+(setq-default truncate-lines t)
+(setq truncate-partial-width-windows nil)
+(defun toggle-truncate-lines ()
+  "toggle trucate lines"
+  (interactive)
+  (setq truncate-lines (not truncate-lines))
+  (physical-line-mode)
+  (recenter))
+(global-set-key (kbd "\C-x 6 6") 'toggle-truncate-lines)
+
+
+; W3CDTF
+(defun get-w3cdtf-now ()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%dT%H:%M:%S+09:00")))
+(global-set-key "\C-xt3" 'get-w3cdtf-now)
+(defun get-w3cdtf-z-now ()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%dT%H:%M:%SZ" t)))
+(global-set-key "\C-xt4" 'get-w3cdtf-z-now)
+
+; xml-mode
+(load "nxml-mode/rng-auto.el")
+(setq auto-mode-alist
+        (cons '("\\.\\(xnm\\|xml\\|xsl\\|rng\\|xhtml\\)\\'" . nxml-mode)
+              auto-mode-alist))
+
+
+; CSS Bullet
+(setq reload-path "~/bin/reload_cssbullet")
+(if (file-executable-p reload-path)
+    (progn (defun reload-cssbullet()
+             (if (string-match "\.\\(html\\|css\\|js\\)$" (buffer-file-name))
+                 (call-process reload-path)))
+           (add-hook 'after-save-hook 'reload-cssbullet)))
+
+; scala mode
+(require 'scala-mode-auto)
+(add-hook 'scala-mode-hook
+          '(lambda ()
+             (yas/minor-mode-on)))
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
+
+;; gnu global
+(autoload 'gtags-mode "gtags" "" t)
+(setq gtags-mode-hook
+      '(lambda ()
+         (local-set-key "\M-t" 'gtags-find-tag)
+         (local-set-key "\M-r" 'gtags-find-rtag)
+         (local-set-key "\M-s" 'gtags-find-symbol)
+         (local-set-key "\C-t" 'gtags-pop-stack)
+         ))

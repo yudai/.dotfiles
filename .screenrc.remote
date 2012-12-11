@@ -1,0 +1,42 @@
+escape ^T^T
+hardstatus off
+caption always "%{kk}%?%F%{=b ky}%?> %{= bw}%?%F%{+b}%?%{.w}%`%-w%{ky}%n %t%{-}%+w %="
+msgwait 2
+vbell off
+defbce "on"
+term xterm-256color
+defencoding UTF-8
+defscrollback 10000
+autodetach on
+shell -/bin/zsh
+
+termcapinfo xterm* ti@:te@
+altscreen on
+
+bind k kill
+bind ^o next
+bind ^p prev
+bind ^g break
+bind ^r copy
+bind ^y paste .
+bind -c REGION 3 split -v
+bind -c REGION 2 split
+bind -c REGION 1 only
+bind -c REGION 0 remove
+bind -c REGION o focus
+bind -c REGION \^ resize
+bind -c REGION ^c detach
+bind -c REGION k kill
+bind w command -c REGION
+bind o focus
+bind ^b windowlist -b
+bind b select
+bind ^a other
+
+markkeys h=^b:l=^f:$=^e:=^g
+markkeys ' '=^@
+markkeys ' '=^w
+
+activity "Activity: #%n%f %t^G"
+
+bell_msg ""

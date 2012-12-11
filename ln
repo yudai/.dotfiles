@@ -1,0 +1,13 @@
+#/bin/sh
+for file in `ls -a ~/.dotfiles`
+do
+  if [ $file != "ln" -a $file != "." -a $file != ".." -a $file != ".git" -a $file != ".gitignore" -a $file != "README.md" ]
+
+  then
+      to="${HOME}/${file}"
+      printf "%s" "${to} "
+      rm -rf ${to}
+      ln -s ~/.dotfiles/${file} ${to}
+  fi
+done
+echo

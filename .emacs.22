@@ -1,0 +1,27 @@
+;;; hide toolbar
+(setq tool-bar-mode)
+
+;;; auto-complete
+;(require 'auto-complete)
+;(global-auto-complete-mode t)
+
+
+;;; yasnippet
+(require 'yasnippet-bundle)
+ (require 'dropdown-list)
+       (setq yas/prompt-functions '(yas/dropdown-prompt
+                                    yas/ido-prompt
+                                    yas/completing-prompt))
+
+;;; anything
+(require 'anything-config)
+(anything-iswitchb-setup)
+(setq anything-sources
+      (list anything-c-source-buffers
+            anything-c-source-bookmarks
+            anything-c-source-file-name-history
+            anything-c-source-man-pages
+            anything-c-source-info-pages
+            anything-c-source-calculation-result
+            anything-c-source-locate))
+(global-set-key "\C-x\C-j" 'anything)

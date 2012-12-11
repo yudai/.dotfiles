@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+screen -list
+
+echo -n "session[default]: "
+read line
+
+if [ -z $line ] ; then
+    line="default"
+fi
+
+echo -ne "\ek${line}\e\\"
+exec screen -xUR -S $line 
