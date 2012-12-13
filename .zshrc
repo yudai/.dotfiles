@@ -163,6 +163,8 @@ alias gll='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(bl
 alias gco='git checkout'
 alias gc='git commit'
 
+alias be='bundle exec'
+
 # bundler exec
 [ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
 
