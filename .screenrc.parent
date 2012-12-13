@@ -13,7 +13,7 @@ termcapinfo xterm* ti@:te@
 altscreen on
 
 bindkey -t ^Z^D detach
-bind ^c screen -t new $HOME/bin/screen_child
+bind ^c screen -t new $HOME/.dotfiles/bin/screen_child
 shelltitle new
 
 bind k kill
