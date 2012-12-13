@@ -164,7 +164,7 @@ alias gco='git checkout'
 alias gc='git commit'
 
 # bundler exec
-[ -f ~/.bundler-exec.sh ] && source ~/.bundler-exec.sh
+[ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
 
 # search
 stty stop undef
