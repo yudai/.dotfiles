@@ -89,9 +89,12 @@ update_title last_command1
 
 # VCS
 autoload -Uz vcs_info
-zstyle ':vcs_info:*' formats '(%s:%b)'
-zstyle ':vcs_info:*' actionformats '(%s:%b|%a)'
-
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr "# "
+zstyle ':vcs_info:*' unstagedstr "+ "
+zstyle ':vcs_info:*' formats '(%c%u%s:%b@%12.12i)'
+zstyle ':vcs_info:*' actionformats '(%c%u%s:%b@i|%a)'
 
 precmd () {
     #title
