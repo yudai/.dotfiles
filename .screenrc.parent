@@ -10,6 +10,7 @@ autodetach on
 shell -${SHELL}
 
 termcapinfo xterm* ti@:te@
+termcapinfo xterm* 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 altscreen on
 
 bindkey -t ^Z^D detach
