@@ -212,3 +212,11 @@ bindkey '\^' cdup-or-insert-circumflex
 export LESS='-R'
 export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 post_rc
+
+# zaw
+source ~/.zsh/zaw/zaw.zsh
+zstyle ':filter-select' extended-search yes
+zstyle ':filter-select:highlight' matched fg=yellow,standout
+bindkey "^X:" zaw
+bindkey "^X^H" zaw-history
+bindkey "^X^B" zaw-git-branches
