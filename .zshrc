@@ -176,6 +176,11 @@ stty stop undef
 bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+bindkey "^[r" history-beginning-search-backward-end
+bindkey "^[s" history-beginning-search-forward-end
+
 if [ "$SHLVL" != "1" ]; then
     alias screen='screen -c .screenrc.remote'
 fi
