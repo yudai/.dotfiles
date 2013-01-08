@@ -1,0 +1,176 @@
+#!/bin/bash
+
+# sudo password
+stty -echo
+echo -n "password: "
+while [ 1 ]; do
+    read password
+    echo
+    if (echo $password | sudo -S true 2> /dev/null); then break; fi
+    echo -n "wrong password: "
+done
+stty echo
+
+install_packages=true
+which aptitude > /dev/null # check aptitude
+if [ $? -ne 0 ]; then
+    echo -n "aptitude command not found! Skipping package installation? [Yn]: "
+    while [ 1 ]; do
+        read line
+        case $line in
+            [yY] | "") install_packages=false; break;;
+            [Nn]) exit 0;;
+            *) echo "Error: [Yy] is expected: "
+        esac
+    done
+else
+    echo -n "Install required packages? (require sudo) [Yn]: "
+    while [ 1 ]; do
+        read line
+        case $line in
+            [yY] | "") break;;
+            [Nn]) install_packages=false; break;;
+            *) echo "Error: [Yy] is expected: "
+        esac
+    done
+fi
+
+system_wide_screen=true
+echo -n "Install screen as a system wide command with 'sudo make install'? (requires sudo) [Yn]: "
+while [ 1 ]; do
+    read line
+    case $line in
+        [yY] | "") break;;
+        [Nn]) system_wide_screen=false; break;;
+        *) echo "Error: [Yy] is expected: "
+    esac
+done
+
+echo ".dotfiles URL: "
+select git_url in "git@github.com:yudai" "https://github.com/yudai"
+do
+    echo $git_url; break;
+done
+
+clone_dotprivate=true
+echo -n "Clone .dotfiles.priv from a git repository? [Yn]: "
+while [ 1 ]; do
+    read line
+    case $line in
+        [yY] | "")
+            echo -n "Repository URL: "
+            read dotfilepriv_url
+            break;;
+        [Nn])
+            echo "Create .dotfile.priv directory."
+            clone_dotprivate=false; break;;
+        *) echo "Error: [Yy] is expected: "
+    esac
+done
+
+
+echo -n "Git Name [IWASAKI Yudai]:"
+read git_name
+git_namel=${git_name:="git@github.com:yudai"}
+
+echo -n "Git Email [yudai@arielworks.com]: "
+read git_email
+git_email=${git_email:="yudai@arielworks.com"}
+
+if [ $install_packages ]; then
+    echo "Installing packages..."
+    echo $password | sudo -S aptitude update
+    echo $password | sudo -S aptitude install -y zsh git expect
+    # install some packages for better life
+    echo $password | sudo -S aptitude install -y source-highlight vim lv emacs gcc
+fi
+
+if (grep 'zsh' /etc/shells > /dev/null); then
+    echo "Changing the shell to zsh"
+    chsh -s /bin/zsh $USER <<EOF
+$password
+EOF
+else
+    echo "Error: zsh is not found"
+    exit 1
+fi
+
+if (which git > /dev/null); then
+    echo "Configuring git..."
+    git config --global user.name $git_name
+    git config --global user.email $git_email
+    git config --global push.default upstream
+    git config --global color.ui auto
+else
+    echo "Error: git is not found"
+    exit 1
+fi
+
+if (which git > /dev/null); then
+    cd ~
+    if ([ -d .dotfiles ] || (git clone $git_url/.dotfiles)); then
+        cd .dotfiles
+        git config --local user.email "IWASAKI Yudai"
+        git config --local user.email "yudai@arielworks.com"
+        git submodule init
+        git submodule update --recursive
+        ./ln
+    else
+        echo "Error: faild cloning .dotfiles"
+        exit 1
+    fi
+else
+    echo "Cloning .dotfiles faild, skipping..."
+fi
+
+cd ~
+if ((which git > /dev/null) && [ $clone_dotprivate = true ]); then
+    if (git clone $dotfilepriv_url .dotfiles.priv); then
+	echo "dotfile.priv cloned successfully"
+    else
+        echo "Error: faild cloning .dotfile.priv"
+        exit 1
+    fi
+else
+    echo "Skipping cloning .dotfiles.priv..."
+    mkdir -p ~/.dotfiles.priv/$HOST/bin
+fi
+cd .dotfiles.priv
+cp -r skel `hostname`
+
+if (git clone http://github.com/yudai/screen /tmp/screen); then
+    if [ $install_packages ]; then
+        echo $password | sudo -S aptitude install -y libncurses-dev dh-autoreconf
+    fi
+    cd /tmp/screen
+    git checkout overwrite_w
+    cd src
+    if (./autogen.sh && ./configure && make); then
+        if [ $system_wide_screen ]; then
+            echo $password | sudo -S make install
+        else
+            cp screen ~/.dotfiles/$HOST/bin/
+        fi 
+    else
+        echo "Error: compiling screen faild,  missing libraries?"
+        exit 1
+    fi
+fi
+
+if (which git > /dev/null); then
+    "Installing rbenv..."
+    cd ~
+    git clone git://github.com/sstephenson/rbenv.git ~/.rbenv && git clone git://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+    export PATH="$HOME/.rbenv/bin:$PATH"
+    eval "$(rbenv init -)"
+    ruby_version=`rbenv install --list | grep -e "^  [0-9].*-p[0-9]*$" | tail -n 1`
+    echo "Using $ruby_version"
+    rbenv install $ruby_version
+    rbenv rehash
+    rbenv global $ruby_version
+else
+    echo "Error: cloning rbenv faild"
+    exit 1
+fi
+
+echo "Done!"
