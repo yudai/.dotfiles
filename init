@@ -128,17 +128,17 @@ fi
 cd ~
 if ((which git > /dev/null) && [ $clone_dotprivate = true ]); then
     if (git clone $dotfilepriv_url .dotfiles.priv); then
-	echo "dotfile.priv cloned successfully"
+        echo "dotfile.priv cloned successfully"
     else
         echo "Error: faild cloning .dotfile.priv"
         exit 1
     fi
 else
     echo "Skipping cloning .dotfiles.priv..."
-    mkdir -p ~/.dotfiles.priv/$HOST/bin
+    cp -r ~/.dotfiles/.dotfiles.priv.skel ~/.dotfiles.priv
 fi
-cd .dotfiles.priv
-cp -r skel `hostname`
+cd ~/.dotfiles.priv
+cp -r ~/.dotfiles/.dotfiles.priv.host.skel `hostname`
 
 if (git clone http://github.com/yudai/screen /tmp/screen); then
     if [ $install_packages ]; then
