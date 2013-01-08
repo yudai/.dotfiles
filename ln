@@ -1,7 +1,14 @@
 #/bin/sh
 for file in `ls -a ~/.dotfiles`
 do
-  if [ $file != "ln" -a $file != "." -a $file != ".." -a $file != ".git" -a $file != ".gitignore" -a $file != "README.md" ]
+  if [ $file != "ln" \
+          -a $file != "." \
+          -a $file != ".." \
+          -a $file != ".git" \
+          -a $file != ".gitignore" \
+          -a $file != "README.md" \
+          -a $file != "skel" \
+      ]
 
   then
       to="${HOME}/${file}"
