@@ -1,4 +1,4 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 alive = `screen -list | egrep "Attached|Detached" | awk '{print ENVIRON["CDD_PWD_FILE_PREFIX"]"."$1}'`
 process = `ls $CDD_PWD_FILE_PREFIX* 2>/dev/null | egrep -v \\\\.t$`
 alive = alive.split("\n")
