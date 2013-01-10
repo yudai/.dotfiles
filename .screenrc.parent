@@ -1,6 +1,6 @@
 escape ^U^U
-caption always "%{= wk} %=%-w%{= Kw}%n %t%{-}%+w "
-msgwait 2
+caption always "%{= wk} %=%-w%{= Kw}%n %h%{-}%+w "
+msgwait 1
 vbell off
 defbce "on"
 term xterm-256color

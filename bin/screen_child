@@ -10,4 +10,6 @@ if [ -z $line ] ; then
 fi
 
 echo -ne "\ek${line}\e\\"
-exec screen -xUR -S $line 
+echo -ne "\e]0;${line}\a"
+exec screen -xUR -S $line
+
