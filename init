@@ -85,6 +85,7 @@ if [ $install_packages ]; then
     echo $password | sudo -S aptitude install -y source-highlight vim lv emacs gcc
     # rbenv
     echo $password | sudo -S aptitude install libssl-dev zlib1g-dev
+    echo $password | sudo -S aptitude install libreadline-dev
 fi
 
 if (grep 'zsh' /etc/shells > /dev/null); then
