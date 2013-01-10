@@ -218,3 +218,10 @@ zstyle ':filter-select:highlight' matched fg=yellow,standout
 bindkey "^X:" zaw
 bindkey "^X^H" zaw-history
 bindkey "^X^B" zaw-git-branches
+
+# cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 5000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
