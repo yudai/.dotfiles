@@ -103,6 +103,7 @@ if (which git > /dev/null); then
     git config --global user.email $git_email
     git config --global push.default upstream
     git config --global color.ui auto
+    git config --global core.pager "lv -c"
 else
     echo "Error: git is not found"
     exit 1
