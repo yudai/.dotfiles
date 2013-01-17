@@ -69,11 +69,12 @@ function update_title() {
             cmd=$cmd[1]
             ;;
     esac
-    title="[$(basename $(pwd))@${HOST%%.}] $cmd"
     if [ x"$STY" != x"" ]; then # for screen hack
+        title="[$(basename $(pwd))] $cmd"
         echo -ne "\ek$title\e\\"
         print -n "\e]0;$title\a"
     elif [ x"${TERM%%-*}" = x"xterm" ]; then
+        title="[$(basename $(pwd))@${HOST%%.}] $cmd"
         print -n "\e]0;$title\a"
     fi
 }
