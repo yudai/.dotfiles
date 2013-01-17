@@ -18,6 +18,8 @@
 (temp-buffer-resize-mode 1)
 
 
+;;; ispell
+(setq ispell-program-name "aspell")
 
 ;;; Colors
 (require 'color-theme)
