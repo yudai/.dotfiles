@@ -1,0 +1,15 @@
+#!/bin/sh
+checker_file=.dotfiles.check
+cd
+if [ `find . -maxdepth 1 -name $checker_file -mtime -1 | wc -l` -eq 0 ]; then
+    (
+        echo "Checking update for .dotfiles..."
+        touch $checker_file
+        cd .dotfiles
+        if (git pull --ff-only 1> /dev/null 2> /dev/null); then
+            echo "Done."
+        else
+            echo ".dotfiles seems not clean. Abort."
+        fi
+    )
+fi
