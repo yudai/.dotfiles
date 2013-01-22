@@ -160,8 +160,8 @@ alias ll='ls -l --color=auto'
 alias la='ls -a  --color=auto'
 alias lal='ls -al --color=auto'
 
-alias gl='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(black bold)%an, %ar%Creset"'
-alias gll='git log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(black bold)%an, %ar%Creset" --all'
+alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
+alias gll="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
 alias gco='git checkout'
 alias gc='git commit'
 
