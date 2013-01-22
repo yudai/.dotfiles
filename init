@@ -82,7 +82,7 @@ if [ $install_packages ]; then
     echo $password | sudo -S aptitude update
     echo $password | sudo -S aptitude install -y zsh git expect
     # install some packages for better life
-    echo $password | sudo -S aptitude install -y source-highlight vim lv emacs gcc aspell tree
+    echo $password | sudo -S aptitude install -y source-highlight vim lv emacs gcc aspell tree emacs-goodies-el
     # rbenv
     echo $password | sudo -S aptitude install libssl-dev zlib1g-dev
     echo $password | sudo -S aptitude install libreadline-dev
