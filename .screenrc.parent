@@ -38,6 +38,8 @@ bind ^b windowlist -b
 bind b select
 bind ^a other
 
+bind f
+bind ^f
 
 markkeys h=^b:l=^f:$=^e:=^g
 markkeys ' '=^@
