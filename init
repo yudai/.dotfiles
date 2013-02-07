@@ -111,7 +111,7 @@ if (which git > /dev/null); then
     git config --global color.diff.meta "yellow reverse"
     git config --global color.diff.old "red reverse"
     git config --global color.diff.new "green reverse"
-    git config --global color.diff.frag "magenta bold"
+    git config --global color.diff.frag "magenta bold reverse"
     git config --global color.diff.whitespace "white reverse"
     git config --global color.status.added "green bold"
     git config --global color.status.changed "red bold"
