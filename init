@@ -103,8 +103,18 @@ if (which git > /dev/null); then
     git config --global user.name $git_name
     git config --global user.email $git_email
     git config --global push.default upstream
-    git config --global color.ui auto
     git config --global core.pager "lv -c"
+    git config --global color.ui auto
+    git config --global color.branch.current "red bold"
+    git config --global color.branch.local "yellow bold"
+    git config --global color.branch.remote "magenta bold"
+    git config --global color.diff.meta "yellow bold"
+    git config --global color.diff.frag "magenta bold"
+    git config --global color.diff.whitespace "white reverse"
+    git config --global color.status.added "green bold"
+    git config --global color.status.changed "red bold"
+    git config --global color.status.untracked "cyan reverse bold"
+    git config --global color.status.branch "blue bold"
 else
     echo "Error: git is not found"
     exit 1
