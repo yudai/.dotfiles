@@ -168,8 +168,9 @@ alias gco='git commit'
 alias gb='git branch'
 alias gs='git status'
 alias ga='git add'
-alias gp='git push'
+alias gpu='git push'
 alias gst='git stash'
+alias gp='git pull'
 
 alias be='bundle exec'
 
