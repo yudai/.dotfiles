@@ -160,10 +160,16 @@ alias ll='ls -l --color=auto'
 alias la='ls -a  --color=auto'
 alias lal='ls -al --color=auto'
 
-alias gl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
-alias gll="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
-alias gco='git checkout'
-alias gc='git commit'
+alias gl="git log -p"
+alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
+alias glll="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
+alias gch='git checkout'
+alias gco='git commit'
+alias gb='git branch'
+alias gs='git status'
+alias ga='git add'
+alias gp='git push'
+alias gst='git stash'
 
 alias be='bundle exec'
 
