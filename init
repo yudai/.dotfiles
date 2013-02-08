@@ -86,6 +86,8 @@ if [ $install_packages ]; then
     # rbenv
     echo $password | sudo -S aptitude install libssl-dev zlib1g-dev
     echo $password | sudo -S aptitude install libreadline-dev
+
+    sudo chmod a+x /usr/share/doc/git/contrib/workdir/git-new-workdir
 fi
 
 if (grep 'zsh' /etc/shells > /dev/null); then
