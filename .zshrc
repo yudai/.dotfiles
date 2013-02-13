@@ -226,6 +226,8 @@ zstyle ':filter-select:highlight' matched fg=yellow,standout
 bindkey "^X:" zaw
 bindkey "^X^H" zaw-history
 bindkey "^X^B" zaw-git-branches
+source ~/.zsh/zaw-git-log.zsh
+bindkey '^X^L' zaw-git-log 
 
 # cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
