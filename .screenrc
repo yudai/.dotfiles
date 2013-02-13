@@ -3,7 +3,6 @@ hardstatus alwayslastline "%{=b rw} %-Lw%{=b kY}%n%f %?%h%:%t%?%{-}%+Lw %="
 caption always "%?%P%{= Kr}*%?%{= Kw}%?%F%{=b KY}>%: %? %n %t"
 msgwait 1
 vbell off
-defbce "on"
 term xterm-256color
 defencoding UTF-8
 defscrollback 10000
@@ -45,9 +44,6 @@ markkeys ' '=^w
 bindkey -m -t ^v    stuff ^d
 bindkey -m -t ^[v    stuff ^u
 
-
 activity "Activity: #%n%f %t^G"
 
 bell_msg ""
-
-#cjkwidth on

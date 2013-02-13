@@ -2,7 +2,6 @@ escape ^U^U
 caption always "%{= wk} %=%-w%{= Kw}%n %h%{-}%+w "
 msgwait 1
 vbell off
-defbce "on"
 term xterm-256color
 defencoding UTF-8
 defscrollback 10000
@@ -52,5 +51,3 @@ markkeys ' '=^w
 activity "Activity: #%n%f %t^G"
 
 bell_msg ""
-
-#cjkwidth on
