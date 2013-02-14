@@ -105,6 +105,7 @@ if (which git > /dev/null); then
     git config --global user.name $git_name
     git config --global user.email $git_email
     git config --global push.default upstream
+    git config --global core.editor vi
     git config --global core.pager "lv -c"
     git config --global color.ui auto
     git config --global color.branch.current "red bold"

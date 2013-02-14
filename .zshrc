@@ -164,13 +164,18 @@ alias gl="git log -p"
 alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
 alias glll="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
 alias gch='git checkout'
+alias gct='git checkout -t'
 alias gco='git commit'
 alias gb='git branch'
 alias gs='git status'
 alias ga='git add'
+alias gaa='git add .'
+alias gau='git -u'
 alias gpu='git push'
-alias gst='git stash'
+alias gsh='git stash'
 alias gp='git pull'
+alias gd='git diff'
+alias gdd='git diff HEAD'
 
 alias be='bundle exec'
 
