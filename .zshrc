@@ -156,9 +156,8 @@ alias irssi='LANG=ja_JP.utf8 irssi'
 alias gmk='gnatmake -gnaty3abefhiklM120nprt'
 
 alias ls='ls --color=auto'
-alias ll='ls -l --color=auto'
 alias la='ls -a  --color=auto'
-alias lal='ls -al --color=auto'
+alias ll='ls -al --color=auto'
 
 alias gl="git log"
 alias glp="git log -p"
