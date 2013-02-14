@@ -141,6 +141,9 @@ compinit
 setopt extended_glob
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 setopt auto_menu
+setopt magic_equal_subst
+setopt list_types
+
 
 # word defenition (remove / from default)
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
