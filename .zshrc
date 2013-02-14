@@ -176,6 +176,7 @@ alias gsh='git stash'
 alias gp='git pull'
 alias gd='git diff'
 alias gdd='git diff HEAD'
+alias gg='git grep'
 
 alias be='bundle exec'
 
