@@ -8444,7 +8444,7 @@ A pastelly-mac like color-theme."
   (interactive)
   (color-theme-install
    '(color-theme-tty-dark
-     ((background-color . "black")
+     (;(background-color . "black")
       (background-mode . dark)
       (border-color . "blue")
       (cursor-color . "red")
