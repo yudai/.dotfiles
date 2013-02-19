@@ -1,0 +1,6 @@
+#!/bin/sh
+(
+    cd ~/.dotfiles
+    git pull
+)
+exec zsh -l
