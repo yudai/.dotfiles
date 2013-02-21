@@ -243,11 +243,12 @@ post_rc
 source ~/.zsh/zaw/zaw.zsh
 zstyle ':filter-select' extended-search yes
 zstyle ':filter-select:highlight' matched fg=yellow,standout
+zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
 bindkey "^X^H" zaw-history
 bindkey "^X^B" zaw-git-branches
 source ~/.zsh/zaw-git-log.zsh
-bindkey '^X^L' zaw-git-log 
+bindkey '^X^L' zaw-git-log
 
 # cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
