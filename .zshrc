@@ -194,6 +194,8 @@ alias gddw='git diff HEAD --word-diff'
 alias gg='git grep'
 
 alias be='bundle exec'
+alias reload='exec zsh -l'
+alias update-dotfiles='exec update-dotfiles'
 
 # bundler exec
 [ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
