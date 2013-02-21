@@ -192,6 +192,7 @@ alias gdc='git diff --cached'
 alias gdcw='git diff --cached --word-diff'
 alias gddw='git diff HEAD --word-diff'
 alias gg='git grep'
+alias gfe='git fetch'
 
 alias be='bundle exec'
 alias reload='exec zsh -l'
