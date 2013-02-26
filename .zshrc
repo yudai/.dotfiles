@@ -198,6 +198,7 @@ alias gg='git grep -i -n -F'
 alias ggr='git grep -i -n -P'
 alias gfe='git fetch'
 alias gcp='git cherry-pick'
+alias gre='git rebase'
 
 alias be='bundle exec'
 alias reload='exec zsh -l'
