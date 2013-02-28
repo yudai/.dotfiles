@@ -164,12 +164,12 @@ alias ll='ls -al --color=auto'
 
 alias gl="tig"
 alias gll="tig --all"
-alias gch='git checkout'
-alias gcht='git checkout -t'
-alias gchb='git checkout -b'
-alias gco='git commit --verbose'
-alias gcomend='git status -sb; if [ $(git status -s | grep -c -e "^[^ ]") -gt 0  ]; then git commit --amend -C HEAD; else echo $fg[red]Nothing changed. Aborting...$default_color; fi;'
-alias gcomendd='git commit --amend --verbose'
+alias gco='git checkout'
+alias gcot='git checkout -t'
+alias gcob='git checkout -b'
+alias gci='git commit --verbose'
+alias gcimend='git status -sb; if [ $(git status -s | grep -c -e "^[^ ]") -gt 0  ]; then git commit --amend -C HEAD; else echo $fg[red]Nothing changed. Aborting...$default_color; fi;'
+alias gcimendd='git commit --amend --verbose'
 alias gbr='git branch'
 alias ga='git add'
 alias gaa='git add -u && git status -sb'
