@@ -162,10 +162,8 @@ alias ls='ls --color=auto'
 alias la='ls -a  --color=auto'
 alias ll='ls -al --color=auto'
 
-alias gl="git log"
-alias glp="git log -p"
-alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
-alias glll="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
+alias gl="tig"
+alias gll="tig --all"
 alias gch='git checkout'
 alias gcht='git checkout -t'
 alias gchb='git checkout -b'
@@ -203,6 +201,7 @@ alias grb='git rebase'
 alias grbco='git rebase --continue'
 alias grs='git reset'
 alias grl='git reflog'
+alias gbl='tig blame'
 
 alias be='bundle exec'
 alias reload='exec zsh -l'
