@@ -202,6 +202,7 @@ alias gcp='git cherry-pick'
 alias grb='git rebase'
 alias grbco='git rebase --continue'
 alias grs='git reset'
+alias grl='git reflog'
 
 alias be='bundle exec'
 alias reload='exec zsh -l'
