@@ -207,6 +207,8 @@ alias be='bundle exec'
 alias reload='exec zsh -l'
 alias update-dotfiles='exec update-dotfiles'
 
+alias tiga='tig --all'
+
 # bundler exec
 [ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
 
