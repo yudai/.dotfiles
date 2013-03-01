@@ -12,6 +12,7 @@ termcapinfo xterm*|Eterm|mlterm "hs:ts=\E]0;:fs=\007:ds=\E]0;screen\007;ti@:te@"
 termcapinfo xterm* 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 altscreen on
 ignorecase
+defbce on
 
 bind k kill
 bind ^o next
