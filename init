@@ -35,13 +35,13 @@ else
     done
 fi
 
-system_wide_screen=true
-echo -n "Install screen as a system wide command with 'sudo make install'? (requires sudo) [Yn]: "
+system_wide_command=true
+echo -n "Install self-compiled binaries as system wide commansd with 'sudo make install'? (requires sudo) [Yn]: "
 while [ 1 ]; do
     read line
     case $line in
         [yY] | "") break;;
-        [Nn]) system_wide_screen=false; break;;
+        [Nn]) system_wide_command=false; break;;
         *) echo "Error: [Yy] is expected: "
     esac
 done
@@ -157,6 +157,25 @@ fi
 cd ~/.dotfiles.priv
 cp -r ~/.dotfiles/.dotfiles.priv.host.skel `hostname`
 
+if (wget -O "/tmp/tig.tar.gz" "http://jonas.nitro.dk/tig/releases/tig-1.1.tar.gz"); then
+    (
+    cd /tmp
+    tar xvzf tig.tar.gz
+    (
+        cd tig-1.1
+        if (./configure && make); then
+            if [ $system_wide_command ]; then
+                echo $password | sudo -S make install
+            else
+                cp tig ~/.dotfiles.priv/$HOST/bin/
+            fi
+        fi
+    )
+
+    rm tig.tar.gz
+    )
+fi
+
 if (git clone http://github.com/yudai/screen /tmp/screen); then
     if [ $install_packages ]; then
         echo $password | sudo -S aptitude install -y libncurses-dev dh-autoreconf
@@ -165,11 +184,11 @@ if (git clone http://github.com/yudai/screen /tmp/screen); then
     git checkout overwrite_w
     cd src
     if (./autogen.sh && ./configure && make); then
-        if [ $system_wide_screen ]; then
+        if [ $system_wide_command ]; then
             echo $password | sudo -S make install
         else
-            cp screen ~/.dotfiles/$HOST/bin/
-        fi 
+            cp screen ~/.dotfiles.priv/$HOST/bin/
+        fi
     else
         echo "Error: compiling screen faild,  missing libraries?"
         exit 1
