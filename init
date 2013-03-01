@@ -157,16 +157,13 @@ fi
 cd ~/.dotfiles.priv
 cp -r ~/.dotfiles/.dotfiles.priv.host.skel `hostname`
 
-if (wget -O "/tmp/tig.tar.gz" "http://jonas.nitro.dk/tig/releases/tig-1.1.tar.gz"); then
+if (git clone http://github.com/yudai/tig.git /tmp/tig); then
     if [ $install_packages ]; then
         echo $password | sudo -S aptitude install -y libncurses-dev libncursesw5-dev
     fi
     (
-    cd /tmp
-    tar xvzf tig.tar.gz
-    (
-        cd tig-1.1
-        if (./configure && make); then
+        cd /tmp/tig
+        if (./autogen.sh &&./configure && make); then
             if [ $system_wide_command ]; then
                 echo $password | sudo -S make install
             else
@@ -174,11 +171,9 @@ if (wget -O "/tmp/tig.tar.gz" "http://jonas.nitro.dk/tig/releases/tig-1.1.tar.gz
             fi
         fi
     )
-    rm tig.tar.gz
-    )
 fi
 
-if (git clone http://github.com/yudai/screen /tmp/screen); then
+if (git clone http://github.com/yudai/screengit /tmp/screen); then
     if [ $install_packages ]; then
         echo $password | sudo -S aptitude install -y libncurses-dev dh-autoreconf
     fi

@@ -3,6 +3,7 @@ set show-rev-graph = true
 
 bind generic F !git fetch
 bind generic ^v move-page-down
+bind generic ^[v move-page-up
 bind generic G move-last-line
 bind generic g move-first-line
 
