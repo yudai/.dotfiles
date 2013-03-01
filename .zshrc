@@ -164,6 +164,7 @@ alias ll='ls -al --color=auto'
 
 alias gl="tig"
 alias gll="tig --all"
+alias glp="git log -p"
 alias gco='git checkout'
 alias gcot='git checkout -t'
 alias gcob='git checkout -b'
