@@ -158,6 +158,9 @@ cd ~/.dotfiles.priv
 cp -r ~/.dotfiles/.dotfiles.priv.host.skel `hostname`
 
 if (wget -O "/tmp/tig.tar.gz" "http://jonas.nitro.dk/tig/releases/tig-1.1.tar.gz"); then
+    if [ $install_packages ]; then
+        echo $password | sudo -S aptitude install -y libncurses-dev libncursesw5-dev
+    fi
     (
     cd /tmp
     tar xvzf tig.tar.gz
@@ -171,7 +174,6 @@ if (wget -O "/tmp/tig.tar.gz" "http://jonas.nitro.dk/tig/releases/tig-1.1.tar.gz
             fi
         fi
     )
-
     rm tig.tar.gz
     )
 fi
