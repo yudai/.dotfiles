@@ -2,6 +2,9 @@ set show-id = true
 set show-rev-graph = true
 
 bind generic F !git fetch
+bind generic ^v move-page-down
+bind generic G move-last-line
+bind generic g move-first-line
 
 bind main C !?<git checkout %(commit)
 bind main R !?<git reset %(commit)
