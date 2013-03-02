@@ -7,9 +7,8 @@ if [ `find . -maxdepth 1 -name $checker_file -mtime -1 | wc -l` -eq 0 ]; then
         touch $checker_file
         cd .dotfiles
         if (git pull --ff-only > /dev/null); then
-            git submodule init > /dev/null
             git submodule sync > /dev/null
-            git submodule update --recursive > /dev/null
+            git submodule update --init --recursive > /dev/null
             echo "Done."
         else
             echo ".dotfiles seems not clean. Abort."
