@@ -180,7 +180,7 @@ if (git clone http://github.com/yudai/screengit /tmp/screen); then
     cd /tmp/screen
     git checkout overwrite_w
     cd src
-    if (./autogen.sh && ./configure && make); then
+    if (./autogen.sh && ./configure --enable-colors256 && make); then
         if [ $system_wide_command ]; then
             echo $password | sudo -S make install
         else
