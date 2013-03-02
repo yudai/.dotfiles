@@ -162,8 +162,9 @@ alias ls='ls --color=auto'
 alias la='ls -a  --color=auto'
 alias ll='ls -al --color=auto'
 
-alias gl="tig"
-alias gll="tig --all"
+alias gl="tig log"
+alias gll="tig"
+alias glla="tig --all"
 alias glp="git log -p"
 alias gco='git checkout'
 alias gcot='git checkout -t'
