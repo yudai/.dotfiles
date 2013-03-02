@@ -166,6 +166,8 @@ alias gl="tig log"
 alias gll="tig"
 alias glla="tig --all"
 alias glp="git log -p"
+alias glg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
+alias gllg="git log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow bold)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
 alias gco='git checkout'
 alias gcot='git checkout -t'
 alias gcob='git checkout -b'
