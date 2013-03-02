@@ -12,6 +12,17 @@ bind main R !?<git reset %(commit)
 bind main E !?<git reset --hard %(commit)
 bind main P !?git cherry-pick %(commit)
 
+bind diff C !?<git checkout %(commit)
+bind diff R !?<git reset %(commit)
+bind diff E !?<git reset --hard %(commit)
+bind diff P !?git cherry-pick %(commit)
+
+bind log C !?<git checkout %(commit)
+bind log R !?<git reset %(commit)
+bind log E !?<git reset --hard %(commit)
+bind log P !?git cherry-pick %(commit)
+
 bind branch C !?<git checkout %(branch)
 bind branch R !?<git reset %(branch)
 bind branch E !?<git reset --hard %(branch)
+
