@@ -92,8 +92,31 @@ zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "# "
 zstyle ':vcs_info:*' unstagedstr "+ "
-zstyle ':vcs_info:*' formats '(%c%u%s:%b@%10.10i)'
-zstyle ':vcs_info:*' actionformats '(%c%u%s:%b@i|%a)'
+zstyle ':vcs_info:*' formats '(%m%c%u%s:%b@%10.10i)'
+zstyle ':vcs_info:*' actionformats '(%m%c%u%s:%b@i|%a)'
+
+# http://www.opensource.apple.com/source/zsh/zsh-55/zsh/Misc/vcs_info-examples
+zstyle ':vcs_info:git*+set-message:*' hooks git-st git-untracked
+function +vi-git-st() {
+    local ahead behind
+    local -a gitstatus
+
+    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    (( $ahead )) && gitstatus+=( "+${ahead} " )
+
+    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    (( $behind )) && gitstatus+=( "-${behind} " )
+
+    hook_com[misc]+=${(j:/:)gitstatus}
+}
+
+# http://www.zsh.org/mla/workers/2011/msg00554.html
+function +vi-git-untracked() {
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
+        git status --porcelain | grep '??' &> /dev/null ; then
+        hook_com[staged]+='?'
+    fi
+}
 
 precmd () {
     #title
