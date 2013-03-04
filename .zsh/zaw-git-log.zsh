@@ -37,25 +37,21 @@ function zaw-src-git-log () {
         opt+=("--date=$ZAW_SRC_GIT_LOG_DATE_STYLE")
     fi
 
-    # Get git log.
-    local log="$(git log "${opt[@]}")"
+    git log "${opt[@]}" | \
+            while read id desc; do
+                candidates+=("${id}")
+                cand_descriptions+=("${id} ${desc}")
+            done
 
     # Set candidates.
     candidates+=(${(f)log})
-    actions=("zaw-src-git-log-append-to-buffer")
-    act_descriptions=("git-log for zaw")
+    actions=(zaw-src-git-log-append-to-buffer zaw-src-git-commit-checkout zaw-src-git-commit-reset zaw-src-git-commit-reset-hard)
+    act_descriptions=("append to edit buffer" "checkout" "reset" "reset hard")
     # Enale multi marker.
     options+=(-m)
 }
 # Action function.
 function zaw-src-git-log-append-to-buffer () {
-    local list
-    local item
-    for item in "$@"; do
-        list+="$(echo "$item" | cut -d ' ' -f 1) "
-    done
-    set -- $list
-
     local buf=
     if [ $# -eq 2 ]; then
         # To diff.
