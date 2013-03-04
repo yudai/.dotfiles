@@ -4,7 +4,6 @@
 # functions, options, key bindings, etc.
 #
 
-
 # when lunced by "sudo -s", load .zprofile to set PATH
 if [ x$SUDO_USER != "x" -a x$LOGNAME = "xroot" ]; then
     source ~/.zprofile
@@ -29,18 +28,31 @@ prompt_color=$fg[red]
 # call host specific setting
 pre_rc
 
-
 setopt print_eight_bit
 
 # colors
 export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
+# VCS
+source ~/.zsh/zsh-vcs-prompt/zshrc.sh
+ZSH_VCS_PROMPT_ENABLE_CACHING='true'
+ZSH_VCS_PROMPT_AHEAD_SIGIL='A'
+ZSH_VCS_PROMPT_BEHIND_SIGIL='B'
+ZSH_VCS_PROMPT_STAGED_SIGIL='#'
+ZSH_VCS_PROMPT_CONFLICTS_SIGIL='!'
+ZSH_VCS_PROMPT_UNSTAGED_SIGIL='+'
+ZSH_VCS_PROMPT_UNTRACKED_SIGIL='?'
+ZSH_VCS_PROMPT_STASHED_SIGIL='%'
+ZSH_VCS_PROMPT_CLEAN_SIGIL='%{%F{green}%}'
+ZSH_VCS_PROMPT_UNCLEAN_SIGIL=' '
+ZSH_VCS_PROMPT_HIDE_COUNT='true'
+ZSH_VCS_PROMPT_GIT_FORMATS='%{%F{cyan}%}#j(#c#d#e#g#h#i#J#s:#b@#x)'
 
 # prompt
 setopt prompt_subst
 PROMPT="%{%(!.%{$fg[white]%}.$user_color)%}${USER}%{$host_color%}@${HOST%%.*}%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
-RPROMPT="%1(v|%F{green}%1v%f|)%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}"
+RPROMPT='$(vcs_super_info)%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}'
 
 function chpwd() {
     update_title $last_command1
@@ -85,23 +97,12 @@ preexec () {
 last_command1=zsh
 update_title last_command1
 
-
-# VCS
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "# "
-zstyle ':vcs_info:*' unstagedstr "+ "
-zstyle ':vcs_info:*' formats '(%c%u%s:%b@%10.10i)'
-zstyle ':vcs_info:*' actionformats '(%c%u%s:%b@i|%a)'
-
 precmd () {
     #title
     update_title $last_command1 $last_command2
     #VCS
     psvar=()
     LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
 

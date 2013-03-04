@@ -1,3 +1,6 @@
 [submodule ".zsh/zaw"]
 	path = .zsh/zaw
 	url = https://github.com/yudai/zaw.git
+[submodule ".zsh/zsh-vcs-prompt"]
+	path = .zsh/zsh-vcs-prompt
+	url = git://github.com/yonchu/zsh-vcs-prompt.git
