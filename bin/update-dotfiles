@@ -2,5 +2,7 @@
 (
     cd ~/.dotfiles
     git pull
+    git submodule sync > /dev/null
+    git submodule update --init --recursive > /dev/null
 )
 exec zsh -l
