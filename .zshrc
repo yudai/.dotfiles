@@ -115,13 +115,6 @@ setopt append_history
 setopt extended_history
 setopt hist_ignore_space
 
-# Emacs
-bindkey -e
-bindkey "^ " set-mark-command
-bindkey "^w" kill-region
-bindkey "\Mw" copy-region-as-kill
-bindkey "/" expand-word
-
 # misc
 setopt COMPLETE_IN_WORD
 setopt AUTO_PUSHD
@@ -129,13 +122,11 @@ setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
 setopt PUSHD_TO_HOME
 
-#setopt correct
 setopt list_packed
 setopt nolistbeep
 setopt auto_param_slash
 setopt ignore_eof
 
-# 
 autoload -U compinit
 compinit
 setopt extended_glob
@@ -144,10 +135,15 @@ setopt auto_menu
 setopt magic_equal_subst
 setopt list_types
 
+# Emacs
+bindkey -e
+bindkey "^ " set-mark-command
+bindkey "^w" kill-region
+bindkey "\Mw" copy-region-as-kill
+bindkey "/" expand-word
 
 # word defenition (remove / from default)
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
-
 
 # alias
 alias emacs="LANG=ja_JP.utf8 emacs"
