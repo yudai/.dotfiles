@@ -45,8 +45,8 @@ function zaw-src-git-log () {
 
     # Set candidates.
     candidates+=(${(f)log})
-    actions=(zaw-src-git-log-append-to-buffer zaw-src-git-commit-checkout zaw-src-git-commit-reset zaw-src-git-commit-reset-hard)
-    act_descriptions=("append to edit buffer" "checkout" "reset" "reset hard")
+    actions=(zaw-src-git-commit-checkout zaw-src-git-log-append-to-buffer zaw-src-git-commit-reset zaw-src-git-commit-reset-hard zaw-src-git-commit-rebase-interactive)
+    act_descriptions=("checkout" "append to edit buffer" "reset" "reset hard" "rebase interactive")
     # Enale multi marker.
     options+=(-m)
 }
