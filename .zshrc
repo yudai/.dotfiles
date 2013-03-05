@@ -113,9 +113,13 @@ function +vi-git-st() {
 
 # http://www.zsh.org/mla/workers/2011/msg00554.html
 function +vi-git-untracked() {
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]] && \
-        git status --porcelain | grep '??' &> /dev/null ; then
-        hook_com[staged]+='? '
+    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]]; then
+        if (git status --porcelain | grep '??' &> /dev/null) ; then
+            hook_com[staged]+='? '
+        fi
+        if (git submodule status | grep '^+' &> /dev/null); then
+            hook_com[staged]+='* '
+        fi
     fi
 }
 
