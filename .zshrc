@@ -119,7 +119,19 @@ function +vi-git-untracked() {
     fi
 }
 
+# dattetime
+zmodload zsh/datetime
+pre_time=$EPOCHSECONDS
+
 precmd () {
+    # auto reload .dotfiles
+    cur_time=$EPOCHSECONDS
+    if [ $(expr $cur_time - $pre_time) -gt 360 ]; then
+        dotfile-checker
+        exec zsh -l
+    fi
+    pre_time=$cur_time
+
     #title
     update_title $last_command1 $last_command2
     #VCS
