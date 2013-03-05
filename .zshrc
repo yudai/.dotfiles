@@ -237,6 +237,7 @@ alias gcp='git cherry-pick'
 alias grb='git rebase'
 alias grbonto='git rebase --onto'
 alias grbco='git rebase --continue'
+grbi() { git rebase -i HEAD~$1 }
 alias grs='git reset'
 alias grl='git reflog'
 alias gbl='tig blame'
