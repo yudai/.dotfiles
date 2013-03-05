@@ -102,12 +102,13 @@ function +vi-git-st() {
     local -a gitstatus
 
     ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-    (( $ahead )) && gitstatus+=( "+${ahead} " )
+    (( $ahead )) && gitstatus+=( "+${ahead}" )
 
     behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-    (( $behind )) && gitstatus+=( "-${behind} " )
+    (( $behind )) && gitstatus+=( "-${behind}" )
 
-    hook_com[misc]+=${(j:/:)gitstatus}
+    hook_com[misc]+="${(j:/:)gitstatus}"
+    if [ ${#gitstatus} -gt 0 ]; then hook_com[misc]+=' '; fi
 }
 
 # http://www.zsh.org/mla/workers/2011/msg00554.html
