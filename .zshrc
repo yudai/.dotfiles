@@ -87,7 +87,9 @@ update_title last_command1
 
 
 # VCS
+fpath=(~/.zsh $fpath)
 autoload -Uz vcs_info
+autoload -Uz VCS_INFO_get_data_git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "# "
@@ -113,13 +115,8 @@ function +vi-git-st() {
 
 # http://www.zsh.org/mla/workers/2011/msg00554.html
 function +vi-git-untracked() {
-    if [[ $(git rev-parse --is-inside-work-tree 2> /dev/null) == 'true' ]]; then
-        if (git status --porcelain | grep '??' &> /dev/null) ; then
-            hook_com[staged]+='? '
-        fi
-        if (git submodule status | grep '^+' &> /dev/null); then
-            hook_com[staged]+='* '
-        fi
+    if (git status --porcelain | grep '??' &> /dev/null) ; then
+        hook_com[staged]+='? '
     fi
 }
 
