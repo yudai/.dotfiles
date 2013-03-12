@@ -25,7 +25,7 @@
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-tty-dark)
-
+(if window-system (set-face-background 'default "black"))
 
 
 ;;; Keymaps
