@@ -5,4 +5,9 @@
     git submodule sync > /dev/null
     git submodule update --init --recursive > /dev/null
 )
-exec zsh -l
+if [ -z "`jobs`" ]; then
+    exec zsh -l;
+else
+    echo "Background job detected, aborting..."
+fi
+

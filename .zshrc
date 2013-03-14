@@ -128,8 +128,7 @@ precmd () {
     # auto reload .dotfiles
     cur_time=$EPOCHSECONDS
     if [ $(expr $cur_time - $pre_time) -gt 360 ]; then
-        dotfile-checker
-        exec zsh -l
+        if [ -z "`jobs`" ]; then exec zsh -l; fi
     fi
     pre_time=$cur_time
 
@@ -246,7 +245,7 @@ alias gmr='git merge'
 alias bmrrb='git merge --rebase'
 
 alias be='bundle exec'
-alias reload='exec zsh -l'
+alias reload='if [ -z "`jobs`" ]; then exec zsh -l; fi'
 alias update-dotfiles='exec update-dotfiles'
 
 alias tiga='tig --all'
