@@ -1,17 +1,13 @@
-#
-# .zshrc is sourced in interactive shells.
-# It should contain commands to set up aliases,
-# functions, options, key bindings, etc.
-#
-
-
-# when lunced by "sudo -s", load .zprofile to set PATH
+# when launced by "sudo -s", load .zprofile to set PATH
 if [ x$SUDO_USER != "x" -a x$LOGNAME = "xroot" ]; then
     source ~/.zprofile
 fi
 
-autoload -U colors
-colors
+# default prompt colors
+autoload -U colors && colors
+user_color=$fg[yellow]
+host_color=$fg_bold[yellow]$bg[cyan]
+prompt_color=$fg[red]
 
 # load host specific zshrc file
 HOST_RC=~/.dotfiles.priv/`hostname -s`/.zshrc
@@ -21,31 +17,54 @@ if [ -f $HOST_RC ]; then
     source $HOST_RC
 fi
 
-# default variables
-user_color=$fg[yellow]
-host_color=$fg_bold[yellow]$bg[cyan]
-prompt_color=$fg[red]
-
 # call host specific setting
 pre_rc
 
-
-setopt print_eight_bit
-
 # colors
 export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:'
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
 
 # prompt
-setopt prompt_subst
-PROMPT="%{%(!.%{$fg[white]%}.$user_color)%}${USER}%{$host_color%}@${HOST%%.*}%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
+setopt PROMPT_SUBST
+PROMPT="%{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
 RPROMPT="%1(v|%F{green}%1v%f|)%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}"
+
+# VCS
+fpath=(~/.zsh $fpath)
+autoload -Uz vcs_info
+autoload -Uz VCS_INFO_get_data_git
+zstyle ':vcs_info:*' get-revision true
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' stagedstr "# "
+zstyle ':vcs_info:*' unstagedstr "+ "
+zstyle ':vcs_info:*' formats '(%m%c%u%s:%b@%10.10i)'
+zstyle ':vcs_info:*' actionformats '(%m%c%u%s:%b@i|%a)'
+
+# http://www.opensource.apple.com/source/zsh/zsh-55/zsh/Misc/vcs_info-examples
+zstyle ':vcs_info:git*+set-message:*' hooks git-st git-untracked
+function +vi-git-st() {
+    local ahead behind
+    local -a gitstatus
+
+    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    (( $ahead )) && gitstatus+=( "+${ahead}" )
+
+    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    (( $behind )) && gitstatus+=( "-${behind}" )
+
+    hook_com[misc]+="${(j:/:)gitstatus}"
+    if [ ${#gitstatus} -gt 0 ]; then hook_com[misc]+=' '; fi
+}
+
+# http://www.zsh.org/mla/workers/2011/msg00554.html
+function +vi-git-untracked() {
+    if (git status --porcelain | grep '??' &> /dev/null) ; then
+        hook_com[staged]+='? '
+    fi
+}
 
 function chpwd() {
     update_title $last_command1
-    # cdd
-    _reg_pwd_screennum_ruby
+    _reg_pwd_screennum_ruby # cdd
 }
 
 # title
@@ -85,41 +104,6 @@ preexec () {
 last_command1=zsh
 update_title last_command1
 
-
-# VCS
-fpath=(~/.zsh $fpath)
-autoload -Uz vcs_info
-autoload -Uz VCS_INFO_get_data_git
-zstyle ':vcs_info:*' get-revision true
-zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "# "
-zstyle ':vcs_info:*' unstagedstr "+ "
-zstyle ':vcs_info:*' formats '(%m%c%u%s:%b@%10.10i)'
-zstyle ':vcs_info:*' actionformats '(%m%c%u%s:%b@i|%a)'
-
-# http://www.opensource.apple.com/source/zsh/zsh-55/zsh/Misc/vcs_info-examples
-zstyle ':vcs_info:git*+set-message:*' hooks git-st git-untracked
-function +vi-git-st() {
-    local ahead behind
-    local -a gitstatus
-
-    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-    (( $ahead )) && gitstatus+=( "+${ahead}" )
-
-    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-    (( $behind )) && gitstatus+=( "-${behind}" )
-
-    hook_com[misc]+="${(j:/:)gitstatus}"
-    if [ ${#gitstatus} -gt 0 ]; then hook_com[misc]+=' '; fi
-}
-
-# http://www.zsh.org/mla/workers/2011/msg00554.html
-function +vi-git-untracked() {
-    if (git status --porcelain | grep '??' &> /dev/null) ; then
-        hook_com[staged]+='? '
-    fi
-}
-
 # dattetime
 zmodload zsh/datetime
 pre_time=$EPOCHSECONDS
@@ -140,38 +124,40 @@ precmd () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
-
 # history
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
-setopt append_history
-setopt extended_history
-setopt hist_ignore_space
+setopt APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_SPACE
 
-# misc
-setopt COMPLETE_IN_WORD
+# pushd
+DIRSTACKSIZE=100
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
-setopt PUSHD_TO_HOME
 
-setopt list_packed
-setopt nolistbeep
-setopt auto_param_slash
-setopt ignore_eof
-
-autoload -U compinit
-compinit
-setopt extended_glob
+# complete
+autoload -U compinit && compinit
+setopt COMPLETE_IN_WORD
+setopt GLOB_COMPLETE
+setopt LIST_PACKED
+setopt LIST_TYPES
+setopt NOLISTBEEP
+setopt MAGIC_EQUAL_SUBST
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-setopt auto_menu
-setopt magic_equal_subst
-setopt list_types
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
-# Emacs
+# misc
+setopt PRINT_EIGHT_BIT
+setopt IGNORE_EOF
+setopt EXTENDED_GLOB
+
+# Emacs Keymap
 bindkey -e
 bindkey "^ " set-mark-command
 bindkey "^w" kill-region
@@ -267,7 +253,6 @@ if [ "$SHLVL" != "1" ]; then
     alias screen='screen -c .screenrc.remote'
 fi
 
-
 # cdd
 function _reg_pwd_screennum_ruby() {}
 if which ruby >/dev/null 2>&1;then
@@ -306,7 +291,6 @@ bindkey "^X^B" zaw-git-branches
 bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh
 bindkey '^X^L' zaw-git-log
-
 
 # cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
