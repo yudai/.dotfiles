@@ -134,7 +134,6 @@ setopt NOLISTBEEP
 setopt MAGIC_EQUAL_SUBST
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-bindkey "\e[Z" reverse-menu-complete
 
 # history
 HISTFILE=~/.zsh_history
@@ -164,6 +163,7 @@ bindkey "^ " set-mark-command
 bindkey "^w" kill-region
 bindkey "\Mw" copy-region-as-kill
 bindkey "/" expand-word
+bindkey "[Z" reverse-menu-complete
 
 # word defenition (remove / from default)
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
