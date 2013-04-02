@@ -229,7 +229,6 @@ alias grs='git reset'
 alias grl='git reflog'
 alias gbl='tig blame'
 alias gmr='git merge'
-alias gmrrb='git merge --rebase'
 alias gmrnf='git merge --no-ff'
 
 alias be='bundle exec'
