@@ -124,6 +124,18 @@ precmd () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 }
 
+# complete
+autoload -U compinit && compinit
+setopt COMPLETE_IN_WORD
+setopt GLOB_COMPLETE
+setopt LIST_PACKED
+setopt LIST_TYPES
+setopt NOLISTBEEP
+setopt MAGIC_EQUAL_SUBST
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+bindkey "\e[Z" reverse-menu-complete
+
 # history
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
@@ -140,17 +152,6 @@ DIRSTACKSIZE=100
 setopt AUTO_PUSHD
 setopt PUSHD_IGNORE_DUPS
 setopt PUSHD_SILENT
-
-# complete
-autoload -U compinit && compinit
-setopt COMPLETE_IN_WORD
-setopt GLOB_COMPLETE
-setopt LIST_PACKED
-setopt LIST_TYPES
-setopt NOLISTBEEP
-setopt MAGIC_EQUAL_SUBST
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # misc
 setopt PRINT_EIGHT_BIT
