@@ -84,8 +84,8 @@ if [ $install_packages ]; then
     # install some packages for better life
     echo $password | sudo -S aptitude install -y source-highlight vim lv emacs gcc aspell tree emacs-goodies-el markdown
     # rbenv
-    echo $password | sudo -S aptitude install libssl-dev zlib1g-dev
-    echo $password | sudo -S aptitude install libreadline-dev
+    echo $password | sudo -S aptitude install -y libssl-dev zlib1g-dev
+    echo $password | sudo -S aptitude install -y libreadline-dev
 
     sudo chmod a+x /usr/share/doc/git/contrib/workdir/git-new-workdir
 fi
