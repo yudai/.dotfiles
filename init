@@ -80,7 +80,7 @@ git_email=${git_email:="yudai@arielworks.com"}
 if [ $install_packages ]; then
     echo "Installing packages..."
     echo $password | sudo -S aptitude update
-    echo $password | sudo -S aptitude install -y zsh git expect
+    echo $password | sudo -S aptitude install -y zsh git expect build-essential
     # install some packages for better life
     echo $password | sudo -S aptitude install -y source-highlight vim lv emacs gcc aspell tree emacs-goodies-el markdown
     # rbenv
