@@ -173,7 +173,7 @@ if (git clone http://github.com/yudai/tig.git /tmp/tig); then
     )
 fi
 
-if (git clone http://github.com/yudai/screengit /tmp/screen); then
+if (git clone http://github.com/yudai/screen.git /tmp/screen); then
     if [ $install_packages ]; then
         echo $password | sudo -S aptitude install -y libncurses-dev dh-autoreconf
     fi
