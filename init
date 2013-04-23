@@ -69,9 +69,9 @@ while [ 1 ]; do
 done
 
 
-echo -n "Git Name [IWASAKI Yudai]:"
+echo -n "Git Name [Iwasaki Yudai]:"
 read git_name
-git_namel=${git_name:="git@github.com:yudai"}
+git_namel=${git_name:="Iwasaki Yudai"}
 
 echo -n "Git Email [yudai@arielworks.com]: "
 read git_email
@@ -129,7 +129,7 @@ if (which git > /dev/null); then
     cd ~
     if ([ -d .dotfiles ] || (git clone $git_url/.dotfiles)); then
         cd .dotfiles
-        git config --local user.email "IWASAKI Yudai"
+        git config --local user.email "Iwasaki Yudai"
         git config --local user.email "yudai@arielworks.com"
         git submodule init
         git submodule update --recursive
