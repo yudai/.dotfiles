@@ -230,6 +230,7 @@ alias grl='git reflog'
 alias gbl='tig blame'
 alias gmr='git merge'
 alias gmrnf='git merge --no-ff'
+alias gcl='git clean -f -d'
 
 alias be='bundle exec'
 alias reload='if [ -z "`jobs`" ]; then exec zsh -l; fi'
