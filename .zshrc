@@ -212,7 +212,7 @@ gpuu() { git push -u ${@:-origin} `git rev-parse --abbrev-ref HEAD` }
 alias gpuf='git push -f'
 alias gs='git status'
 alias gsh='git stash'
-alias gshp='git stash pop'
+alias gpp='git stash pop'
 alias gsu='git submodule'
 alias gsuu='git submodule sync && git submodule update --init --recursive'
 alias gpl='git pull --ff-only'
