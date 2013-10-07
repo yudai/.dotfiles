@@ -27,3 +27,4 @@ set nobackup
 set scrolloff=10000000
 set directory=~/.vim/tmp
 set hidden
+set mouse=a
