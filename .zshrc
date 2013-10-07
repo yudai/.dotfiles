@@ -89,7 +89,12 @@ function update_title() {
             ;;
     esac
     if [ x"$STY" != x"" ]; then # for screen hack
-        title="[$(basename $(pwd))] $cmd"
+        dirname=$(basename $(pwd))
+        dirname_len=${#dirname}
+        if [ $dirname_len -gt 14 ]; then
+          dirname=${dirname:0:6}..${dirname:$(( $dirname_len - 6 )):6}
+        fi
+        title="[${dirname}] $cmd"
         echo -ne "\ek$title\e\\"
         print -n "\e]0;$title\a"
     elif [ x"${TERM%%-*}" = x"xterm" ]; then
