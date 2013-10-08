@@ -159,7 +159,7 @@ cp -r ~/.dotfiles/.dotfiles.priv.host.skel `hostname`
 
 if (git clone https://github.com/jonas/tig.git /tmp/tig); then
     if [ $install_packages ]; then
-        echo $password | sudo -S aptitude install -y libncurses-dev libncursesw5-dev
+        echo $password | sudo -S aptitude install -y libncurses-dev libncursesw5-dev autotools-dev automake
     fi
     (
         cd /tmp/tig
