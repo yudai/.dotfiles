@@ -157,13 +157,13 @@ fi
 cd ~/.dotfiles.priv
 cp -r ~/.dotfiles/.dotfiles.priv.host.skel `hostname`
 
-if (git clone http://github.com/yudai/tig.git /tmp/tig); then
+if (git clone https://github.com/jonas/tig.git /tmp/tig); then
     if [ $install_packages ]; then
         echo $password | sudo -S aptitude install -y libncurses-dev libncursesw5-dev
     fi
     (
         cd /tmp/tig
-        if (./autogen.sh &&./configure && make); then
+        if (./autogen.sh &&./configure --prefix=/usr/local && make); then
             if [ $system_wide_command ]; then
                 echo $password | sudo -S make install
             else
