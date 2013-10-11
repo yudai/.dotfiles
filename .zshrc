@@ -217,6 +217,7 @@ alias gaaa='git add . && git status -sb'
 alias gap='git add -p'
 alias gpu='git push'
 gpuu() { git push -u ${@:-origin} `git rev-parse --abbrev-ref HEAD` }
+gpuuf() { git push -f -u ${@:-origin} `git rev-parse --abbrev-ref HEAD` }
 alias gpuf='git push -f'
 alias gs='git status'
 alias gsh='git stash'
