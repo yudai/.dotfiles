@@ -98,7 +98,23 @@ function update_title() {
     fi
 
     if [ x"$STY" != x"" ]; then # for screen hack
-        echo -ne "\e]0;[${short_dirname}] $cmd\a"
+        # when done in a background window
+        parent_exist=no
+        if (screen -ls | grep -q parent ); then
+            parent_exist=yes
+        fi
+        parent_window=`screen -Q echo '$WINDOW'`
+        if ( [ ${parent_exist} = "yes" ] && [ "${parent_window}" != "" ] && [ $(ruby -e "print '`screen -S parent -Q windows`'.split('  ').find { |t| t.match(/^\d+\*/)}.split('*')[0]") -ne ${parent_window} ] ) \
+            || [ $(ruby -e "print '`screen -Q windows`'.split('  ').find { |t| t.match(/^\d+\*/)}.split('*')[0]") -ne "$WINDOW" ]; then
+            # growl hack
+            if [ ${parent_exist} = "yes" ]; then
+                parent_flag=(-S parent)
+            fi
+            screen ${parent_flag} -X echo "!! Background command \`${cmd}\` completed at ${parent_window}/${WINDOW} !!"
+            echo -ne "\e]0;\x5B!!!] $cmd [!!!]\a"
+        else
+            echo -ne "\e]0;[${short_dirname}] $cmd\a"
+        fi
         print -n "\ek[${dirname}] $cmd\e\\"
     elif [ x"${TERM%%-*}" = x"xterm" ]; then
         title="[${short_dirname}@${HOST%%.}] $cmd"
