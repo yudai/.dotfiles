@@ -26,5 +26,4 @@ set complete=.,w,b,u,k
 set nobackup
 set directory=~/.vim/tmp
 set hidden
-set mouse=a
 set textwidth=0
