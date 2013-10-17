@@ -69,7 +69,7 @@ function chpwd() {
 
 # title
 function update_title() {
-    cmd=(${(z)1})
+    cmd=(${(z)2})
     case $cmd[1] in
         fg)
             if (( $#cmd == 1)); then
@@ -96,27 +96,30 @@ function update_title() {
     else
         short_dirname=$dirname
     fi
-
+    paren=(\[ \* \] \*)
+    paren_left=$1
+    paren_right=$(($paren_left + 2))
     if [ x"$STY" != x"" ]; then # for screen hack
-        echo -ne "\e]0;[${short_dirname}] $cmd\a"
-        print -n "\ek[${dirname}] $cmd\e\\"
+        echo -ne "\e]0;$paren[$paren_left]${short_dirname}$paren[$paren_right] $cmd\a"
+        print -n "\ek$paren[$paren_left]${dirname}$paren[$paren_right] $cmd\e\\"
     elif [ x"${TERM%%-*}" = x"xterm" ]; then
-        title="[${short_dirname}@${HOST%%.}] $cmd"
+        title="$paren[$paren_left]${short_dirname}@${HOST%%.}$paren[$paren_right] $cmd"
         print -n "\e]0;$title\a"
     fi
 }
 preexec () {
-    update_title $1
+    update_title 2 $1
     last_command1=$1
 }
 last_command1=zsh
-update_title last_command1
+update_title 1 last_command1
 
 # dattetime
 zmodload zsh/datetime
 pre_time=$EPOCHSECONDS
 
 precmd () {
+    last_code=$?
     # auto reload .dotfiles
     cur_time=$EPOCHSECONDS
     duration=$(($cur_time - $pre_time))
@@ -126,13 +129,13 @@ precmd () {
     pre_time=$cur_time
 
     #title
-    update_title $last_command1 $last_command2
+    update_title 1 $last_command1 $last_command2
     #VCS
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 
-    if [ ${duration} -gt 5 ]; then
+    if ( [ ${duration} -gt 5 ] || [ $last_code -ne 0  ] ); then
         # when done in a background window
         parent_exist=no
         if (screen -ls | grep -q parent ); then
@@ -145,7 +148,7 @@ precmd () {
                 parent_flag=(-S parent)
             fi
             screen ${parent_flag} -X echo "!! Background command \`${cmd}\` completed at ${parent_window}/${WINDOW} !!"
-            echo -ne "\e]0;\x5B!!!] $cmd [!!!]\a"
+            echo -ne "[$last_code] $cmd\a"
         fi
     fi
 }
