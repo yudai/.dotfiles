@@ -132,7 +132,7 @@ precmd () {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 
-    if [ ${duration} -gt 2 ]; then
+    if [ ${duration} -gt 5 ]; then
         # when done in a background window
         parent_exist=no
         if (screen -ls | grep -q parent ); then
