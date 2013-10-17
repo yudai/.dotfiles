@@ -63,7 +63,7 @@ function +vi-git-untracked() {
 }
 
 function chpwd() {
-    update_title $last_command1
+    update_title 1 $last_command1
     _reg_pwd_screennum_ruby # cdd
 }
 
