@@ -26,7 +26,7 @@ export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd
 # prompt
 setopt PROMPT_SUBST
 PROMPT="%{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
-RPROMPT="%1(v|%F{green}%1v%f|)%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}"
+RPROMPT="%1(v|%F{green}%1v%f|)%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}(%(?.%?.%{$fg[red]%}%?%{$reset_color%}))"
 
 # VCS
 fpath=(~/.zsh $fpath)
