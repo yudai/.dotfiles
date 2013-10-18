@@ -135,8 +135,8 @@ precmd () {
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 
-    if ( [ ${duration} -gt 5 ] || [ $last_code -ne 0  ] ); then
-        # when done in a background window
+    # when done in a background window
+    if ( [ -n "$STY" ] && ( [ ${duration} -gt 5 ] || [ $last_code -ne 0  ] ) ); then
         parent_exist=no
         if (screen -ls | grep -q parent ); then
             parent_exist=yes
