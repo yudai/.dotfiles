@@ -142,8 +142,11 @@ precmd () {
             parent_exist=yes
         fi
         parent_window=`screen -Q echo '$WINDOW'`
-        if ( [ ${parent_exist} = "yes" ] && [ "${parent_window}" != "" ] && [ $(ruby -e "print '`screen -S parent -Q windows`'.split('  ').find { |t| t.match(/^\d+\*/)}.split('*')[0]") -ne ${parent_window} ] ) \
-            || [ $(ruby -e "print '`screen -Q windows`'.split(/\s+?(?=\d[&*]*\\$)/).find { |t| t.match(/^\d+?\*/)}.split('*')[0]") -ne "$WINDOW" ]; then
+        if (ruby --version >/dev/null 2>&1) && \
+           ( ( [ ${parent_exist} = "yes" ] && \
+               [ "${parent_window}" != "" ] && \
+               [ $(ruby -e "print '`screen -S parent -Q windows`'.split(/\s+?(?=\d[&*-]*\\$)/).find { |t| t.match(/^\d+?\*/)}.split('*')[0]") -ne ${parent_window} ] ) || \
+             [ $(ruby -e "print '`screen -Q windows`'.split(/\s+?(?=\d[&*-]*\\$)/).find { |t| t.match(/^\d+?\*/)}.split('*')[0]") -ne "$WINDOW" ] ); then
             if [ ${parent_exist} = "yes" ]; then
                 parent_flag=(-S parent)
             fi
