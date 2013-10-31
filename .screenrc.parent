@@ -1,6 +1,6 @@
 escape ^U^U
 caption always "%{= wk} %=%-w%{= Kw}%n %h%{-}%+w "
-msgwait 1
+msgwait 5
 vbell off
 term xterm-256color
 defencoding UTF-8
