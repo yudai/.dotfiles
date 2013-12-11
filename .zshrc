@@ -273,7 +273,7 @@ alias grl='git reflog'
 alias gre='git remote'
 alias grev='git remote -v'
 alias gbl='tig blame'
-alias gmr='git merge'
+alias gmr='git merge --ff-only'
 alias gmrnf='git merge --no-ff'
 alias gcl='git clean -f -d'
 
