@@ -339,6 +339,11 @@
 (if font-lock-mode nil
   (font-lock-mode t))) t)
 
+(require 'whitespace)
+(setq whitespace-style '(face empty tabs lines-tail))
+(global-whitespace-mode t)
+
+
 ; incremental search in buffer selection
 (iswitchb-mode 1)
 (add-hook 'iswitchb-define-mode-map-hook
