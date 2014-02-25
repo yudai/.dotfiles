@@ -2,6 +2,7 @@
 (if (eq emacs-major-version '21) (load "~/.emacs.21"))
 (if (eq emacs-major-version '22) (load "~/.emacs.22"))
 (if (eq emacs-major-version '23) (load "~/.emacs.23"))
+(if (eq emacs-major-version '24) (load "~/.emacs.24"))
 ;;; Environment
 (cd "~/")
 (set-language-environment "japanese")
@@ -221,8 +222,12 @@
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
 
-
-
+;;; go-mode
+(defun my-go-mode-hook ()
+  )
+(add-hook 'go-mode-hook (lambda ()
+                          (setq tab-width 2)
+                          (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty))))
 
 
 
@@ -318,20 +323,13 @@
 
 
 
-; hilight double width space and tab
 (defface my-face-b-1 '((t (:background "red" :underline t))) nil)
-(defface my-face-b-2 '((t (:foreground "cyan" :underline t))) nil)
-(defface my-face-u-1 '((t (:foreground "red" :underline t))) nil)
 (defvar my-face-b-1 'my-face-b-1)
-(defvar my-face-b-2 'my-face-b-2)
-(defvar my-face-u-1 'my-face-u-1)
 (defadvice font-lock-mode (before my-font-lock-mode ())
   (font-lock-add-keywords
    major-mode
    '(
      ("　" 0 my-face-b-1 append)
-     ("\t" 0 my-face-b-2 append)
-     ("[ ]+$" 0 my-face-u-1 append)
      )))
 (ad-enable-advice 'font-lock-mode 'before 'my-font-lock-mode)
 (ad-activate 'font-lock-mode)
@@ -340,9 +338,13 @@
   (font-lock-mode t))) t)
 
 (require 'whitespace)
-(setq whitespace-style '(face empty tabs lines-tail))
 (global-whitespace-mode t)
-
+(setq whitespace-style '(face tabs trailing lines-tail empty))
+(set-face-underline  'whitespace-trailing t)
+(set-face-foreground 'whitespace-trailing "red")
+(set-face-background 'whitespace-trailing "DarkRed")
+(set-face-foreground 'whitespace-tab "LightSlateGray")
+(set-face-background 'whitespace-tab "DarkSlateGray")
 
 ; incremental search in buffer selection
 (iswitchb-mode 1)
@@ -399,38 +401,6 @@
           '(lambda ()
              (yas/minor-mode-on)))
 
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
-
-
-;;; This was installed by package-install.el.
-;;; This provides support for the package system and
-;;; interfacing with ELPA, the package archive.
-;;; Move this code earlier if you want to reference
-;;; packages in your .emacs.
-(when
-    (load
-     (expand-file-name "~/.emacs.d/elpa/package.el"))
-  (package-initialize))
 
 ;; gnu global
 (autoload 'gtags-mode "gtags" "" t)
