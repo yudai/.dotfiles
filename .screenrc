@@ -13,6 +13,7 @@ termcapinfo xterm* 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 altscreen on
 ignorecase
 defbce on
+startup_message off
 
 bind k kill
 bind ^o next
