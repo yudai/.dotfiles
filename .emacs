@@ -222,31 +222,26 @@
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
 
+;;; auto-complete
+(require 'auto-complete)
+
 ;;; go-mode
-(defun my-go-mode-hook ()
-  )
+(defun my-go-mode-hook ())
 (add-hook 'go-mode-hook (lambda ()
                           (setq tab-width 2)
-                          (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty))))
+                          (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty))
+                          (local-set-key (kbd "M-.") 'godef-jump)))
+;(require 'go-autocomplete)
+;(require 'auto-complete-config)
 
-
+;;; Rspec mode
+(require 'rspec-mode)
 
 ;;; ruby-mode
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (setq auto-mode-alist
-      (append '(("\\.rb$" . ruby-mode)) auto-mode-alist))
-(setq auto-mode-alist
-      (append '(("RAKEFILE" . ruby-mode)) auto-mode-alist))
-(setq interpreter-mode-alist (append '(("ruby" . ruby-mode))
-                                     interpreter-mode-alist))
-(autoload 'run-ruby "inf-ruby"
-  "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-            (inf-ruby-keys)))
+      (append '(("Rakefile" . ruby-mode)) auto-mode-alist))
 ; pretty indent
 ; http://willnet.in/13
 (setq ruby-deep-indent-paren-style nil)
@@ -264,6 +259,7 @@
     (when indent
       (indent-line-to indent)
       (when (> offset 0) (forward-char offset)))))
+
 
 ;;; css-mode
 (add-to-list 'auto-mode-alist '("\\.css\\'" . css-mode))
