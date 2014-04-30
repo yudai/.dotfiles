@@ -416,3 +416,9 @@
 ;;; markdown
 (autoload 'markdown-mode "markdown-mode.el" "Major mode for editing Markdown files" t)
 (setq auto-mode-alist (cons '("\\.md" . markdown-mode) auto-mode-alist))
+
+;;; php-mode
+(require 'php-mode)
+(add-hook 'php-mode-hook
+          '(lambda ()
+             (setq c-basic-offset 2)))
