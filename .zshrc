@@ -300,6 +300,22 @@ if [ "$SHLVL" != "1" ]; then
     alias screen='screen -c .screenrc.remote'
 fi
 
+function peco-select-history() {
+    local tac
+    if which tac > /dev/null; then
+        tac="tac"
+    else
+        tac="tail -r"
+    fi
+    BUFFER=$(history -n 1 | \
+        eval $tac | \
+        peco --query "$LBUFFER")
+    CURSOR=$#BUFFER
+    zle clear-screen
+}
+zle -N peco-select-history
+bindkey '^x^s' peco-select-history
+
 # cdd
 function _reg_pwd_screennum_ruby() {}
 if which ruby >/dev/null 2>&1;then
