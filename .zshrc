@@ -134,26 +134,6 @@ precmd () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
-
-    # when done in a background window
-    if ( [ -n "$STY" ] && ( [ ${duration} -gt 5 ] || [ $last_code -ne 0  ] ) ); then
-        parent_exist=no
-        if (screen -ls | grep -q parent ); then
-            parent_exist=yes
-        fi
-        parent_window=`screen -Q echo '$WINDOW'`
-        if (ruby --version >/dev/null 2>&1) && \
-           ( ( [ ${parent_exist} = "yes" ] && \
-               [ "${parent_window}" != "" ] && \
-               [ $(ruby -e "print '`screen -S parent -Q windows`'.split(/\s+?(?=\d+[&*-\\\\$]*)/).find { |t| t.match(/^\d+?\*/)}.split('*')[0]") -ne ${parent_window} ] ) || \
-             [ $(ruby -e "print '`screen -Q windows`'.split(/\s+?(?=\d+[&*-\\\\$]*)/).find { |t| t.match(/^\d+?\*/)}.split('*')[0]") -ne "$WINDOW" ] ); then
-            if [ ${parent_exist} = "yes" ]; then
-                parent_flag=(-S parent)
-            fi
-            screen ${parent_flag} -X echo "!! Background command \`${cmd}\` completed at ${parent_window}/${WINDOW} !!"
-            echo -ne "[$last_code] $cmd\a"
-        fi
-    fi
 }
 
 # complete
