@@ -344,3 +344,6 @@ zstyle ':completion:*' recent-dirs-insert both
 
 # editor
 export EDITOR=vi
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
