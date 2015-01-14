@@ -107,9 +107,21 @@ function update_title() {
         print -n "\e]0;$title\a"
     fi
 }
+
+alias pp='cat ~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW | head -n -1 | tail -n +1 | peco'
 preexec () {
     update_title 2 $1
     last_command1=$1
+
+    # remove screen log
+    screen_log=~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW
+    if [ -f $screen_log -a $last_command1 != 'pp' ]; then
+        rm $screen_log
+    fi
+    # enable screen log
+    if [ $last_command1 != 'pp' ]; then
+        screen -X log on
+    fi
 }
 last_command1=zsh
 update_title 1 last_command1
@@ -134,6 +146,11 @@ precmd () {
     psvar=()
     LANG=en_US.UTF-8 vcs_info
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+
+    # disable screen log
+    screen -X msgwait 0
+    screen -X log off
+    screen -X msgwait 1
 }
 
 # complete
