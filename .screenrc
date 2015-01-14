@@ -15,6 +15,9 @@ ignorecase
 defbce on
 startup_message off
 
+logfile ".screen.log/screen.%S.%n"
+logfile flush 0
+
 bind k kill
 bind ^o next
 bind ^p prev
