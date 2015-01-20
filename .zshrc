@@ -109,18 +109,19 @@ function update_title() {
 }
 
 alias pp='cat ~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW | head -n -1 | tail -n +1 | peco'
+alias pless='cat ~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW | head -n -1 | tail -n +1 | less'
 preexec () {
     update_title 2 $1
     last_command1=$1
 
     # remove screen log
-    screen_log=~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW
-    if [ -f $screen_log -a $last_command1 != 'pp' ]; then
-        rm $screen_log
-    fi
-    # enable screen log
-    if [ $last_command1 != 'pp' ]; then
-        screen -X log on
+    if [ -n "$STY" -a $last_command1 != 'pp' -a $last_command1 != 'pless' ]; then
+       screen_log=~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW
+       if [ -f $screen_log ]; then
+           rm $screen_log
+       fi
+       # enable screen log
+       screen -X log on
     fi
 }
 last_command1=zsh
@@ -148,9 +149,11 @@ precmd () {
     [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
 
     # disable screen log
-    screen -X msgwait 0
-    screen -X log off
-    screen -X msgwait 1
+    if [ -n "$STY" ]; then
+        screen -X msgwait 0
+        screen -X log off
+        screen -X msgwait 1
+    fi
 }
 
 # complete
@@ -257,6 +260,7 @@ alias gddw='git diff HEAD --word-diff'
 alias gdh='git diff HEAD\^ HEAD'
 alias gdhw='git diff HEAD\^ HEAD --word-diff'
 alias gg='git grep -i -n -F'
+ggp() { git grep -i -n -F $* | peco }
 alias ggr='git grep -i -n -P'
 alias gfe='git fetch'
 alias gfea='git fetch --all'
