@@ -158,7 +158,7 @@ precmd () {
 }
 
 # complete
-autoload -U compinit && compinit
+autoload -U compinit && compinit -u
 setopt COMPLETE_IN_WORD
 setopt GLOB_COMPLETE
 setopt LIST_PACKED
