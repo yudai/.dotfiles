@@ -137,7 +137,7 @@ precmd () {
     # auto reload .dotfiles
     cur_time=$EPOCHSECONDS
     duration=$(($cur_time - $pre_time))
-    if [ ${duration} -gt 360 ]; then
+    if [ ${duration} -gt 3600 ]; then
         if [ -z "`jobs`" ]; then exec zsh -l; fi
     fi
     pre_time=$cur_time
