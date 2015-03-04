@@ -64,6 +64,7 @@ function +vi-git-untracked() {
 
 function chpwd() {
     update_title 1 $last_command1
+    activate_gvm_pkgset
     _reg_pwd_screennum_ruby # cdd
 }
 
@@ -368,3 +369,22 @@ export EDITOR=vi
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# GVM
+function activate_gvm_pkgset() {
+    if [ -n "$__in_active_gvm_pkgset" ]; then
+        return
+    fi
+    __in_active_gvm_pkgset=true
+    nearest_local=((../)#.gvm_local/..(#qN)(:a))
+    if [ -d "$nearest_local" ] && \
+       [ "$nearest_local" != "$__gvm_local_path" ]; then
+        current=$(pwd)
+        cd $nearest_local
+        gvm pkgset use --local
+        __gvm_local_path=$nearest_local
+        cd $current
+    fi
+    unset __in_active_gvm_pkgset
+}
+activate_gvm_pkgset
