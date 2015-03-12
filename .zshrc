@@ -295,8 +295,9 @@ bindkey '^S' history-incremental-pattern-search-forward
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
-bindkey "^[r" history-beginning-search-backward-end
-bindkey "^[s" history-beginning-search-forward-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^n" history-beginning-search-forward-end
 
 if [ "$SHLVL" != "1" ]; then
     alias screen='screen -c .screenrc.remote'
