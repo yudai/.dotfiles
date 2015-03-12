@@ -113,7 +113,7 @@
 
 ;;; javascript-mode
 (when (load "js2" t)
-  (add-to-list 'auto-mode-alist (cons  "\\.\\(js\\|as\\|json\\|jsn\\)\\'" 'js2-mode))
+  (add-to-list 'auto-mode-alist (cons  "\\.\\(js\\|as\\)\\'" 'js2-mode))
   (defun indent-and-back-to-indentation ()
   (interactive)
   (indent-for-tab-command)
