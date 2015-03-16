@@ -26,7 +26,12 @@
 (color-theme-initialize)
 (color-theme-tty-dark)
 (if window-system (set-face-background 'default "black"))
-
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(minibuffer-prompt ((t (:foreground "brightcyan")))))
 
 ;;; Keymaps
 (global-set-key "\C-h" 'delete-backward-char)
