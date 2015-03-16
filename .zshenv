@@ -20,4 +20,6 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init -)"
 fi
 
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+if [  "$gvm_pkgset_name" != "__local__" ]; then
+    [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+fi

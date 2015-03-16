@@ -4,7 +4,6 @@
 (if (eq emacs-major-version '23) (load "~/.emacs.23"))
 (if (eq emacs-major-version '24) (load "~/.emacs.24"))
 ;;; Environment
-(cd "~/")
 (set-language-environment "japanese")
 (prefer-coding-system 'utf-8-unix)
 (set-terminal-coding-system 'utf-8)
@@ -95,6 +94,9 @@
 (global-set-key (kbd "C-M-_") 'redo)
 (global-set-key (kbd "C-x C-_") 'redo)
 
+;; auto-complete-mode
+(require 'auto-complete-config)
+(ac-config-default)
 
 ;;; applescript-mode
 ;(require 'applescript-mode)
@@ -222,17 +224,30 @@
 (add-hook 'js2-mode-hook 'my-js2-mode-hook)
 
 
-;;; auto-complete
-(require 'auto-complete)
+;;; popwin
+(require 'popwin)
+;(popwin-mode 1)
+
 
 ;;; go-mode
+(require 'go-direx)
+(require 'go-autocomplete)
+
 (defun my-go-mode-hook ())
 (add-hook 'go-mode-hook (lambda ()
                           (setq tab-width 2)
                           (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty))
-                          (local-set-key (kbd "M-.") 'godef-jump)))
-;(require 'go-autocomplete)
-;(require 'auto-complete-config)
+                          'go-eldoc-setup
+                          (local-set-key (kbd "M-.") 'godef-jump)
+                          (local-set-key (kbd "C-c C-f") 'gofmt)
+                          (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
+                          (local-set-key (kbd "C-c C-p") 'go-direx-pop-to-buffer)))
+
+(push '(direx:direx-mode :position left :width 0.4 :dedicated t :stick t)
+      popwin:special-display-config)
+
+(add-hook 'before-save-hook 'gofmt-before-save)
+(setq gofmt-command "goimports")
 
 ;;; Rspec mode
 (require 'rspec-mode)
@@ -335,7 +350,7 @@
 
 (require 'whitespace)
 (global-whitespace-mode t)
-(setq whitespace-style '(face tabs trailing lines-tail empty))
+(setq whitespace-style '(face tabs lines-tail trailing empty))
 (set-face-underline  'whitespace-trailing t)
 (set-face-foreground 'whitespace-trailing "red")
 (set-face-background 'whitespace-trailing "DarkRed")
@@ -422,3 +437,6 @@
 (add-hook 'php-mode-hook
           '(lambda ()
              (setq c-basic-offset 2)))
+
+;;; Flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
