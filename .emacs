@@ -252,7 +252,7 @@
       popwin:special-display-config)
 
 (add-hook 'before-save-hook 'gofmt-before-save)
-(setq gofmt-command "goimports")
+;(setq gofmt-command "goimports")
 
 ;;; Rspec mode
 (require 'rspec-mode)
