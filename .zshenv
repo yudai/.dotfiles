@@ -1,6 +1,7 @@
 # env
 export LANG=en_US.UTF-8
 export PATH=~/.dotfiles/bin:$PATH
+export PATH=~/.dotfiles/bin/`uname -sm | sed "s/ /-/"`:$PATH
 export PATH=~/.dotfiles.priv/bin:$PATH
 export PATH=~/.dotfiles.priv/`hostname -s`/bin:$PATH
 
