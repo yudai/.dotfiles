@@ -23,42 +23,73 @@ pre_rc
 # colors
 export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:'
 
+function go_info() {
+    if [ -n "$GVM_ROOT" ]; then
+        pkgname=$gvm_pkgset_name
+        if [ "$pkgname" = "__local__" ]; then
+            pkgname="%{$fg_bold[blue]%}local"
+        fi
+        go_info_msg="%{$fg[blue]%}($gvm_go_name@$pkgname%{$reset_color%}%{$fg[blue]%})%{$reset_color%}"
+    fi
+}
+
+function ruby_info() {
+    if (rbenv 1>/dev/null 2>&1); then
+        global=$(rbenv global)
+        local=$(rbenv local 2>/dev/null)
+        if [ $? -gt 0 ];then
+            version="$global@global"
+        else
+            version="$local@%{$fg_bold[cyan]%}local"
+        fi
+        ruby_info_msg="%{$fg[cyan]%}(ruby$version%{$reset_color%}%{$fg[cyan]%})%{$reset_color%}"
+    fi
+}
+
 # prompt
 setopt PROMPT_SUBST
-PROMPT="%{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
-RPROMPT="%1(v|%F{green}%1v%f|)%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}(%(?.%?.%{$fg[red]%}%?%{$reset_color%}))"
+_lineup=$'\e[1A'
+_linedown=$'\e[1B'
+vcs_color="%{$reset_color%}%{$fg[green]%}"
+PROMPT="
+%{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
+RPROMPT='%{${_lineup}%}${go_info_msg}${ruby_info_msg}${vcs_info_msg_0_}%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}(%(?.%?.%{$fg[red]%}%?%{$reset_color%}))%{${_linedown}%}'
 
 # VCS
 fpath=(~/.zsh $fpath)
 autoload -Uz vcs_info
-autoload -Uz VCS_INFO_get_data_git
 zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' stagedstr "# "
-zstyle ':vcs_info:*' unstagedstr "+ "
-zstyle ':vcs_info:*' formats '(%m%c%u%s:%b@%10.10i)'
-zstyle ':vcs_info:*' actionformats '(%m%c%u%s:%b@i|%a)'
+zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}#${vcs_color}"
+zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}+${vcs_color}"
+zstyle ':vcs_info:*' formats "${vcs_color}(%s:%m%c%u%b@%10.10i${vcs_color})"
+zstyle ':vcs_info:*' actionformats "%{$fg[red]%}(%m%c%u%s:%b@i|%a%{$fg[red]%})"
 
 # http://www.opensource.apple.com/source/zsh/zsh-55/zsh/Misc/vcs_info-examples
-zstyle ':vcs_info:git*+set-message:*' hooks git-st git-untracked
+zstyle ':vcs_info:git*+set-message:*' hooks git-stash-count  git-st git-untracked 
 function +vi-git-st() {
-    local ahead behind
+    local ahead behind stash
     local -a gitstatus
-
     ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-    (( $ahead )) && gitstatus+=( "+${ahead}" )
+    (( $ahead )) && gitstatus+=( "%{$fg[red]%}+${ahead}${vcs_color}" )
 
     behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-    (( $behind )) && gitstatus+=( "-${behind}" )
+    (( $behind )) && gitstatus+=( "%{$fg[magenta]%}-${behind}${vcs_color}" )
+
+    stash=$(git stash list 2>/dev/null | wc -l | tr -d ' ')
+    (( $stash )) && gitstatus+=( "%{$fg[cyan]%}@${stash}${vcs_color}" )
 
     hook_com[misc]+="${(j:/:)gitstatus}"
-    if [ ${#gitstatus} -gt 0 ]; then hook_com[misc]+=' '; fi
+    if [ ${#hook_com[misc]} -ne 0 ]; then hook_com[misc]+='|'; fi
 }
 
 # http://www.zsh.org/mla/workers/2011/msg00554.html
 function +vi-git-untracked() {
     if (git status --porcelain | grep '??' &> /dev/null) ; then
-        hook_com[staged]+='? '
+        hook_com[unstaged]+="%{$fg_bold[cyan]%}?$vcs_color"
+    fi
+    if [ ${#hook_com[staged]} -ne 0 ] || [ ${#hook_com[unstaged]} -ne 0 ]; then
+        hook_com[unstaged]+='|'
     fi
 }
 
@@ -145,9 +176,9 @@ precmd () {
     #title
     update_title 1 $last_command1 $last_command2
     #VCS
-    psvar=()
     LANG=en_US.UTF-8 vcs_info
-    [[ -n "$vcs_info_msg_0_" ]] && psvar[1]="$vcs_info_msg_0_"
+    ruby_info
+    go_info
 
     # disable screen log
     if [ -n "$STY" ]; then
