@@ -141,6 +141,11 @@
 ;; auto-complete-mode
 (require 'auto-complete-config)
 (ac-config-default)
+(define-key ac-complete-mode-map "\C-n" 'ac-next)
+(define-key ac-complete-mode-map "\C-p" 'ac-previous)
+(define-key ac-completing-map [return] nil)
+(define-key ac-completing-map "\r" nil)
+(setq ac-use-comphist nil)
 
 ;;; applescript-mode
 ;(require 'applescript-mode)
