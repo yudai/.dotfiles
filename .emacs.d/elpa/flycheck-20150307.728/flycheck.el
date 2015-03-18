@@ -3735,6 +3735,9 @@ non-nil."
 (defvar-local flycheck-display-error-at-point-timer nil
   "Timer to automatically show the error at point in minibuffer.")
 
+(defvar-local flycheck-display-error-previous-point nil
+  "Cursor position pointed at at the last `flycheck-display-error-at-point' call")
+
 (defun flycheck-cancel-error-display-error-at-point-timer ()
   "Cancel the error display timer for the current buffer."
   (when flycheck-display-error-at-point-timer
@@ -3744,6 +3747,7 @@ non-nil."
 (defun flycheck-display-error-at-point ()
   "Display the all error messages at point in minibuffer."
   (flycheck-cancel-error-display-error-at-point-timer)
+  (setq flycheck-display-error-previous-point (point))
   (when flycheck-mode
     (-when-let (errors (flycheck-overlay-errors-at (point)))
       (flycheck-display-errors errors))))
@@ -3751,7 +3755,7 @@ non-nil."
 (defun flycheck-display-error-at-point-soon ()
   "Display the first error message at point in minibuffer delayed."
   (flycheck-cancel-error-display-error-at-point-timer)
-  (when (flycheck-overlays-at (point))
+  (when (and (flycheck-overlays-at (point)) (not (= flycheck-display-error-previous-point (point))))
     (setq flycheck-display-error-at-point-timer
           (run-at-time flycheck-display-errors-delay nil 'flycheck-display-error-at-point))))
 
