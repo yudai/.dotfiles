@@ -286,8 +286,9 @@
 (add-hook 'go-mode-hook (lambda ()
                           (setq tab-width 2)
                           (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty))
-                          'go-eldoc-setup
+                          (go-eldoc-setup)
                           (local-set-key (kbd "M-.") 'godef-jump)
+                          (local-set-key (kbd "C-c C-a") '(lambda () (interactive) (go-import-add t (replace-regexp-in-string "^[\"']\\|[\"']$" "" (completing-read "Package: " (go--old-completion-list-style (go-packages)))))))
                           (local-set-key (kbd "C-c C-f") 'gofmt)
                           (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
                           (local-set-key (kbd "C-c C-p") 'go-direx-pop-to-buffer)))
