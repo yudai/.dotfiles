@@ -1,0 +1,6 @@
+(define-key minibuffer-local-must-match-map (kbd "C-p") 'previous-history-element)
+(define-key minibuffer-local-must-match-map (kbd "C-n") 'next-history-element)
+(define-key minibuffer-local-completion-map (kbd "C-p") 'previous-history-element)
+(define-key minibuffer-local-completion-map (kbd "C-n") 'next-history-element)
+(define-key minibuffer-local-map (kbd "C-p") 'previous-history-element)
+(define-key minibuffer-local-map (kbd "C-n") 'next-history-element)

@@ -1,0 +1,8 @@
+(require 'auto-complete-config)
+(ac-config-default)
+(ac-flyspell-workaround)
+(setq ac-use-menu-map t)
+(setq ac-use-fuzzy t)
+(setq ac-disable-inline t)
+(setq ac-candidate-menu-min 0)
+(setq ac-comphist-file "~/.ac-comphist")

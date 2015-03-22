@@ -1,11 +1,11 @@
 ;;; go-eldoc-autoloads.el --- automatically extracted autoloads
 ;;
 ;;; Code:
-
+(add-to-list 'load-path (or (file-name-directory #$) (car load-path)))
 
-;;;### (autoloads (go-eldoc-setup) "go-eldoc" "go-eldoc.el" (21763
-;;;;;;  18724 959130 219000))
-;;; Generated autoloads from go-eldoc.el
+;;;### (autoloads nil "go-eldoc" "../../../../.emacs.d/elpa/go-eldoc-20150222.1500/go-eldoc.el"
+;;;;;;  "3b01c2461fecb17eb50130261d485e67")
+;;; Generated autoloads from ../../../../.emacs.d/elpa/go-eldoc-20150222.1500/go-eldoc.el
 
 (autoload 'go-eldoc-setup "go-eldoc" "\
 
@@ -14,16 +14,15 @@
 
 ;;;***
 
-;;;### (autoloads nil nil ("go-eldoc-pkg.el") (21763 18724 967878
-;;;;;;  715000))
+;;;### (autoloads nil nil ("../../../../.emacs.d/elpa/go-eldoc-20150222.1500/go-eldoc-autoloads.el"
+;;;;;;  "../../../../.emacs.d/elpa/go-eldoc-20150222.1500/go-eldoc.el")
+;;;;;;  (21771 16484 196469 892000))
 
 ;;;***
 
-(provide 'go-eldoc-autoloads)
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; coding: utf-8
 ;; End:
 ;;; go-eldoc-autoloads.el ends here

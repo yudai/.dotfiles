@@ -1,5 +1,4 @@
 .zsh/cdd_*
-.emacs.d/*
 .emacs.d/elpa/archives/*
 !.emacs.d/elpa
 .vim/tmp/*

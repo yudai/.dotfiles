@@ -1,3 +1,0 @@
-(require 'un-define)
-;(load "emacs21-256colors.el")
-(tool-bar-mode nil) ; hide toolbar
