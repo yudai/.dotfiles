@@ -233,12 +233,12 @@ bindkey "[Z" reverse-menu-complete
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias
-alias emacs="LANG=ja_JP.utf8 emacs"
-alias lv="LANG=ja_JP.utf8 lv"
+alias emacs="LANG=ja_JP.UTF-8 emacs"
+alias lv="LANG=ja_JP.UTF-8 lv"
 alias pd='popd'
 alias sc='screen -xRU -S'
 alias rhino='java -jar /usr/share/java/js.jar'
-alias irssi='LANG=ja_JP.utf8 irssi'
+alias irssi='LANG=ja_JP.UTF-8 irssi'
 alias gmk='gnatmake -gnaty3abefhiklM120nprt'
 
 alias ls='ls --color=auto'

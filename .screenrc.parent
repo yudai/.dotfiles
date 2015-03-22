@@ -3,6 +3,7 @@ caption always "%{= wk} %=%-w%{= Kw}%n %h%{-}%+w "
 msgwait 5
 vbell off
 term xterm-256color
+cjkwidth on
 defencoding UTF-8
 defscrollback 10000
 autodetach on
