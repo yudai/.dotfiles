@@ -63,7 +63,7 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}#${vcs_color}"
 zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}+${vcs_color}"
 zstyle ':vcs_info:*' formats "${vcs_color}(%s:%m%c%u%b@%10.10i${vcs_color})"
-zstyle ':vcs_info:*' actionformats "%{$fg[red]%}(%m%c%u%s:%b@i|%a%{$fg[red]%})"
+zstyle ':vcs_info:*' actionformats "${vcs_color}(%m%c%u%s:%b@i|%{$fg[red]%}%a${vcs_color})"
 
 # http://www.opensource.apple.com/source/zsh/zsh-55/zsh/Misc/vcs_info-examples
 zstyle ':vcs_info:git*+set-message:*' hooks git-stash-count  git-st git-untracked 
@@ -71,10 +71,10 @@ function +vi-git-st() {
     local ahead behind stash
     local -a gitstatus
     ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
-    (( $ahead )) && gitstatus+=( "%{$fg[red]%}+${ahead}${vcs_color}" )
+    (( $ahead )) && gitstatus+=( "%{$fg[yellow]%}+${ahead}${vcs_color}" )
 
     behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
-    (( $behind )) && gitstatus+=( "%{$fg[magenta]%}-${behind}${vcs_color}" )
+    (( $behind )) && gitstatus+=( "%{$fg[red]%}-${behind}${vcs_color}" )
 
     stash=$(git stash list 2>/dev/null | wc -l | tr -d ' ')
     (( $stash )) && gitstatus+=( "%{$fg[cyan]%}@${stash}${vcs_color}" )
