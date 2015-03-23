@@ -319,16 +319,7 @@ alias tiga='tig --all'
 # bundler exec
 [ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
 
-# search
 stty stop undef
-bindkey '^R' history-incremental-pattern-search-backward
-bindkey '^S' history-incremental-pattern-search-forward
-
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^p" history-beginning-search-backward-end
-bindkey "^n" history-beginning-search-forward-end
 
 if [ "$SHLVL" != "1" ]; then
     alias screen='screen -c .screenrc.remote'
@@ -383,7 +374,7 @@ zstyle ':filter-select' extended-search yes
 zstyle ':filter-select:highlight' matched fg=yellow,standout
 zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
-bindkey "^X^H" zaw-history
+bindkey "^r" zaw-history
 bindkey "^X^B" zaw-git-branches
 bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh
