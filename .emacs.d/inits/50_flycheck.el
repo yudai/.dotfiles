@@ -2,6 +2,7 @@
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+(require 'eldoc)
 (defun my-flycheck-display-error-messages (errors)
   (when (and
          errors
@@ -17,4 +18,4 @@
     '(flycheck-display-errors-function
       #'my-flycheck-display-error-messages)))
 
-(set-face-attribute 'flycheck-error nil :underline t)
+(setq flycheck-rubocop-lint-only t)

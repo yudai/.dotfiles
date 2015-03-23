@@ -71,6 +71,7 @@
  '(modeline-buffer-id ((t (:background "white" :foreground "red"))))
  '(modeline-mousable ((t (:background "white" :foreground "magenta"))))
  '(modeline-mousable-minor-mode ((t (:background "white" :foreground "yellow"))))
+ '(region ((t (:background "white" :foreground "black"))))
  '(zmacs-region ((t (:background "cyan" :foreground "black"))))
  '(secondary-selection ((t (:background "blue"))))
  '(show-paren-match-face ((t (:background "red"))))
