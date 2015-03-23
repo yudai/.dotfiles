@@ -10,7 +10,8 @@
 )
 
 ;;; Ignore .. and .
-(setq completion-ignored-extensions '("." ".."))
+(add-to-list 'completion-ignored-extensions ".")
+(add-to-list 'completion-ignored-extensions "..")
 (advice-add 'completion-file-name-table
             :filter-return
             (lambda (r)

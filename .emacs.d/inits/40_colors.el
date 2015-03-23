@@ -10,3 +10,4 @@
 (set-face-attribute 'mode-line nil :background "color-239" :foreground "color-214")
 (set-face-attribute 'mode-line-buffer-id nil :background "color-236" :foreground "red")
 (set-face-attribute 'mode-line-inactive nil :inherit 'mode-line :background "color-236" :foreground "color-233")
+(set-face-attribute 'region nil :inverse-video t)
