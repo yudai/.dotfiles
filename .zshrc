@@ -70,10 +70,10 @@ zstyle ':vcs_info:git*+set-message:*' hooks git-stash-count  git-st git-untracke
 function +vi-git-st() {
     local ahead behind stash
     local -a gitstatus
-    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l)
+    ahead=$(git rev-list ${hook_com[branch]}@{upstream}..HEAD 2>/dev/null | wc -l | tr -d ' ')
     (( $ahead )) && gitstatus+=( "%{$fg[yellow]%}+${ahead}${vcs_color}" )
 
-    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l)
+    behind=$(git rev-list HEAD..${hook_com[branch]}@{upstream} 2>/dev/null | wc -l | tr -d ' ')
     (( $behind )) && gitstatus+=( "%{$fg[red]%}-${behind}${vcs_color}" )
 
     stash=$(git stash list 2>/dev/null | wc -l | tr -d ' ')
