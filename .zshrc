@@ -371,7 +371,6 @@ post_rc
 # zaw
 source ~/.zsh/zaw/zaw.zsh
 zstyle ':filter-select' extended-search yes
-zstyle ':filter-select:highlight' matched fg=yellow,standout
 zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
 bindkey "^r" zaw-history
