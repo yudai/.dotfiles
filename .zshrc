@@ -51,9 +51,12 @@ setopt PROMPT_SUBST
 _lineup=$'\e[1A'
 _linedown=$'\e[1B'
 vcs_color="%{$reset_color%}%{$fg[green]%}"
-PROMPT="
+PROMPT='
+[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}%~%{$reset_color%}]'
+PROMPT+='
+${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}'
+PROMPT+="
 %{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
-RPROMPT='%{${_lineup}%}${go_info_msg}${ruby_info_msg}${vcs_info_msg_0_}%{%(!.$fg_bold[white].$fg[yellow])%}[%~]%{$reset_color%}(%(?.%?.%{$fg[red]%}%?%{$reset_color%}))%{${_linedown}%}'
 
 # VCS
 fpath=(~/.zsh $fpath)
