@@ -20,3 +20,5 @@
                        (cdr r))
                   (completion-pcm--filename-try-filter r)
                 r)))
+
+(setq read-file-name-completion-ignore-case t)
