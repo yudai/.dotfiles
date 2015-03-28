@@ -99,7 +99,7 @@ function +vi-git-untracked() {
 function chpwd() {
     update_title 1 $last_command1
     activate_gvm_pkgset
-    _reg_pwd_screennum_ruby # cdd
+    _cdd_chpwd
 }
 
 # title

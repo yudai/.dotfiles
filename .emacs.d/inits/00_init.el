@@ -1,7 +1,7 @@
 (prefer-coding-system 'utf-8-unix)
 
 (setq-default indent-tabs-mode nil)
-(setq-default tab-width 2)
+(setq-default tab-width 8)
 
 (setq-default line-number-mode t)
 (setq-default column-number-mode t)
