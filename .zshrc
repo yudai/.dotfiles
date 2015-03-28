@@ -52,7 +52,7 @@ _lineup=$'\e[1A'
 _linedown=$'\e[1B'
 vcs_color="%{$reset_color%}%{$fg[green]%}"
 PROMPT='
-[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}%~%{$reset_color%}]'
+[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]'
 PROMPT+='
 ${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}'
 PROMPT+="
@@ -65,8 +65,8 @@ zstyle ':vcs_info:*' get-revision true
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "%{$fg_bold[green]%}#${vcs_color}"
 zstyle ':vcs_info:*' unstagedstr "%{$fg_bold[red]%}+${vcs_color}"
-zstyle ':vcs_info:*' formats "${vcs_color}(%s:%m%c%u%b@%10.10i${vcs_color})"
-zstyle ':vcs_info:*' actionformats "${vcs_color}(%m%c%u%s:%b@i|%{$fg[red]%}%a${vcs_color})"
+zstyle ':vcs_info:*' formats "${vcs_color}(%s:%b@%10.10i%m%c%u${vcs_color})"
+zstyle ':vcs_info:*' actionformats "${vcs_color}(%s:%b@%10.10i|%{$fg[red]%}%a${vcs_color}%m%c%u${vcs_color})"
 
 # http://www.opensource.apple.com/source/zsh/zsh-55/zsh/Misc/vcs_info-examples
 zstyle ':vcs_info:git*+set-message:*' hooks git-stash-count  git-st git-untracked 
@@ -83,7 +83,7 @@ function +vi-git-st() {
     (( $stash )) && gitstatus+=( "%{$fg[cyan]%}@${stash}${vcs_color}" )
 
     hook_com[misc]+="${(j:/:)gitstatus}"
-    if [ ${#hook_com[misc]} -ne 0 ]; then hook_com[misc]+='|'; fi
+    if [ ${#hook_com[misc]} -ne 0 ]; then hook_com[misc]="|${hook_com[misc]}"; fi
 }
 
 # http://www.zsh.org/mla/workers/2011/msg00554.html
@@ -92,7 +92,7 @@ function +vi-git-untracked() {
         hook_com[unstaged]+="%{$fg_bold[cyan]%}?$vcs_color"
     fi
     if [ ${#hook_com[staged]} -ne 0 ] || [ ${#hook_com[unstaged]} -ne 0 ]; then
-        hook_com[unstaged]+='|'
+        hook_com[staged]="|${hook_com[staged]}"
     fi
 }
 
