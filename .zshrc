@@ -345,14 +345,7 @@ zle -N peco-select-history
 bindkey '^x^s' peco-select-history
 
 # cdd
-function _reg_pwd_screennum_ruby() {}
-if which ruby >/dev/null 2>&1;then
-    source ~/.zsh/cdd
-    _reg_pwd_screennum
-    function _reg_pwd_screennum_ruby() {
-        _reg_pwd_screennum
-    }
-fi
+. ~/.zsh/cdd
 
 # cd ../ with ^
 function cdup-or-insert-circumflex() {
