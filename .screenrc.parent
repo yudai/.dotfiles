@@ -11,6 +11,9 @@ termcapinfo xterm* 'is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l'
 altscreen on
 ignorecase
 defbce on
+activity "Activity: #%n%f %t^G"
+bell_msg ""
+startup_message off
 
 bindkey -t ^Z^D detach
 bind ^c screen -t new screen_child
@@ -19,6 +22,7 @@ shelltitle new
 bind k kill
 bind ^o next
 bind ^p prev
+bind ^a other
 bind ^g break
 bind ^r copy
 bind ^y paste .
@@ -36,7 +40,6 @@ bind ^h focus left
 bind ^l focus right
 bind ^b windowlist -b
 bind b select
-bind ^a other
 
 bind f
 bind ^f
@@ -47,7 +50,3 @@ markkeys ' '=^w
 bindkey -m -t ^v    stuff ^d
 bindkey -m -t ^[v    stuff ^u
 markkeys ' '=^w
-
-activity "Activity: #%n%f %t^G"
-
-bell_msg ""
