@@ -236,7 +236,7 @@ bindkey "[Z" reverse-menu-complete
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias
-alias emacs="LANG=ja_JP.UTF-8 emacs"
+alias emacs="emacs"
 alias lv="LANG=ja_JP.UTF-8 lv"
 alias pd='popd'
 alias sc='screen -xRU -S'
