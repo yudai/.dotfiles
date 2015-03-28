@@ -143,21 +143,9 @@ function update_title() {
     fi
 }
 
-alias pp='cat ~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW | head -n -1 | tail -n +1 | peco'
-alias pless='cat ~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW | head -n -1 | tail -n +1 | less'
 preexec () {
     update_title 2 $1
     last_command1=$1
-
-    # remove screen log
-    if [ -n "$STY" -a $last_command1 != 'pp' -a $last_command1 != 'pless' ]; then
-       screen_log=~/.screen.log/screen.$(echo $STY | cut -d "." -f 2).$WINDOW
-       if [ -f $screen_log ]; then
-           rm $screen_log
-       fi
-       # enable screen log
-       screen -X log on
-    fi
 }
 last_command1=zsh
 update_title 1 last_command1
@@ -179,16 +167,9 @@ precmd () {
     #title
     update_title 1 $last_command1 $last_command2
     #VCS
-    LANG=en_US.UTF-8 vcs_info
+    vcs_info
     ruby_info
     go_info
-
-    # disable screen log
-    if [ -n "$STY" ]; then
-        screen -X msgwait 0
-        screen -X log off
-        screen -X msgwait 1
-    fi
 }
 
 # complete

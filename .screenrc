@@ -17,8 +17,6 @@ activity "Activity: #%n%f %t^G"
 bell_msg ""
 startup_message off
 
-logfile ".screen.log/screen.%S.%n"
-logfile flush 0
 
 bind k kill
 bind ^o next
