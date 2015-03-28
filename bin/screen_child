@@ -14,5 +14,5 @@ fi
 
 echo -ne "\ek${line}\e\\"
 echo -ne "\e]0;${line}\a"
-exec screen -xUR -S $line
+exec screen -xUR -S $line -c ~/.screenrc.layout
 
