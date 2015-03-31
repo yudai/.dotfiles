@@ -1,5 +1,5 @@
 escape ^U^U
-caption always "%{= wk} %=%-w%{= Kw}%n %h%{-}%+w "
+caption always "%{= wk} %=%-w%{= Kw}%n %t%{-}%+w "
 msgwait 5
 vbell off
 term xterm-256color

@@ -1,5 +1,5 @@
 escape ^Z^Z
-hardstatus alwayslastline "%{=b rw} %-Lw%{=b kY}%n%f %?%h%:%t%?%{-}%+Lw %="
+hardstatus alwayslastline "%{=b rw} %-Lw%{=b kY}%n%f %t%{-}%+Lw %="
 caption always "%?%P%{= Kr}*%?%{= Kw}%?%F%{=b KY}>%: %? %n %t"
 msgwait 1
 vbell off
