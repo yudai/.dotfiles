@@ -97,58 +97,12 @@ function +vi-git-untracked() {
 }
 
 function chpwd() {
-    update_title 1 $last_command1
     activate_gvm_pkgset
     _cdd_chpwd
 }
 
-# title
-function update_title() {
-    cmd=(${(z)2})
-    case $cmd[1] in
-        fg)
-            if (( $#cmd == 1)); then
-                cmd=(builtin jobs -l %+)
-            else
-                cmd=(builtin jobs -l $cmd[2])
-            fi
-            ;;
-        sudo)
-            cmd="$cmd[1] $cmd[2]"
-            ;;
-        ssh)
-            cmd="$cmd[1] $cmd[2]"
-            ;;
-        *)
-            cmd=$cmd[1]
-            ;;
-    esac
-
-    dirname=$(basename $(pwd))
-    dirname_len=${#dirname}
-    if [ $dirname_len -gt 14 ]; then
-        short_dirname=${dirname:0:6}..${dirname:$(( $dirname_len - 6 )):6}
-    else
-        short_dirname=$dirname
-    fi
-    paren=(\[ \* \] \*)
-    paren_left=$1
-    paren_right=$(($paren_left + 2))
-    if [ x"$STY" != x"" ]; then # for screen hack
-        echo -ne "\e]0;$paren[$paren_left]${short_dirname}$paren[$paren_right] $cmd\a"
-        print -n "\ek$paren[$paren_left]${dirname}$paren[$paren_right] $cmd\e\\"
-    elif [ x"${TERM%%-*}" = x"xterm" ]; then
-        title="$paren[$paren_left]${short_dirname}@${HOST%%.}$paren[$paren_right] $cmd"
-        print -n "\e]0;$title\a"
-    fi
-}
-
 preexec () {
-    update_title 2 $1
-    last_command1=$1
 }
-last_command1=zsh
-update_title 1 last_command1
 
 # dattetime
 zmodload zsh/datetime
@@ -164,8 +118,6 @@ precmd () {
     fi
     pre_time=$cur_time
 
-    #title
-    update_title 1 $last_command1 $last_command2
     #VCS
     vcs_info
     ruby_info

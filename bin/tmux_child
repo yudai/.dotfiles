@@ -1,0 +1,26 @@
+#!/bin/zsh
+
+unset TMUX
+
+echo -ne "\eknew\e\\"
+echo -ne "\e]0;new\a"
+
+echo
+tmux list-sessions
+echo
+
+echo -n "session[default]: "
+read line
+
+if [ -z $line ] ; then
+    line="default"
+fi
+
+echo -ne "\ek${line}\e\\"
+echo -ne "\e]0;${line}\a"
+
+if (tmux ls | cut -d ':' -f 1 | grep $line > /dev/null); then
+  exec tmux -u attach -t $line
+else
+  exec tmux -u new -s $line
+fi
