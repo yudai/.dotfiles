@@ -308,6 +308,7 @@ bindkey "^X^B" zaw-git-branches
 bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh
 bindkey '^X^L' zaw-git-log
+bindkey '^X^S' zaw-git-status
 
 # cdr
 autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
