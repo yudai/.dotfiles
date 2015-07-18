@@ -1,0 +1,2 @@
+#!/bin/sh
+tmux -S parent attach || tmux -S parent  -f ~/.tmux.parent.conf new
