@@ -1,2 +1,2 @@
 #!/bin/sh
-tmux -u -L parent attach || tmux -u -L parent  -f ~/.tmux.parent.conf new
+tmux -u -L parent -f ~/.tmux.parent.conf new-session -A -s parent
