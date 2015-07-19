@@ -21,7 +21,7 @@ if [ -n "$2" ]; then
 fi
 
 pane_list="$(tmux list-panes -s -F '#{window_index},#{pane_index} #{pane_pid}' -t "$session_name")"
-# Non 0 if given session doesn't exit
+# Non 0 if given session doesn't exist
 if [ $? != 0 ]; then
     exit 1
 fi
