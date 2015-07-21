@@ -1,0 +1,33 @@
+#!/bin/bash
+
+user=$1
+host=$2
+name=$3
+
+# configred by fix-title command
+if [ -n "$FIX_TITLE" ]; then
+    exit
+fi
+
+nice_user="${user}"
+nice_host="${host}"
+
+nice_name=
+if [ -n "${name}" -a "${name}" != "${host}" ]; then
+    nice_name="($3)"
+fi
+
+# me
+pid=$$
+# ssh
+parent_pid=`cat /proc/${pid}/stat | awk '{ print $4 }'`
+# somebody called ssh
+gran_pid=`cat /proc/${parent_pid}/stat | awk '{ print $4 }'`
+
+gran_exe=`readlink -f /proc/${gran_pid}/exe`
+shell_exe=`readlink -f ${SHELL}`
+
+# update title only when ssh is directly called by you (shell)
+if [ "${gran_exe}" = "${shell_exe}" ]; then
+    echo -ne "\e]0;${nice_user}@${nice_host}${nice_name}\a"
+fi
