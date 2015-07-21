@@ -7,7 +7,7 @@ nice_pane_title=""
 nice_pane_index="${pane_index}"
 
 if [ "${pane_title:0:1}" != "[" ]; then
-    nice_pane_title="${pane_title}@"
+    nice_pane_title="(${pane_title})"
 fi
 
-echo -n "${nice_pane_title}${nice_pane_index}"
+echo -n "${nice_pane_index}${nice_pane_title}"
