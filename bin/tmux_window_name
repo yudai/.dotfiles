@@ -1,0 +1,31 @@
+#!/bin/bash
+
+window_name=$1
+first_command=$2
+command=$3
+pane_title=$4
+pane_index=$5
+path=$6
+
+cmd="$(echo ${pane_title} | cut -d '@' -f 1)"
+host="$(echo ${pane_title} | cut -d '@' -f 2)"
+
+nice_command="${cmd}"
+
+if [ "${host}" != "$(hostname)" ]; then
+    nice_command="${nice_command}@${host}"
+fi
+
+if  [ "${pane_title}" = "$(hostname)" ]; then
+    nice_pane_title=""
+fi
+
+if [ "${pane_title:0:1}" = "!" ]; then
+    nice_command="${window_name:1}"
+fi
+
+if [ "${window_name}" != "zsh" ]; then
+    nice_command="${window_name}"
+fi
+
+echo -ne "${nice_command}"

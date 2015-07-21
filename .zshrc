@@ -99,9 +99,42 @@ function +vi-git-untracked() {
 function chpwd() {
     activate_gvm_pkgset
     _cdd_chpwd
+    update_title 0
 }
 
+function fix-title() {
+    FIX_TITLE=!$1
+    update_title 0
+}
+
+function unfix-title() {
+    unset FIX_TITLE
+    update_title 0
+}
+
+
+function update_title() {
+    cargs=(${(z)LAST_COMMAND})
+    cmd=$cargs[1]
+    dir="$(basename ${PWD})"
+    flag=
+    if [ "$1" -eq 1 ]; then
+        flag="*"
+    fi
+
+    title="[${dir}]${flag}${cmd}@${HOST}"
+    if [ -n "${FIX_TITLE}" ]; then
+        title="${FIX_TITLE}"
+    fi
+
+    echo -ne "\e]0;$title\a"
+}
+LAST_COMMAND=zsh
+update_title 0
+
 preexec () {
+    LAST_COMMAND=$1
+    update_title 1
 }
 
 # dattetime
@@ -122,6 +155,8 @@ precmd () {
     vcs_info
     ruby_info
     go_info
+
+    update_title 0
 }
 
 # complete
