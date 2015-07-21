@@ -103,7 +103,7 @@ function chpwd() {
 }
 
 function fix-title() {
-    FIX_TITLE=!$1
+    FIX_TITLE=$1
     update_title 0
 }
 
