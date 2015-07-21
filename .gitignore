@@ -1,5 +1,6 @@
 .zsh/cdd_*
 .emacs.d/elpa/archives/*
 !.emacs.d/elpa
+.vim/.netrwhist
 .vim/tmp/*
 !.vim/tmp/.gitkeep
