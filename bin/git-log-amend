@@ -1,0 +1,28 @@
+#!/bin/bash -ex
+
+if [ -z $1 ]; then
+    echo "Revision to fix was not given."
+    exit 1
+fi
+
+current_branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "${current_branch}" = "HEAD" ]; then
+    echo "Detached branch"
+    exit 2;
+fi
+
+to_revision=$1
+
+if (git diff-index --cached --quiet HEAD --); then
+    echo "No local cached changes."
+    exit 3;
+fi
+
+git stash -a
+git checkout $1
+git stash pop --index
+git commit --amend
+git stash -a
+git rebase --onto HEAD $to_revision $current_branch
+git stash pop --index

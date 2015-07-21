@@ -45,8 +45,8 @@ function zaw-src-git-log () {
 
     # Set candidates.
     candidates+=(${(f)log})
-    actions=(zaw-src-git-commit-checkout zaw-src-git-log-append-to-buffer zaw-src-git-commit-reset zaw-src-git-commit-reset-hard zaw-src-git-commit-rebase-interactive)
-    act_descriptions=("checkout" "append to edit buffer" "reset" "reset hard" "rebase interactive")
+    actions=(zaw-src-git-commit-checkout zaw-src-git-log-append-to-buffer zaw-src-git-commit-reset zaw-src-git-commit-reset-hard zaw-src-git-commit-rebase-interactive zaw-src-git-commit-log-amend)
+    act_descriptions=("checkout" "append to edit buffer" "reset" "reset hard" "rebase interactive" "log amend")
     # Enale multi marker.
     options+=(-m)
 }
@@ -63,6 +63,14 @@ function zaw-src-git-log-append-to-buffer () {
     # Append left buffer.
     LBUFFER+="$buf"
 }
+
+function zaw-src-git-commit-log-amend(){
+    local hash_val=$(_zaw-src-git-log-strip $1)
+    BUFFER="git-log-amend $hash_val"
+    zle accept-line
+}
+
+
 # Register this src to zaw.
 zaw-register-src -n git-log zaw-src-git-log
 
