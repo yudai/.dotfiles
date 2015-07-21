@@ -119,7 +119,14 @@ function update_title() {
     dir="$(basename ${PWD})"
     flag=
     if [ "$1" -eq 1 ]; then
-        flag="*"
+        case "$cmd" in
+            ls|cd)
+                # too noisy
+            ;;
+            *)
+                flag="*"
+                ;;
+        esac
     fi
 
     title="[${dir}]${flag}${cmd}@${HOST}"
@@ -226,7 +233,7 @@ alias gco='git checkout'
 alias gcot='git checkout -t'
 alias gcob='git checkout -b'
 alias gci='git commit --verbose'
-alias gcimend='git status -sb; \
+alias gcimend='git --no-pager diff --cached; git status -sb; \
                if [ $(git status -s | grep -c -e "^[^ ]") -gt 0 ]; then; \
                   if [ -f $(git rev-parse --git-dir)/MERGE_MSG ]; then; \
                      echo $fg[red]Merge in progress. Aborting...$default_color; \
