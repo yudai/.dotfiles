@@ -1,4 +1,14 @@
-#!/bin/bash -ex
+#!/bin/bash -e
+
+function fall_back() {
+    echo "Failed to merge commit. Falling back to rebase -i."
+    echo "Your changes in index are stored in stash."
+    git checkout ${current_branch}
+    git rebase -i ${to_revision}^
+    echo "Again, if you didn't pop, your changes are stored in stash."
+    exit
+}
+
 
 if [ -z $1 ]; then
     echo "Revision to fix was not given."
@@ -18,11 +28,16 @@ if (git diff-index --cached --quiet HEAD --); then
     echo "No local cached changes."
     exit 3;
 fi
-
 git stash -a
+
 git checkout $1
-git stash pop --index
+if !(git stash pop --index); then
+    fall_back
+fi
+
 git commit --amend
 git stash -a
-git rebase --onto HEAD $to_revision $current_branch
+
+git rebase --onto HEAD ${to_revision} ${current_branch}
+
 git stash pop --index
