@@ -116,6 +116,13 @@ function unfix-title() {
 function update_title() {
     cargs=(${(z)LAST_COMMAND})
     cmd=$cargs[1]
+
+    if [ "${cmd}" = "fg" -a "$(jobs | wc -l)" != 0 ]; then
+        LAST_COMMAND=$(cat /proc/$(jobs -l | tail -n 1 | awk '{ print $3 }')/cmdline  | tr '\000' ' ' | sed 's/ $//')
+        update_title $1
+        return
+    fi
+
     dirname="$(basename ${PWD})"
     dirname_len=${#dirname}
     if [ $dirname_len -gt 14 ]; then
