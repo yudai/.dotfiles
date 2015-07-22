@@ -116,7 +116,11 @@ function unfix-title() {
 function update_title() {
     cargs=(${(z)LAST_COMMAND})
     cmd=$cargs[1]
-    dir="$(basename ${PWD})"
+    dirname="$(basename ${PWD})"
+    dirname_len=${#dirname}
+    if [ $dirname_len -gt 14 ]; then
+        dirname=${dirname:0:6}..${dirname:$(( $dirname_len - 6 )):6}
+    fi
     flag=
     if [ "$1" -eq 1 ]; then
         case "$cmd" in
@@ -129,7 +133,7 @@ function update_title() {
         esac
     fi
 
-    title="[${dir}]${flag}${cmd}@${HOST}"
+    title="[${dirname}]${flag}${cmd}@${HOST}"
     if [ -n "${FIX_TITLE}" ]; then
         title="${FIX_TITLE}"
     fi
