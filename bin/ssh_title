@@ -29,5 +29,5 @@ shell_exe=`readlink -f ${SHELL}`
 
 # update title only when ssh is directly called by you (shell)
 if [ "${gran_exe}" = "${shell_exe}" ]; then
-    echo -ne "\e]0;${nice_user}@${nice_host}${nice_name}\a"
+    echo -ne "\e]0;[${nice_user}@${nice_host}${nice_name}]*ssh\a"
 fi
