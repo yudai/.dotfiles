@@ -5,7 +5,7 @@ host=$2
 name=$3
 
 # configred by fix-title command
-if [ -n "$FIX_TITLE" ]; then
+if [ -n "${FIX_TITLE}" ]; then
     exit
 fi
 
