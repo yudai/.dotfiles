@@ -138,6 +138,11 @@ function update_title() {
                 flag="*"
                 ;;
         esac
+    else
+        if [ -n "${TMUX}" -a "$(tmux display -p '#{window_active}')" -eq "0" ]; then
+            tmux display "${cmd} finished at #{window_index}"
+            flag="!"
+        fi
     fi
 
     title="[${dirname}]${flag}${cmd}@${HOST}"
