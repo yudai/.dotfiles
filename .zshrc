@@ -303,6 +303,7 @@ alias gmr='git merge --ff-only'
 alias gmrnf='git merge --no-ff'
 alias gcl='git clean -f -d'
 alias gha='git-history-amend'
+alias cdg='cd $(git rev-parse --show-toplevel)'
 
 alias be='bundle exec'
 alias reload='if [ -z "`jobs`" ]; then exec zsh -l; fi'
