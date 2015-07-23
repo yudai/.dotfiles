@@ -12,9 +12,8 @@ fi
 nice_user="${user}"
 nice_host="${host}"
 
-nice_name=
 if [ -n "${name}" -a "${name}" != "${host}" ]; then
-    nice_name="($3)"
+    nice_host="$3"
 fi
 
 # me
@@ -29,5 +28,5 @@ shell_exe=`readlink -f ${SHELL}`
 
 # update title only when ssh is directly called by you (shell)
 if [ "${gran_exe}" = "${shell_exe}" ]; then
-    echo -ne "\e]0;[${nice_user}@${nice_host}${nice_name}]*ssh\a"
+    echo -ne "\e]0;*ssh@${nice_host}\a"
 fi

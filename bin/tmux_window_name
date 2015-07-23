@@ -12,7 +12,7 @@ if [ "${pane_title:0:1}" = "[" ]; then
     host="$(echo ${pane_title} | cut -d '@' -f 2)"
     nice_command="${cmd}"
 
-    if [ "${host}" != "$(hostname)" ]; then
+    if [ "${cmd}" != "${host}" -a "${host}" != "$(hostname)" ]; then
         nice_command="${nice_command}@${host}"
     fi
 else
