@@ -139,9 +139,17 @@ function update_title() {
                 ;;
         esac
     else
-        if [ -n "${TMUX}" -a "$(tmux display -p '#{window_active}')" -eq "0" ]; then
-            tmux display "${cmd} finished at #{window_index}"
-            flag="!"
+        if [ -n "${TMUX}" ]; then
+            if [ "$(tmux display -p '#{window_active}')" -eq "0" ]; then
+                tmux display "${cmd} finished at #{window_index}"
+                flag="!"
+            fi
+
+            if (tmux -L parent display -p "" 1>/dev/null 2>&1); then
+                if [ "$(tmux -L parent display -p '#{window_name}')" != "$(tmux display -p '#{session_name}')" ]; then
+                    tmux -L parent display "${cmd} finised at #{window_name}"
+                fi
+            fi
         fi
     fi
 
