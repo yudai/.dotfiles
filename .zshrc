@@ -130,6 +130,7 @@ function update_title() {
     fi
     flag=
     if [ "$1" -eq 1 ]; then
+        LAST_COMMAND_TIME=`date +%s`
         case "$cmd" in
             ls|cd)
                 # too noisy
@@ -139,7 +140,8 @@ function update_title() {
                 ;;
         esac
     else
-        if [ -n "${TMUX}" ]; then
+        NOW=`date +%s`
+        if [ -n "${TMUX}" -a $(( $LAST_COMMAND_TIME - $NOW )) -gt 5 ]; then
             if [ "$(tmux display -p '#{window_active}')" -eq "0" ]; then
                 tmux display "${cmd} finished at #{window_index}"
                 flag="!"
