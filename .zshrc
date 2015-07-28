@@ -141,7 +141,7 @@ function update_title() {
         esac
     else
         NOW=`date +%s`
-        if [ -n "${TMUX}" -a $(( $LAST_COMMAND_TIME - $NOW )) -gt 5 ]; then
+        if [ -n "${TMUX}" ] && (( ${NOW} - ${LAST_COMMAND_TIME} > 3 )); then
             if [ "$(tmux display -p '#{window_active}')" -eq "0" ]; then
                 tmux display "${cmd} finished at #{window_index}"
                 flag="!"
@@ -163,6 +163,7 @@ function update_title() {
     echo -ne "\e]0;$title\a"
 }
 LAST_COMMAND=zsh
+LAST_COMMAND_TIME=`date +%s`
 update_title 0
 
 preexec () {
