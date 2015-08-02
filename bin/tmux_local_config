@@ -1,0 +1,6 @@
+#!/bin/sh
+
+file=~/.dotfiles.priv/$(hostname -s)/.tmux.local.conf
+if [ -f ${file} ]; then
+    tmux source-file ${file}
+fi
