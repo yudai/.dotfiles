@@ -34,10 +34,10 @@ function go_info() {
 }
 
 function ruby_info() {
-    if (rbenv 1>/dev/null 2>&1); then
-        global=$(rbenv global)
+    if ([ "${LAST_COMMANAND}" = "rbenv" ]  || (( $PWD_CHANGED ))) && (which rbenv 1>/dev/null 2>&1) then
         local=$(rbenv local 2>/dev/null)
         if [ $? -gt 0 ];then
+            global=$(rbenv global)
             version="$global@global"
         else
             version="$local@%{$fg_bold[cyan]%}local"
@@ -170,6 +170,8 @@ preexec () {
     LAST_COMMAND=$1
     update_title 1
 }
+LAST_PWD=
+PWD_CHANGED=1
 
 # dattetime
 zmodload zsh/datetime
@@ -184,6 +186,13 @@ precmd () {
         if [ -z "`jobs`" ]; then exec zsh -l; fi
     fi
     pre_time=$cur_time
+
+    if [ "$LAST_PWD" != "$PWD" ]; then
+        PWD_CHANGED=1
+    else
+        PWD_CHANGED=0
+    fi
+    LAST_PWD=$PWD
 
     #VCS
     vcs_info
