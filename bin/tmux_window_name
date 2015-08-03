@@ -17,7 +17,7 @@ if [ "${pane_title:0:1}" = "[" ]; then
     host="$(echo ${pane_title} | cut -d '@' -f 2)"
     nice_command="${cmd}"
 
-    if [ "${cmd}" != "${host}" -a "${host}" != "$(hostname)" ]; then
+    if [ "${cmd}" != "${host}" -a "${host}" != "$(hostname -s)" ]; then
         nice_command="${nice_command}@${host}"
     fi
 
@@ -40,4 +40,4 @@ fi
 
 nice_window_index="#[bg=${bg_color}][${window_index}]"
 
-echo -ne "${nice_window_index}${nice_command}${nice_flag}"
+echo -n "${nice_window_index}${nice_command}${nice_flag}"

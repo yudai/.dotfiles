@@ -155,7 +155,7 @@ function update_title() {
         fi
     fi
 
-    title="[${dirname}]${flag}${cmd}@${HOST}"
+    title="[${dirname}]${flag}${cmd}@$(hostname -s)"
     if [ -n "${FIX_TITLE}" ]; then
         title="${FIX_TITLE}"
     fi
