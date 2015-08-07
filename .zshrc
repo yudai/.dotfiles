@@ -412,6 +412,10 @@ zstyle ':chpwd:*' recent-dirs-max 5000
 zstyle ':chpwd:*' recent-dirs-default yes
 zstyle ':completion:*' recent-dirs-insert both
 
+# enhancd
+source ~/.zsh/enhancd.sh
+export ENHANCD_FILTER=peco
+
 # editor
 export EDITOR=vi
 
