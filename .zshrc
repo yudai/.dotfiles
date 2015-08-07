@@ -46,15 +46,23 @@ function ruby_info() {
     fi
 }
 
+function update_prompt_border() {
+    if [ ${LAST_COLUMNS} != ${COLUMNS} ]; then
+        prompt_border="%F{70}▸%F{239}"
+        len=$(( $COLUMNS - 1 ))
+        for i in {1..$len}; do prompt_border+="─"; done
+        prompt_border+="%{$reset_color%}"
+        LAST_COLUMNS=$COLUMNS
+    fi
+}
+LAST_COLUMNS=0
+
 # prompt
 setopt PROMPT_SUBST
-_lineup=$'\e[1A'
-_linedown=$'\e[1B'
 vcs_color="%{$reset_color%}%{$fg[green]%}"
-PROMPT='
-[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]'
-PROMPT+='
-${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}'
+PROMPT='${prompt_border}'
+PROMPT+='[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]'
+PROMPT+='${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}'
 PROMPT+="
 %{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
 
@@ -198,6 +206,7 @@ precmd () {
     vcs_info
     ruby_info
     go_info
+    update_prompt_border
 
     update_title 0
 }
