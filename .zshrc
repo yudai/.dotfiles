@@ -392,6 +392,13 @@ export LESS='-R'
 export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
 post_rc
 
+# cdr
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+zstyle ':chpwd:*' recent-dirs-max 5000
+zstyle ':chpwd:*' recent-dirs-default yes
+zstyle ':completion:*' recent-dirs-insert both
+
 # zaw
 source ~/.zsh/zaw/zaw.zsh
 zstyle ':filter-select' extended-search yes
@@ -403,17 +410,7 @@ bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh
 bindkey '^X^L' zaw-git-log
 bindkey '^X^S' zaw-git-status
-
-# cdr
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
-add-zsh-hook chpwd chpwd_recent_dirs
-zstyle ':chpwd:*' recent-dirs-max 5000
-zstyle ':chpwd:*' recent-dirs-default yes
-zstyle ':completion:*' recent-dirs-insert both
-
-# enhancd
-source ~/.zsh/enhancd.sh
-export ENHANCD_FILTER=peco
+bindkey '^X^X' zaw-cdr
 
 # editor
 export EDITOR=vi
