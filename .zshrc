@@ -48,10 +48,9 @@ function ruby_info() {
 
 function update_prompt_border() {
     if [ ${LAST_COLUMNS} != ${COLUMNS} ]; then
-        prompt_border="%F{70}▸%F{239}"
-        len=$(( $COLUMNS - 1 ))
-        for i in {1..$len}; do prompt_border+="─"; done
-        prompt_border+="%{$reset_color%}"
+        prompt_border="%F{239}"
+        for i in {1..$COLUMNS}; do prompt_border+="_"; done
+        prompt_border+="%f"
         LAST_COLUMNS=$COLUMNS
     fi
 }
