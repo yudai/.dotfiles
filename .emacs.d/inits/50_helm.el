@@ -1,19 +1,15 @@
 (require 'helm-config)
 (helm-mode 1)
+(setq helm-truncate-lines t)
 
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
 
-(define-key global-map (kbd "C-x C-j") 'helm-for-files)
+(define-key global-map (kbd "C-x C-b") 'helm-for-files)
 (define-key global-map (kbd "M-y") 'helm-show-kill-ring)
 (define-key global-map (kbd "M-x") 'helm-M-x)
-(define-key global-map (kbd "C-x C-b") 'helm-buffers-list)
 
-(helm-autoresize-mode t)
-(setq helm-autoresize-max-height 33)
-(setq helm-autoresize-min-height 33)
-(setq helm-split-window-default-side 'below)
-(setq helm-split-window-in-side-p t)
+(push '("^\\*helm.*\\*$" :height 0.3 :regexp t :position bottom) popwin:special-display-config)
 
 (add-to-list 'helm-boring-buffer-regexp-list "^*")
 (add-hook 'ido-make-buffer-list-hook
