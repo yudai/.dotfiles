@@ -7,6 +7,7 @@
             (local-set-key (kbd "C-c C-j") 'godef-jump)
             (local-set-key (kbd "C-c C-a") '(lambda () (interactive) (go-import-add t (replace-regexp-in-string "^[\"']\\|[\"']$" "" (completing-read "Package: " (go--old-completion-list-style (go-packages)))))))
             (local-set-key (kbd "C-c C-f") 'gofmt)
+            (local-set-key (kbd "C-c C-n") 'go-rename)
             (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
             (local-set-key (kbd "C-c C-p") 'go-direx-pop-to-buffer)))
 
@@ -15,5 +16,6 @@
       popwin:special-display-config)
 
 (require 'go-autocomplete)
+(require 'go-rename)
 
 (add-hook 'before-save-hook 'gofmt-before-save)
