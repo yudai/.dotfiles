@@ -1,4 +1,5 @@
 .zsh/cdd_*
+.emacs.d/recentf
 .emacs.d/elpa/archives/*
 !.emacs.d/elpa
 .vim/.netrwhist
