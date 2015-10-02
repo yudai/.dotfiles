@@ -436,3 +436,6 @@ function activate_gvm_pkgset() {
     unset __in_active_gvm_pkgset
 }
 activate_gvm_pkgset
+
+export NVM_DIR="/home/yudai/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
