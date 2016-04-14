@@ -104,7 +104,6 @@ function +vi-git-untracked() {
 }
 
 function chpwd() {
-    activate_gvm_pkgset
     _cdd_chpwd
     update_title 0
 }
@@ -182,17 +181,9 @@ PWD_CHANGED=1
 
 # dattetime
 zmodload zsh/datetime
-pre_time=$EPOCHSECONDS
 
 precmd () {
     last_code=$?
-    # auto reload .dotfiles
-    cur_time=$EPOCHSECONDS
-    duration=$(($cur_time - $pre_time))
-    if [ ${duration} -gt 3600 ]; then
-        if [ -z "`jobs`" ]; then exec zsh -l; fi
-    fi
-    pre_time=$cur_time
 
     if [ "$LAST_PWD" != "$PWD" ]; then
         PWD_CHANGED=1
@@ -347,6 +338,13 @@ alias update-dotfiles='exec update-dotfiles'
 
 alias tiga='tig --all'
 
+gov() {
+    nearest_src=((../)#src/..(#qN)(:a))
+    export GOPATH=$nearest_src
+    path=($GOPATH/bin(N-/) $path)
+    echo Set \$GOPATH to $nearest_src
+}
+
 # bundler exec
 [ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
 
@@ -417,25 +415,6 @@ export EDITOR=vi
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# GVM
-function activate_gvm_pkgset() {
-    if [ -n "$__in_active_gvm_pkgset" ]; then
-        return
-    fi
-    __in_active_gvm_pkgset=true
-    nearest_local=((../)#.gvm_local/..(#qN)(:a))
-    if [ -d "$nearest_local" ] && \
-       [ "$nearest_local" != "$__gvm_local_path" ]; then
-        current=$(pwd)
-        cd $nearest_local
-        gvm pkgset use --local
-        __gvm_local_path=$nearest_local
-        cd $current
-    fi
-    unset __in_active_gvm_pkgset
-}
-activate_gvm_pkgset
 
 export NVM_DIR="/home/yudai/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

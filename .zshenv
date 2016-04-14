@@ -21,12 +21,4 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init -)"
 fi
 
-if [ "$gvm_pkgset_name" = "__local__" ]; then
-    restore_gvm=1
-fi
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-if [ "$restore_gvm" -eq 1 ]; then
-    pushd `find_local_pkgset` > /dev/null
-    gvm pkgset use --local > /dev/null
-    popd > /dev/null
-fi
