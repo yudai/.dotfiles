@@ -339,10 +339,10 @@ alias update-dotfiles='exec update-dotfiles'
 alias tiga='tig --all'
 
 gov() {
-    nearest_src=((../)#src/..(#qN)(:a))
-    export GOPATH=$nearest_src
+    nearest_src=((../)#src/..(:a))
+    export GOPATH=$nearest_src[-1]
     path=($GOPATH/bin(N-/) $path)
-    echo Set \$GOPATH to $nearest_src
+    echo Set \$GOPATH to $GOPATH
 }
 
 # bundler exec
