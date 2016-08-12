@@ -387,7 +387,7 @@ zle -N cdup-or-insert-circumflex
 bindkey '\^' cdup-or-insert-circumflex
 
 export LESS='-R'
-export LESSOPEN='| /usr/share/source-highlight/src-hilite-lesspipe.sh %s'
+export LESSOPEN='| src-hilite-lesspipe.sh %s'
 post_rc
 
 # cdr
