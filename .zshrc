@@ -413,8 +413,5 @@ bindkey '^X^X' zaw-cdr
 # editor
 export EDITOR=vi
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 export NVM_DIR="/home/yudai/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
