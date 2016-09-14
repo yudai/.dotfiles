@@ -18,7 +18,7 @@
  '(whitespace-trailing ((t (:background "DarkRed"))))
  '(whitespace-space ((t (:background "LightSlateGray"))))
  '(whitespace-tab ((t (:foreground "LightSlateGray" :underline t))))
- '(whitespace-line ((t (:background "gray20" :foreground nil))))
+ '(whitespace-line ((t (:background "color-52" :foreground nil))))
  '(flyspell-incorrect ((t (:underline t))))
  '(flyspell-duplicate ((t (:underline t))))
  '(flycheck-warning ((t (:inherit nil))))
