@@ -400,6 +400,7 @@ zstyle ':completion:*' recent-dirs-insert both
 
 # zaw
 source ~/.zsh/zaw/zaw.zsh
+zstyle ':filter-select' hist-find-no-dups yes
 zstyle ':filter-select' extended-search yes
 zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
