@@ -1,5 +1,8 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(set-display-table-slot (setq standard-display-table
+                              (make-display-table))
+                        'vertical-border ?│)
 
 ;;; paren
 (show-paren-mode t)
