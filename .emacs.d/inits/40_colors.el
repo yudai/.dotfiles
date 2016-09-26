@@ -3,7 +3,7 @@
 (load-theme 'tty-dark t)
 
 (custom-set-faces
- '(default ((t (:background "defalt" :foreground "default"))))
+ '(default ((t (:background "default" :foreground "default"))))
  '(vertical-border ((t (:background "color-239" :foreground "color-239"))))
  '(highlight ((t (:background "color-18" :foreground "yellow"))))
  '(isearch-fail ((t (:background "color-181" :foreground "black"))))
