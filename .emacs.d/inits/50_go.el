@@ -1,6 +1,8 @@
 (add-hook 'go-mode-hook
           (lambda ()
             (setq tab-width 2)
+            (setq gofmt-command "goimports")
+            (add-hook 'before-save-hook 'gofmt-before-save)
             (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty space))
             (go-eldoc-setup)
             (local-set-key (kbd "C-c C-o") 'godef-jump-other-window)
@@ -17,5 +19,4 @@
 
 (require 'go-autocomplete)
 (require 'go-rename)
-
-(add-hook 'before-save-hook 'gofmt-before-save)
+(require 'go-oracle)
