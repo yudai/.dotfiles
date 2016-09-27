@@ -1,7 +1,6 @@
 (add-hook 'go-mode-hook
           (lambda ()
             (setq tab-width 2)
-            (setq gofmt-command "goimports")
             (add-hook 'before-save-hook 'gofmt-before-save)
             (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty space))
             (go-eldoc-setup)
