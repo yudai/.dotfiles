@@ -234,16 +234,42 @@ setopt PRINT_EIGHT_BIT
 setopt IGNORE_EOF
 setopt EXTENDED_GLOB
 
+# last argument
+autoload -Uz copy-earlier-word
+zle -N copy-earlier-word
+bindkey "^[m" copy-earlier-word
+
 # Emacs Keymap
 bindkey -e
 bindkey "^ " set-mark-command
 bindkey "^w" kill-region
-bindkey "\Mw" copy-region-as-kill
 bindkey "/" expand-word
 bindkey "[Z" reverse-menu-complete
+# http://qiita.com/takc923/items/35d9fe81f61436c867a8
+function copy-region() {
+    zle copy-region-as-kill
+    REGION_ACTIVE=0
+}
+zle -N copy-region
+bindkey "^[w" copy-region
+function delete-region() {
+    zle kill-region
+    CUTBUFFER=$killring[1]
+    shift killring
+}
+zle -N delete-region
+
+function backward-delete-char-or-region() {
+    if [ $REGION_ACTIVE -eq 0 ]; then
+        zle backward-delete-char
+    else
+        zle delete-region
+    fi
+}
+zle -N backward-delete-char-or-region
+bindkey "^h" backward-delete-char-or-region
 
 # word defenition (remove / from default)
-export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # alias
 alias emacs="emacs"
