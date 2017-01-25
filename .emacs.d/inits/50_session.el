@@ -4,3 +4,4 @@
 (setq session-globals-include
       '((kill-ring 200) (session-file-alist 200 t) (file-name-history 200)))
 (setq session-save-file "~/.emacs_session")
+(setq session-save-print-spec '(t nil 40000))
