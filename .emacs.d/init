@@ -8,3 +8,38 @@
 (setq init-loader-show-log-after-init nil)
 (setq init-loader-byte-compile t)
 (init-loader-load)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flycheck-display-errors-function (function my-flycheck-display-error-messages))
+ '(package-selected-packages
+   (quote
+    (multiple-cursors zlc yaml-mode undo-tree slime-repl session scala-mode s rspec-mode popwin php-mode neotree markdown-mode json-mode js2-mode init-loader hiwin helm go-eldoc go-direx go-autocomplete flycheck feature-mode deferred clojure-mode auto-compile ace-jump-mode)))
+ '(session-use-package t nil (session)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:background "default" :foreground "default"))))
+ '(flycheck-error ((t (:underline t :foreground "orange"))))
+ '(flycheck-warning ((t (:inherit nil))))
+ '(flyspell-duplicate ((t (:underline t))))
+ '(flyspell-incorrect ((t (:underline t))))
+ '(highlight ((t (:background "color-18" :foreground "yellow"))))
+ '(isearch-fail ((t (:background "color-181" :foreground "black"))))
+ '(lazy-highlight ((t (:background "paleturquoise" :foreground "black"))))
+ '(match ((t (:foreground "color-51"))))
+ '(minibuffer-prompt ((t (:foreground "brightcyan"))))
+ '(mode-line ((t (:background "color-239" :foreground "color-214"))))
+ '(mode-line-buffer-id ((t (:background "color-236" :foreground "red"))))
+ '(mode-line-inactive ((t (:inherit (quote mode-line) :background "color-236" :foreground "color-233"))))
+ '(region ((t (:inverse-video t :foreground nil :background nil))))
+ '(show-paren-match ((t (:inverse-video t :foreground nil :background nil))))
+ '(vertical-border ((t (:background "color-239" :foreground "color-239"))))
+ '(whitespace-line ((t (:background "color-52" :foreground nil))))
+ '(whitespace-space ((t (:background "LightSlateGray"))))
+ '(whitespace-tab ((t (:foreground "LightSlateGray" :underline t))))
+ '(whitespace-trailing ((t (:background "DarkRed")))))
