@@ -6,7 +6,7 @@
   (define-key map (kbd "<left>")  'zlc-select-previous)
   (define-key map (kbd "M-<tab>") 'zlc-select-previous)
   (define-key map (kbd "M-TAB") 'zlc-select-previous)
-  (define-key map (kbd "C-c") 'zlc-reset)
+;  (define-key map (kbd "C-c") 'zlc-reset)
 )
 
 ;;; Ignore .. and .
