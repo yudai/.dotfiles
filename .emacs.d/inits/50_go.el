@@ -10,7 +10,8 @@
             (local-set-key (kbd "C-c C-f") 'gofmt)
             (local-set-key (kbd "C-c C-n") 'go-rename)
             (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
-            (local-set-key (kbd "C-c C-p") 'go-direx-pop-to-buffer)))
+            (local-set-key (kbd "C-c C-p") 'go-direx-pop-to-buffer)
+            (local-set-key (kbd "C-c C-e") 'flycheck-next-error)))
 
 (require 'popwin)
 (push '(direx:direx-mode :position left :width 0.4 :dedicated t :stick nil)
