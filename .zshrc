@@ -22,6 +22,7 @@ pre_rc
 
 # colors
 export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:'
+vcs_color="%{$reset_color%}%{$fg[green]%}"
 
 function go_info() {
     if [ -n "$GVM_ROOT" ]; then
@@ -48,7 +49,7 @@ function ruby_info() {
 
 function update_prompt_border() {
     if [ ${LAST_COLUMNS} != ${COLUMNS} ]; then
-        prompt_border="%F{239}"
+        prompt_border="%F{238}"
         for i in {1..$COLUMNS}; do prompt_border+="₋"; done
         prompt_border+="%f"
         LAST_COLUMNS=$COLUMNS
@@ -58,12 +59,7 @@ LAST_COLUMNS=0
 
 # prompt
 setopt PROMPT_SUBST
-vcs_color="%{$reset_color%}%{$fg[green]%}"
-PROMPT='${prompt_border}'
-PROMPT+='[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]'
-PROMPT+='${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}'
-PROMPT+="
-%{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
+PROMPT="%{%(!.%{$fg[white]%}.$user_color)%}%n%{$host_color%}@%m%{$reset_color%}%{%(!.$fg_bold[white].$prompt_color)%}%(!.#.%%)%{$reset_color%} "
 
 # VCS
 fpath=(~/.zsh $fpath)
@@ -199,6 +195,11 @@ precmd () {
     update_prompt_border
 
     update_title 0
+
+    prop="${prompt_border}"
+    prop+="[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]"
+    prop+="${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}"
+    echo "${(%)prop}"
 }
 
 # complete
