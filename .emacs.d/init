@@ -16,7 +16,7 @@
  '(flycheck-display-errors-function (function my-flycheck-display-error-messages))
  '(package-selected-packages
    (quote
-    (multiple-cursors zlc yaml-mode undo-tree slime-repl session scala-mode s rspec-mode popwin php-mode neotree markdown-mode json-mode js2-mode init-loader hiwin helm go-eldoc go-direx go-autocomplete flycheck feature-mode deferred clojure-mode auto-compile ace-jump-mode)))
+    (rust-mode helm helm-core multiple-cursors zlc yaml-mode undo-tree slime-repl session scala-mode s rspec-mode popwin php-mode neotree markdown-mode json-mode js2-mode init-loader hiwin go-eldoc go-direx go-autocomplete flycheck feature-mode deferred clojure-mode auto-compile ace-jump-mode)))
  '(session-use-package t nil (session)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
