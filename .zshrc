@@ -99,9 +99,17 @@ function +vi-git-untracked() {
     fi
 }
 
+function chpwd_gov() {
+    nearest_src=((../)#src/..(:a)) 2>/dev/null
+    if [ -d "${nearest_src[-1]}" -a "${nearest_src[-1]}" != "${GOPATH}" -a `find -maxdepth 2 -name '*.go' | wc -l` -ne 0 ]; then
+       gov
+    fi
+}
+
 function chpwd() {
     _cdd_chpwd
     update_title 0
+    chpwd_gov
 }
 
 function fix-title() {
@@ -367,9 +375,13 @@ alias tiga='tig --all'
 
 gov() {
     nearest_src=((../)#src/..(:a))
-    export GOPATH=$nearest_src[-1]
-    path=($GOPATH/bin(N-/) $path)
-    echo Set \$GOPATH to $GOPATH
+    if [ -d "${nearest_src[-1]}" ]; then
+        export GOPATH=$nearest_src[-1]
+        path=($GOPATH/bin(N-/) $path)
+        echo Set \$GOPATH to $GOPATH
+    else
+        echo "Could no find a src directory"
+    fi
 }
 
 # bundler exec
@@ -441,6 +453,8 @@ bindkey '^X^X' zaw-cdr
 
 # editor
 export EDITOR=vi
+
+chpwd_gov
 
 export NVM_DIR="/home/yudai/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
