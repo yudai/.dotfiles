@@ -205,7 +205,13 @@ precmd () {
     update_title 0
 
     prop="${prompt_border}"
-    prop+="[%(?.%{$fg[blue]%}.%{$fg[red]%})%?%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]"
+    prop+="["
+    if [ "$last_code" != "0" ]; then
+        prop+=$fg[red]
+    else
+        prop+=$fg[blue]
+    fi
+    prop+="${last_code}%{$reset_color%}][%{%(!.$fg_bold[white].$fg[yellow])%}$PWD%{$reset_color%}]"
     prop+="${vcs_info_msg_0_}${go_info_msg}${ruby_info_msg}"
     echo "${(%)prop}"
 }
