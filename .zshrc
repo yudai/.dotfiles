@@ -475,7 +475,8 @@ bindkey '^X^X' zaw-cdr
 # editor
 export EDITOR=vi
 
-chpwd_gov
 
 export NVM_DIR="/home/yudai/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+chpwd_gov
