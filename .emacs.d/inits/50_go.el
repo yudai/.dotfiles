@@ -11,12 +11,11 @@
             (local-set-key (kbd "C-c C-n") 'go-rename)
             (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
             (local-set-key (kbd "C-c C-p") 'go-direx-pop-to-buffer)
-            (local-set-key (kbd "C-c C-e") 'flycheck-next-error)))
+            (local-set-key (kbd "C-c C-e") 'flycheck-next-error)
+            (go-guru-hl-identifier-mode)))
 
 (require 'popwin)
 (push '(direx:direx-mode :position left :width 0.4 :dedicated t :stick nil)
       popwin:special-display-config)
 
 (require 'go-autocomplete)
-(require 'go-rename)
-(require 'go-oracle)
