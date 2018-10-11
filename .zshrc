@@ -101,7 +101,7 @@ function +vi-git-untracked() {
 
 function chpwd_gov() {
     nearest_src=((../)#src/..(:a)) 2>/dev/null
-    if [ -d "${nearest_src[-1]}" -a "${nearest_src[-1]}" != "${GOPATH}" -a `find -maxdepth 2 -name '*.go' | wc -l` -ne 0 ]; then
+    if [ -d "${nearest_src[-1]}" -a "${nearest_src[-1]}" != "${GOPATH}" -a `find -maxdepth 2 -name '*.go' 2>/dev/null | wc -l` -ne 0 ]; then
        gov
     fi
 }
