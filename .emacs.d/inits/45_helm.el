@@ -31,3 +31,5 @@
 (set-face-attribute 'helm-helper nil :inherit 'helm-header :background "color-233" :underline nil)
 (set-face-attribute 'helm-selection nil :background "color-18" :underline t)
 (set-face-attribute 'helm-source-header nil :inherit 'header-line :underline nil)
+
+(setq imenu-max-item-length 2000)
