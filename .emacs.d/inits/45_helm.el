@@ -1,6 +1,9 @@
 (require 'helm-config)
 (helm-mode 1)
 (setq helm-truncate-lines t)
+(setq helm-candidate-number-limit 500)
+(setq helm-imenu-fuzzy-match t)
+
 
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))
@@ -19,6 +22,7 @@
 (advice-add 'helm-buffers-sort-transformer
             :override
             (lambda (candidates _source) candidates))
+
 
 ;;; recentf
 (setq recentf-max-saved-items 2000)

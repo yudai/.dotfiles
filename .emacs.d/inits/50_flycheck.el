@@ -13,9 +13,5 @@
       (display-message-or-buffer (string-join messages "\n\n")
                                  flycheck-error-message-buffer))))
 
-(eval-after-load 'flycheck
-  '(custom-set-variables
-    '(flycheck-display-errors-function
-      #'my-flycheck-display-error-messages)))
-
+(setq flycheck-display-errors-function #'my-flycheck-display-error-messages)
 (setq flycheck-rubocop-lint-only t)

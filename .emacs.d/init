@@ -8,23 +8,7 @@
 (setq init-loader-show-log-after-init nil)
 (setq init-loader-byte-compile t)
 (init-loader-load)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(company-lsp-enable-snippet nil)
- '(flycheck-display-errors-function (function my-flycheck-display-error-messages))
- '(helm-candidate-number-limit 500)
- '(helm-imenu-fuzzy-match t)
- '(lsp-eldoc-enable-signature-help nil)
- '(lsp-eldoc-prefer-signature-help nil)
- '(lsp-ui-doc-enable nil)
- '(lsp-ui-sideline-delay 1)
- '(package-selected-packages
-   (quote
-    (yasnippet helm-lsp direx go-mode lsp-ui company-lsp company dash lsp-mode protobuf-mode rust-mode helm multiple-cursors zlc yaml-mode undo-tree slime-repl session scala-mode s rspec-mode popwin php-mode neotree markdown-mode json-mode js2-mode init-loader hiwin flycheck feature-mode deferred clojure-mode ace-jump-mode)))
- '(session-use-package t nil (session)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

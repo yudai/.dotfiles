@@ -12,6 +12,7 @@
             (local-set-key (kbd "C-c C-n") 'lsp-rename)
             (local-set-key (kbd "C-c C-r") 'go-remove-unused-imports)
             (local-set-key (kbd "C-c C-e") 'flycheck-next-error)
+            (local-set-key (kbd "C-c C-d") 'lsp-describe-thing-at-point-minibuffer)
 ))
 
 (add-hook 'go-mode-hook #'lsp)
