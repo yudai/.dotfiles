@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mod_name=$(go mod edit -json 2>/dev/null | jq -r .Module.Path)
+if [ "$?" -eq 0 ]; then
+    exec goimports -local "${mod_name}" $@
+else
+    exec goimports $@
+fi

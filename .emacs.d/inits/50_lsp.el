@@ -4,6 +4,8 @@
 (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
 (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
 
+(defun xref-find-type-definitions-other-window () "find type definitions in other window" (interactive) (lsp-find-type-definition :display-action 'window) )
+
 (define-key global-map (kbd "C-c C-g") 'helm-imenu)
 (define-key global-map (kbd "C-c g") 'helm-lsp-workspace-symbol)
 
@@ -24,3 +26,4 @@
 (setq lsp-enable-snippet nil)
 (setq lsp-ui-doc-enable nil)
 (setq lsp-ui-sideline-enable nil)
+(setq lsp-prefer-flymake nil)

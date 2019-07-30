@@ -2,6 +2,19 @@
 
 (push 'company-lsp company-backends)
 (add-hook 'after-init-hook 'global-company-mode)
+(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "TAB") (lambda () (interactive) (company-complete-common-or-cycle 1)))
+  (define-key company-active-map (kbd "<backtab>") (lambda () (interactive) (company-complete-common-or-cycle -1)))
+  (define-key company-active-map (kbd "C-n") 'company-select-next)
+  (define-key company-active-map (kbd "C-p") 'company-select-previous)
+  (define-key company-active-map (kbd "C-h") nil)
+  (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
+
+  (define-key company-search-map (kbd "C-n") 'company-select-next)
+  (define-key company-search-map (kbd "C-p") 'company-select-previous))
+
 
 (setq company-tooltip-limit 20)
 (setq company-idle-delay .3)

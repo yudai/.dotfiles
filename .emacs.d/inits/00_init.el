@@ -7,7 +7,8 @@
 (setq-default column-number-mode t)
 
 (setq-default make-backup-files nil)
-(setq-default auto-save-list-file-prefix "~/.emacs-auto-save-list/.saves-")
+(setq-default create-lockfiles nil)
+(setq-default auto-save-file-name-transforms   '((".*" "~/.emacs.d/auto-save/" t)))
 
 (setq-default inhibit-startup-message t)
 (setq-default initial-scratch-message "")

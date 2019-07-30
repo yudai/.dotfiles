@@ -1,6 +1,9 @@
 .zsh/cdd_*
+.emacs.d/auto-save
+.emacs.d/auto-save-list
 .emacs.d/recentf
 .emacs.d/elpa/archives/*
+.emacs.d/.lsp-session-v1
 !.emacs.d/elpa
 .vim/.netrwhist
 .vim/tmp/*

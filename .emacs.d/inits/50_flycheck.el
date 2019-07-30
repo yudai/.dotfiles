@@ -1,4 +1,5 @@
 (require 'flycheck)
+(load "default-to-cycling-flycheck.el")
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
