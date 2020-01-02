@@ -99,17 +99,9 @@ function +vi-git-untracked() {
     fi
 }
 
-function chpwd_gov() {
-    nearest_src=((../)#src/..(:a)) 2>/dev/null
-    if [ -d "${nearest_src[-1]}" -a "${nearest_src[-1]}" != "${GOPATH}" -a `find -maxdepth 2 -name '*.go' 2>/dev/null | wc -l` -ne 0 ]; then
-       gov
-    fi
-}
-
 function chpwd() {
     _cdd_chpwd
     update_title 0
-    chpwd_gov
 }
 
 function fix-title() {
@@ -394,17 +386,6 @@ alias update-dotfiles='exec update-dotfiles'
 
 alias tiga='tig --all'
 
-gov() {
-    nearest_src=((../)#src/..(:a))
-    if [ -d "${nearest_src[-1]}" ]; then
-        export GOPATH=$nearest_src[-1]
-        path=($GOPATH/bin(N-/) $path)
-        echo Set \$GOPATH to $GOPATH
-    else
-        echo "Could no find a src directory"
-    fi
-}
-
 # bundler exec
 [ -f ~/.zsh/.bundler-exec.sh ] && source ~/.zsh/.bundler-exec.sh
 
@@ -477,14 +458,9 @@ bindkey '^X^X' zaw-cdr
 # editor
 export EDITOR=vi
 
+export GO111MODULE=on
+export PATH=$HOME/go/bin:$PATH
 
 export NVM_DIR="/home/yudai/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
-chpwd_gov
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yudai/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yudai/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/yudai/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yudai/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
