@@ -1,13 +1,6 @@
-(require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
-(define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-(define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)
-
 (defun xref-find-type-definitions-other-window () "find type definitions in other window" (interactive) (lsp-find-type-definition :display-action 'window) )
 
-(define-key global-map (kbd "C-c C-g") 'helm-imenu)
-(define-key global-map (kbd "C-c g") 'helm-lsp-workspace-symbol)
+(define-key global-map (kbd "C-c C-g") 'helm-lsp-workspace-symbol)
 
 (defun lsp-describe-thing-at-point-minibuffer ()
   "Display the full documentation of the thing at point."

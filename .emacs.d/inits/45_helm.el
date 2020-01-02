@@ -3,7 +3,7 @@
 (setq helm-truncate-lines t)
 (setq helm-candidate-number-limit 500)
 (setq helm-imenu-fuzzy-match t)
-
+(setq helm-buffer-max-length nil)
 
 (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
 (add-to-list 'helm-completing-read-handlers-alist '(write-file . nil))

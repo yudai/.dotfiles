@@ -1,5 +1,5 @@
 (defconst protobuf-style
-  '((c-basic-offset . 4)
+  '((c-basic-offset . 2)
     (indent-tabs-mode . nil)))
 
 (add-hook 'protobuf-mode-hook
