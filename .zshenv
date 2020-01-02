@@ -21,8 +21,3 @@ if [ -d ~/.pyenv ]; then
     eval "$(pyenv init -)"
 fi
 
-ORIG_GOPATH=$GOPATH
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-if [ -n "$ORIG_GOPATH" ]; then
-  export GOPATH=$ORIG_GOPATH
-fi
