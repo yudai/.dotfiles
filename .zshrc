@@ -207,9 +207,10 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # history
 HISTFILE=~/.zsh_history
-HISTSIZE=3000
-SAVEHIST=3000
+HISTSIZE=10000
+SAVEHIST=10000
 setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt EXTENDED_HISTORY
 setopt HIST_SAVE_NO_DUPS
