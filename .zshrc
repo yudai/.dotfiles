@@ -34,19 +34,6 @@ function go_info() {
     fi
 }
 
-function ruby_info() {
-    if ([ "${LAST_COMMANAND}" = "rbenv" ]  || (( $PWD_CHANGED ))) && (which rbenv 1>/dev/null 2>&1) then
-        local=$(rbenv local 2>/dev/null)
-        if [ $? -gt 0 ];then
-            global=$(rbenv global)
-            version="$global@global"
-        else
-            version="$local@%{$fg_bold[cyan]%}local"
-        fi
-        ruby_info_msg="%{$fg[cyan]%}(ruby$version%{$reset_color%}%{$fg[cyan]%})%{$reset_color%}"
-    fi
-}
-
 function update_prompt_border() {
     if [ ${LAST_COLUMNS} != ${COLUMNS} ]; then
         prompt_border="%F{238}"
@@ -190,7 +177,6 @@ precmd () {
 
     #VCS
     vcs_info
-    ruby_info
     go_info
     update_prompt_border
 
