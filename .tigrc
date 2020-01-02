@@ -25,3 +25,4 @@ bind branch C !?<git checkout %(branch)
 bind branch R !?<git reset %(branch)
 bind branch E !?<git reset --hard %(branch)
 
+set split-view-width = 50%

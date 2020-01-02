@@ -465,6 +465,8 @@ zstyle ':filter-select' extended-search yes
 zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
 bindkey "^r" zaw-history
+source ~/.zsh/zaw-history-wo-buffer.zsh
+bindkey "^R" zaw-history-wo-buffer
 bindkey "^X^B" zaw-git-branches
 bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh
@@ -480,3 +482,9 @@ export NVM_DIR="/home/yudai/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 chpwd_gov
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yudai/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yudai/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yudai/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yudai/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
