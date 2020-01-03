@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ $(uname) == "Darwin" ]; then
+   exec nc $@
+else
+   exec nc -N $@
+fi
