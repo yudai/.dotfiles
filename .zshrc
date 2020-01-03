@@ -434,7 +434,7 @@ zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
 bindkey "^r" zaw-history
 source ~/.zsh/zaw-history-wo-buffer.zsh
-bindkey "^R" zaw-history-wo-buffer
+bindkey "^Xr" zaw-history-wo-buffer
 bindkey "^X^B" zaw-git-branches
 bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh

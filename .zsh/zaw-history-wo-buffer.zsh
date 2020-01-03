@@ -12,12 +12,6 @@ function zaw-src-history-wo-buffer() {
     fi
     actions=("zaw-callback-append-to-buffer" "zaw-callback-execute" "zaw-callback-replace-buffer")
     act_descriptions=("append to edit buffer" "execute" "replace edit buffer")
-
-    if (( $+functions[zaw-bookmark-add] )); then
-        # zaw-src-bookmark is available
-        actions+="zaw-bookmark-add"
-        act_descriptions+="bookmark this command line"
-    fi
 }
 
 zaw-register-src -n history-wo-buffer zaw-src-history-wo-buffer
