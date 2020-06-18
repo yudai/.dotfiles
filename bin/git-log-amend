@@ -1,15 +1,5 @@
 #!/bin/bash -ex
 
-function fall_back() {
-    echo "Failed to merge commit. Falling back to rebase -i."
-    echo "Your changes in index are stored in stash."
-    git checkout ${current_branch}
-    git rebase -i ${to_revision}^
-    echo "Again, if you didn't pop, your changes are stored in stash."
-    exit
-}
-
-
 if [ -z $1 ]; then
     echo "Revision to fix was not given."
     exit 1
@@ -28,16 +18,23 @@ if (git diff-index --cached --quiet HEAD --); then
     echo "No local cached changes."
     exit 3;
 fi
-git stash save -u
+
+# save unindexed files first
+git stash save -u -k "log-ament: files not yet indexed"
+git stash save "log-ament: files indexed"
 
 git checkout $1
-if !(git stash pop --index); then
-    fall_back
+if !(git stash apply --index); then
+    echo "stash apply failed, recovering to the initial state."
+    git reset
+    git checkout -f ${current_branch}
+    git stash pop
+    git stash pop
+    exit 1
 fi
 
 git commit --amend
-git stash save -u
-
 git rebase --onto HEAD ${to_revision} ${current_branch}
 
-git stash pop --index
+git stash drop
+git stash pop
