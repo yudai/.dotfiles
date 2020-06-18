@@ -48,7 +48,28 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+
  '(package-selected-packages
    (quote
     (sass-mode web-mode tide zlc yasnippet yaml-mode use-package undo-tree slime-repl session scala-mode rust-mode rspec-mode protobuf-mode popwin php-mode neotree multiple-cursors lsp-ui json-mode js2-mode init-loader hiwin helm-lsp go-mode flycheck flx feature-mode direx company-lsp clojure-mode ace-jump-mode)))
+ '(company-begin-commands (quote (self-insert-command)))
+ '(company-dabbrev-downcase nil)
+ '(company-idle-delay nil)
+ '(company-lsp-async t)
+ '(company-lsp-cache-candidates (quote auto))
+ '(company-tooltip-align-annotations t)
+ '(company-tooltip-limit 20)
+ '(global-company-mode t)
+ '(lsp-clients-go-server-args nil)
+ '(lsp-eldoc-render-all t)
+ '(lsp-enable-snippet nil)
+ '(lsp-log-io nil)
+ '(lsp-prefer-flymake nil)
+ '(lsp-response-timeout 300)
+ '(lsp-signature-auto-activate nil)
+ '(lsp-ui-doc-enable nil)
+ '(lsp-ui-sideline-enable nil)
+ '(lsp-yaml-schemas
+   (quote
+    (("file:///home/yudai/repos/liquid/goten/schemas/api-skeleton.schema.json" . "*"))))
  '(session-use-package t nil (session)))

@@ -1,9 +1,11 @@
 (require 'lsp-mode)
 (add-hook 'go-mode-hook
           (lambda ()
+            (defun gofmt--is-goimports-p ()
+              (string-equal (file-name-base gofmt-command) "goimports-mod-fmt-s"))
             (setq tab-width 2)
             (lsp)
-            (setq gofmt-command "goimports-mod")
+            (setq gofmt-command "goimports-mod-fmt-s")
             (add-hook 'before-save-hook 'gofmt-before-save)
             (set (make-local-variable 'whitespace-style) '(face trailing lines-tail empty space))
             (local-set-key (kbd "C-c C-f") 'gofmt)
