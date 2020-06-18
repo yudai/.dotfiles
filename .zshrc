@@ -447,7 +447,3 @@ export EDITOR=vi
 
 export GO111MODULE=on
 export PATH=$HOME/go/bin:$PATH
-
-export NVM_DIR="/home/yudai/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
