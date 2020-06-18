@@ -1,0 +1,4 @@
+#!/bin/bash
+
+goimports-mod $@
+gofmt -s $3 $4
