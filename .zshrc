@@ -432,9 +432,7 @@ zstyle ':filter-select' hist-find-no-dups yes
 zstyle ':filter-select' extended-search yes
 zstyle ':filter-select' max-lines -10
 bindkey "^X:" zaw
-bindkey "^r" zaw-history
-source ~/.zsh/zaw-history-wo-buffer.zsh
-bindkey "^Xr" zaw-history-wo-buffer
+bindkey "^R" zaw-history
 bindkey "^X^B" zaw-git-branches
 bindkey '^X^R' zaw-git-reflog
 source ~/.zsh/zaw-git-log.zsh
