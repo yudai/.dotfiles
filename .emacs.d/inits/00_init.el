@@ -17,4 +17,13 @@
 (setq-default truncate-partial-width-windows nil)
 
 (setq-default split-height-threshold nil)
-(setq-default split-width-threshold 160)
+(setq-default split-width-threshold 300)
+
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+(setq quelpa-update-melpa-p nil)
+(use-package quelpa :ensure t)
+(use-package quelpa-use-package
+  :demand t
+  :config
+  (quelpa-use-package-activate-advice))

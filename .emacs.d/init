@@ -1,75 +1,30 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
+; https://github.com/kiwanami/emacs-epc/issues/35
+(setq byte-compile-warnings '(cl-functions))
+
 (require 'package)
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/"))
 (package-initialize)
+
+;; Ensure use-package is installed
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
 
 (require 'init-loader)
 (setq init-loader-show-log-after-init nil)
-(setq init-loader-byte-compile t)
+(setq init-loader-byte-compile nil)
 (init-loader-load)
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:background "default" :foreground "default"))))
- '(company-preview ((t (:foreground "darkgray" :underline t))))
- '(company-preview-common ((t (:inherit company-preview))))
- '(company-tooltip ((t (:background "lightgray" :foreground "black"))))
- '(company-tooltip-common ((((type x)) (:inherit company-tooltip :weight bold)) (t (:inherit company-tooltip))))
- '(company-tooltip-common-selection ((((type x)) (:inherit company-tooltip-selection :weight bold)) (t (:inherit company-tooltip-selection))))
- '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
- '(flycheck-error ((t (:underline t :foreground "orange"))))
- '(flycheck-warning ((t (:inherit nil))))
- '(flyspell-duplicate ((t (:underline t))))
- '(flyspell-incorrect ((t (:underline t))))
- '(highlight ((t (:background "color-18" :foreground "yellow"))))
- '(isearch-fail ((t (:background "color-181" :foreground "black"))))
- '(lazy-highlight ((t (:background "paleturquoise" :foreground "black"))))
- '(lsp-ui-sideline-global ((t (:background "color-242"))))
- '(lsp-ui-sideline-symbol ((t (:foreground "brightblack" :box (:line-width -1 :color "grey") :height 0.99))))
- '(lsp-ui-sideline-symbol-info ((t (:slant italic :height 0.99))))
- '(match ((t (:foreground "color-51"))))
- '(minibuffer-prompt ((t (:foreground "brightcyan"))))
- '(mode-line ((t (:background "color-239" :foreground "color-214"))))
- '(mode-line-buffer-id ((t (:background "color-236" :foreground "red"))))
- '(mode-line-inactive ((t (:inherit (quote mode-line) :background "color-236" :foreground "color-233"))))
- '(region ((t (:inverse-video t :foreground nil :background nil))))
- '(show-paren-match ((t (:inverse-video t :foreground nil :background nil))))
- '(vertical-border ((t (:background "color-239" :foreground "color-239"))))
- '(whitespace-line ((t (:background "color-52" :foreground nil))))
- '(whitespace-space ((t (:background "LightSlateGray"))))
- '(whitespace-tab ((t (:foreground "LightSlateGray" :underline t))))
- '(whitespace-trailing ((t (:background "DarkRed")))))
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-
+ '(custom-safe-themes
+   '("ab91ad83f4c9e12a8d01458e83954fd244541eb9412c87d1ab831629c47ad504" default))
  '(package-selected-packages
-   (quote
-    (sass-mode web-mode tide zlc yasnippet yaml-mode use-package undo-tree slime-repl session scala-mode rust-mode rspec-mode protobuf-mode popwin php-mode neotree multiple-cursors lsp-ui json-mode js2-mode init-loader hiwin helm-lsp go-mode flycheck flx feature-mode direx company-lsp clojure-mode ace-jump-mode)))
- '(company-begin-commands (quote (self-insert-command)))
- '(company-dabbrev-downcase nil)
- '(company-idle-delay nil)
- '(company-lsp-async t)
- '(company-lsp-cache-candidates (quote auto))
- '(company-tooltip-align-annotations t)
- '(company-tooltip-limit 20)
- '(global-company-mode t)
- '(lsp-clients-go-server-args nil)
- '(lsp-eldoc-render-all t)
- '(lsp-enable-snippet nil)
- '(lsp-log-io nil)
- '(lsp-prefer-flymake nil)
- '(lsp-response-timeout 300)
- '(lsp-signature-auto-activate nil)
- '(lsp-ui-doc-enable nil)
- '(lsp-ui-sideline-enable nil)
- '(lsp-yaml-schemas
-   (quote
-    (("file:///home/yudai/repos/liquid/goten/schemas/api-skeleton.schema.json" . "*"))))
+   '(lsp-yaml tsx-ts-mode yaml-mode web-mode treesit-auto tree-sitter-langs slime session scala-mode rust-mode rspec-mode quelpa-use-package protobuf-mode pr-review popup php-mode neotree multiple-cursors lsp-ui json-mode init-loader helm haml-mode go-mode git-commit flycheck feature-mode direx copilot company clojure-mode))
  '(session-use-package t nil (session)))

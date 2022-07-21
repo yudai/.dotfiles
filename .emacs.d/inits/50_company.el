@@ -1,25 +1,24 @@
-(require 'company-lsp)
-
-(push 'company-lsp company-backends)
-(add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
-
-(with-eval-after-load 'company
-  (define-key company-active-map (kbd "TAB") (lambda () (interactive) (company-complete-common-or-cycle 1)))
-  (define-key company-active-map (kbd "<backtab>") (lambda () (interactive) (company-complete-common-or-cycle -1)))
-  (define-key company-active-map (kbd "C-n") 'company-select-next)
-  (define-key company-active-map (kbd "C-p") 'company-select-previous)
-  (define-key company-active-map (kbd "C-h") nil)
-  (define-key company-active-map (kbd "C-s") 'company-filter-candidates)
-
-  (define-key company-search-map (kbd "C-n") 'company-select-next)
-  (define-key company-search-map (kbd "C-p") 'company-select-previous))
-
-
-(setq company-tooltip-limit 20)
-(setq company-idle-delay .3)
-(setq company-echo-delay 0)
-(setq company-begin-commands '(self-insert-command))
+(use-package company
+  :hook (after-init . global-company-mode)
+  :bind
+  ("TAB" . company-indent-or-complete-common)
+  :bind (:map company-active-map
+              ("TAB" . (lambda () (interactive) (company-complete-common-or-cycle 1)))
+              ("<backtab>" . (lambda () (interactive) (company-complete-common-or-cycle -1)))
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous)
+              ("C-h" . nil)
+              ("C-s" . company-filter-candidates))
+  :bind (:map company-search-map
+              ("C-n" . company-select-next)
+              ("C-p" . company-select-previous))
+  :custom
+  (company-tooltip-limit 20)
+  (company-idle-delay nil)
+  (company-echo-delay 0)
+  (company-begin-commands '(self-insert-command))
+  (company-dabbrev-downcase nil)
+  (company-tooltip-align-annotations t))
 
 (custom-set-faces
  '(company-preview

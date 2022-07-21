@@ -32,7 +32,7 @@
 (custom-theme-set-faces
  'tty-dark
 
- '(default ((t (:background "black" :foreground "white"))))
+ '(default ((t (:background "color235" :foreground "white"))))
  '(mouse ((t (:foregound "black"))))
  '(cursor ((t (:foregound "red"))))
  '(border ((t (:foregound "blue"))))

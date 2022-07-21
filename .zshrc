@@ -207,8 +207,8 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # history
 HISTFILE=~/.zsh_history
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt APPEND_HISTORY
 setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
@@ -378,9 +378,6 @@ alias tiga='tig --all'
 
 stty stop undef
 
-if [ "$SHLVL" != "1" ]; then
-    alias screen='screen -c .screenrc.remote'
-fi
 
 function peco-select-history() {
     local tac
@@ -445,3 +442,9 @@ export EDITOR=vi
 
 export GO111MODULE=on
 export PATH=$HOME/go/bin:$PATH
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/yudai/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/yudai/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/yudai/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/yudai/Downloads/google-cloud-sdk/completion.zsh.inc'; fi

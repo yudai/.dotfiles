@@ -1,16 +1,17 @@
-(require 'ispell)
-;;(setq ispell-extra-args '("-a" "-m" "--run-together" "--run-together-limit=5" "--run-together-min=2" "--sug-mode=ultra"))
-(add-hook 'text-mode-hook 'flyspell-mode)
-(add-hook 'prog-mode-hook 'flyspell-mode)
+(use-package ispell
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-mode))
+  :config
+  ;;(setq ispell-extra-args '("-a" "-m" "--run-together" "--run-together-limit=5" "--run-together-min=2" "--sug-mode=ultra"))
 
-;; if (aspell installed) { use aspell}
-;; else if (hunspell installed) { use hunspell }
-;; whatever spell checker I use, I always use English dictionary
-;; I prefer use aspell because:
-;; 1. aspell is older
-;; 2. looks Kevin Atkinson still get some road map for aspell:
-;; @see http://lists.gnu.org/archive/html/aspell-announce/2011-09/msg00000.html
-(defun flyspell-detect-ispell-args (&optional run-together)
+  ;; if (aspell installed) { use aspell}
+  ;; else if (hunspell installed) { use hunspell }
+  ;; whatever spell checker I use, I always use English dictionary
+  ;; I prefer use aspell because:
+  ;; 1. aspell is older
+  ;; 2. looks Kevin Atkinson still get some road map for aspell:
+  ;; @see http://lists.gnu.org/archive/html/aspell-announce/2011-09/msg00000.html
+  (defun flyspell-detect-ispell-args (&optional run-together)
   "if RUN-TOGETHER is true, spell check the CamelCase words."
   (let (args)
     (cond
@@ -66,7 +67,11 @@
     (ispell-kill-ispell t)
     ))
 
-(defun text-mode-hook-setup ()
-  ;; Turn off RUN-TOGETHER option when spell check text-mode
-  (setq-local ispell-extra-args (flyspell-detect-ispell-args)))
-(add-hook 'text-mode-hook 'text-mode-hook-setup)
+  (defun text-mode-hook-setup ()
+    ;; Turn off RUN-TOGETHER option when spell check text-mode
+    (setq-local ispell-extra-args (flyspell-detect-ispell-args)))
+  (add-hook 'text-mode-hook 'text-mode-hook-setup))
+
+(custom-set-faces
+ '(flyspell-duplicate ((t (:underline t))))
+ '(flyspell-incorrect ((t (:underline t)))))

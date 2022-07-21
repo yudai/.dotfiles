@@ -60,7 +60,7 @@
 (map-apply (lam (face color)
 		(make-face face) (set-face-foreground face color))
 	   '(
-	     (dircolors-face-dir            "Blue"           )
+	     (dircolors-face-dir            "brightblue"     )
 	     (dircolors-face-doc            "MediumTurquoise")
 	     (dircolors-face-html           "Plum"           )
 	     (dircolors-face-package        "IndianRed"      )

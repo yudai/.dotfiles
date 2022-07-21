@@ -5,12 +5,12 @@
                         'vertical-border ?│)
 
 ;;; paren
-(show-paren-mode t)
+(show-paren-mode 1)
 (setq show-paren-delay 0)
 (setq show-paren-style 'mixed)
 
 ;;; undo-tree
-(global-undo-tree-mode)
+;; (global-undo-tree-mode) ; disabled - package not installed
 
 ;;; W3C DTF daytime
 (defun get-w3cdtf-z-now ()
