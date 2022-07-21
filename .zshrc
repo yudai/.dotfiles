@@ -378,9 +378,6 @@ alias tiga='tig --all'
 
 stty stop undef
 
-if [ "$SHLVL" != "1" ]; then
-    alias screen='screen -c .screenrc.remote'
-fi
 
 function peco-select-history() {
     local tac
