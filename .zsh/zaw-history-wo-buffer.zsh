@@ -1,6 +1,6 @@
 zmodload zsh/parameter
 
-function zaw-src-history-wo-buffer() {
+function zaw-src-history2() {
     if zstyle -t ':filter-select' hist-find-no-dups ; then
         candidates=(${(@vu)history})
         src_opts=("-m")
@@ -14,4 +14,4 @@ function zaw-src-history-wo-buffer() {
     act_descriptions=("append to edit buffer" "execute" "replace edit buffer")
 }
 
-zaw-register-src -n history-wo-buffer zaw-src-history-wo-buffer
+zaw-register-src -n history2 zaw-src-history2
