@@ -1,2 +1,2 @@
 (hiwin-activate)
-(set-face-background 'hiwin-face "color-232")
+(set-face-background 'hiwin-face "#080808")

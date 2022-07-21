@@ -29,11 +29,11 @@
 
 (set-face-attribute 'helm-buffer-file nil :foreground "white")
 (set-face-attribute 'helm-ff-directory nil :foreground "DarkRed")
-(set-face-attribute 'helm-ff-dotted-directory nil :foreground "color-245")
+(set-face-attribute 'helm-ff-dotted-directory nil :foreground "#8a8a8a")
 (set-face-attribute 'helm-ff-file nil :foreground "brightcyan")
-(set-face-attribute 'helm-header nil :inherit 'header-line :background "color-234" :underline nil)
-(set-face-attribute 'helm-helper nil :inherit 'helm-header :background "color-233" :underline nil)
-(set-face-attribute 'helm-selection nil :background "color-18" :underline t)
+(set-face-attribute 'helm-header nil :inherit 'header-line :background "#1c1c1c" :underline nil)
+(set-face-attribute 'helm-helper nil :inherit 'helm-header :background "#121212" :underline nil)
+(set-face-attribute 'helm-selection nil :background "#000087" :underline t)
 (set-face-attribute 'helm-source-header nil :inherit 'header-line :underline nil)
 
 (setq imenu-max-item-length 2000)

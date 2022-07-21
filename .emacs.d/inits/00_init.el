@@ -17,4 +17,4 @@
 (setq-default truncate-partial-width-windows nil)
 
 (setq-default split-height-threshold nil)
-(setq-default split-width-threshold 160)
+(setq-default split-width-threshold 180)

@@ -1,0 +1,6 @@
+;; -*- emacs-lisp -*- <22/02/04 14:08:19 /Users/yudai/.emacs.d/tramp>
+;; Tramp connection history.  Don't change this file.
+;; Run `M-x tramp-cleanup-all-connections' instead.
+
+(((tramp-file-name "sudo" "root" nil "NTTNi-YIwasaki.attlocal.net" nil nil nil)
+  nil))
