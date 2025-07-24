@@ -10,7 +10,13 @@
 (setq show-paren-style 'mixed)
 
 ;;; undo-tree
-;; (global-undo-tree-mode) ; disabled - package not installed
+(use-package undo-tree
+  :ensure t
+  :config
+  (global-undo-tree-mode)
+  :bind ("C-x u" . undo-tree-visualize)
+  :bind (:map undo-tree-visualizer-mode-map
+              ("C-g" . undo-tree-visualizer-quit)))
 
 ;;; W3C DTF daytime
 (defun get-w3cdtf-z-now ()
