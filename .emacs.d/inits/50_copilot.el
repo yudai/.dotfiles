@@ -2,8 +2,7 @@
 (use-package copilot
   :ensure nil  ; This is typically installed manually or via a specific package manager
   :bind (:map copilot-completion-map
-              ("C-x C-x" . copilot-accept-completion-by-line)
-              ("TAB" . copilot-accept-completion)
+              ("<backtab>" . copilot-accept-completion-by-line)
               ("C-g" . copilot-clear-overlay))
   :hook (prog-mode . copilot-check-and-enable)
   :config
