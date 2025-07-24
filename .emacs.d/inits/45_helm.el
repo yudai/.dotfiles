@@ -34,5 +34,5 @@
   (set-face-attribute 'helm-ff-file nil :foreground "brightcyan")
   (set-face-attribute 'helm-header nil :inherit 'header-line :background "#1c1c1c" :underline nil)
   (set-face-attribute 'helm-helper nil :inherit 'helm-header :background "#121212" :underline nil)
-  (set-face-attribute 'helm-selection nil :background "#000087" :underline t)
+  (set-face-attribute 'helm-selection nil :background "#303030" :foreground "brightcyan" :underline t :weight 'bold)
   (set-face-attribute 'helm-source-header nil :inherit 'header-line :underline nil))
