@@ -15,9 +15,10 @@ if [ -d ~/.rbenv ]; then
     eval "$(rbenv init -)"
 fi
 
-if [ -d ~/.pyenv ]; then
+if [ -d "$HOME/.pyenv" ] && [ -n "$PYENV_ROOT" ]; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
 fi
 
+export PATH="$HOME/.local/bin:$PATH"
