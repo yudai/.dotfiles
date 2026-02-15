@@ -6,7 +6,9 @@
   :config
   (when (file-exists-p "~/.emacs.d/lisp/default-to-cycling-flycheck.el")
     (load "default-to-cycling-flycheck.el"))
-  
+
+  (define-key global-map (kbd "C-c C-e") 'flycheck-next-error)
+
   (require 'eldoc)
   (defun my-flycheck-display-error-messages (errors)
     (when (and

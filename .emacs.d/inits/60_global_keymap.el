@@ -25,4 +25,7 @@
   
   ;; Buffer switching
   ("M-o" . bs-cycle-next)
-  ("M-p" . bs-cycle-previous))
+  ("M-p" . bs-cycle-previous)
+  
+  ;; Undo
+  ("C-/" . undo-only))
