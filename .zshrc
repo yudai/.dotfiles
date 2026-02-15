@@ -86,10 +86,9 @@ function +vi-git-untracked() {
     fi
 }
 
-function chpwd() {
-    _cdd_chpwd
-    update_title 0
-}
+autoload -Uz add-zsh-hook
+function _chpwd_update_title() { update_title 0; }
+
 
 function fix-title() {
     export FIX_TITLE=$1
@@ -154,6 +153,7 @@ function update_title() {
 LAST_COMMAND=zsh
 LAST_COMMAND_TIME=`date +%s`
 update_title 0
+add-zsh-hook chpwd _chpwd_update_title
 
 preexec () {
     LAST_COMMAND=$1
@@ -397,6 +397,7 @@ bindkey '^x^s' peco-select-history
 
 # cdd
 . ~/.zsh/cdd
+add-zsh-hook chpwd _cdd_chpwd
 
 # cd ../ with ^
 function cdup-or-insert-circumflex() {
@@ -417,7 +418,7 @@ export LESSOPEN='| src-hilite-lesspipe.sh %s'
 post_rc
 
 # cdr
-autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+autoload -Uz chpwd_recent_dirs cdr
 add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ':chpwd:*' recent-dirs-max 5000
 zstyle ':chpwd:*' recent-dirs-default yes
