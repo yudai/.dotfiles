@@ -1,2 +1,2 @@
 #!/bin/sh
-tmux -u -L parent -f ~/.tmux.parent.conf new-session -A -s parent
+tmux -2 -u -L parent -f ~/.tmux.parent.conf new-session -A -s parent
